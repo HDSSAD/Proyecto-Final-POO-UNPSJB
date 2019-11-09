@@ -2,17 +2,19 @@ package modelo;
 
 public class Integrante {
 	
-	private String apellido, nombre, fechaNacimiento, dni, direccion, telefono, telefono2, correo;
-
-	public Integrante(String dni, String apellido, String nombre, String fechaNacimiento, String direccion,
+	private String legajo, dni, apellido, nombre, fechaNacimiento, direccion, telefono, telefono2, correo;
+	
+	
+	public Integrante(String legajo, String dni, String apellido, String nombre, String fechaNacimiento, String direccion,
 			String telefono, String telefono2, String correo) {
 		super();
+		this.setLegajo(legajo);
 		this.setDni(dni);
 		this.setApellido(apellido);
 		this.setNombre(nombre);
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setDireccion(direccion);
-		this.setTelefono(telefono2);
+		this.setTelefono(telefono);
 		this.setTelefono2(telefono2);
 		this.setCorreo(correo);
 	}
@@ -80,6 +82,13 @@ public class Integrante {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	
+
+	public String getLegajo() {
+		return legajo;
+	}
+
+	public void setLegajo(String legajo) {
+		this.legajo = legajo;
+	}
 
 }
