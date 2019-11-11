@@ -8,10 +8,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.BD;
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
 import vista.MainGUI;
@@ -25,6 +28,14 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 		this.setIntegrante(new IntegranteDAOImpl());
 		this.setMainGUI(new MainGUI(this));
 		this.getMainGUI().setVisible(true);
+	}
+
+	private void openLoginWindow() {
+		new CtrlLogin();
+		if (BD.getInstance() != null) {
+			List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
+			this.updateTableIntegrantes(integrantes);
+		}
 	}
 
 	private void updateTableIntegrantes(List<Integrante> integrantes) {
@@ -53,16 +64,16 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 		if (e.getSource() == this.getMainGUI().getBtnAnadir()) {
 			CtrlAgregarIntegrante ctrlAgregarintegrante = new CtrlAgregarIntegrante();
 			ctrlAgregarintegrante.getVistaIntegrante().setVisible(true);
-			return;
+
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminar()) {
-			String dni = this.getMainGUI().getTxtDNI().getText();
-			this.getIntegrante().borrarIntegrante(dni);
+			String legajo = this.getMainGUI().getTxtLegajo().getText();
+			this.getIntegrante().borrarIntegrante(legajo);
 			List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
 			this.updateTableIntegrantes(integrantes);
 			for (JTextField jtf : this.getMainGUI().getArrayTextField()) {
 				jtf.setText("");
 			}
-			return;
+
 		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			CtrlEditarIntegrante ctrlEditarIntegrante = new CtrlEditarIntegrante();
 			for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
@@ -70,20 +81,31 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 						.setText(this.getMainGUI().getArrayTextField().get(i).getText());
 			}
 			ctrlEditarIntegrante.getVistaIntegrante().setVisible(true);
-			return;
+
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscar()) {
 			CtrlBuscarIntegrante ctrlBuscarIntegrante = new CtrlBuscarIntegrante();
 			ctrlBuscarIntegrante.getVistaBuscarIntegrante().setVisible(true);
 			if (!ctrlBuscarIntegrante.getWhere().isBlank()) {
-				List<Integrante> integrantes = this.getIntegrante().buscarIntegrante(
-						ctrlBuscarIntegrante.getWhere(),
+				List<Integrante> integrantes = this.getIntegrante().buscarIntegrante(ctrlBuscarIntegrante.getWhere(),
 						ctrlBuscarIntegrante.getParametros());
 				this.updateTableIntegrantes(integrantes);
 			}
-			return;
+			
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodo()) {
 			List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
-			this.updateTableIntegrantes(integrantes);
+			if (integrantes != null)  
+				this.updateTableIntegrantes(integrantes);
+			
+		} else if (e.getSource() == this.getMainGUI().getMntmCerrarSesion()) {
+			int result = JOptionPane.showConfirmDialog(this.getMainGUI(), "Confirmar cierre de sesion", "Cerrar sesion",
+					JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.YES_OPTION) {
+				BD.getInstance().cerrarConexion();
+				this.openLoginWindow();
+			}
+			
+		} else if (e.getSource() == this.getMainGUI().getMntmIniciarSesion()) {
+			this.openLoginWindow();
 		}
 	}
 
@@ -105,15 +127,19 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
-		this.updateTableIntegrantes(integrantes);
+		this.openLoginWindow();			
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		int result = JOptionPane.showConfirmDialog(this.getMainGUI(), "Quieres salir de la aplicacion?",
+				"Confirmar cierre: ", JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			getMainGUI().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		} else {
+			getMainGUI().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
 	}
 
 	@Override
@@ -136,6 +162,7 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 
 	@Override
 	public void windowActivated(WindowEvent e) {
+		
 	}
 
 	@Override

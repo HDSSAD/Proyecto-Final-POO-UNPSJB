@@ -13,6 +13,31 @@ public class BD {
 	private Connection conexion = null;
 	private static BD bd = null;
 
+	public static void createInstance(String user, String pass) {
+		bd = new BD(user, pass);
+		bd.checkConection();
+	}
+
+	private void checkConection() {
+		if (conexion == null) {
+			bd = null;
+		}
+	}
+	private BD(String user, String pass) {
+		this.cerrarConexion();
+		String url = "jdbc:postgresql://localhost:5432/GestorPuente";
+		try {
+			Class.forName("org.postgresql.Driver");
+			conexion = DriverManager.getConnection(url, user, pass);
+		} catch (ClassNotFoundException e) {
+			conexion = null;
+			System.out.println("Error al registrar el driver de PostgreSQL: " + e);
+		} catch (SQLException e) {
+			conexion = null;
+			System.out.println("Error al asignar conexion DriverManager: " + e);
+		}
+	}
+
 	private BD() {
 		establecerConexion();
 	}
@@ -30,13 +55,15 @@ public class BD {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al registrar el driver de PostgreSQL: " + e);
 		} catch (SQLException e) {
+			conexion = null;
 			System.out.println("Error al asignar conexion DriverManager: " + e);
 		}
 	}
 
 	public static BD getInstance() {
 		if (bd == null)
-			bd = new BD();
+//			bd = new BD();
+			return null;
 		return bd;
 	}
 
@@ -68,7 +95,7 @@ public class BD {
 		}
 		return rs;
 	}
-	
+
 	public Boolean manipularEntidades(String consulta, ArrayList<String> parametros) {
 		Boolean ret = false;
 		try {
@@ -85,13 +112,17 @@ public class BD {
 		}
 		return ret;
 	}
-	
+
 	public void cerrarConexion() {
-		try {
-            conexion.close();
-        } catch (Exception e) {
-			// TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		if (conexion != null) {
+			try {
+				conexion.close();
+				bd = null;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
+
 }

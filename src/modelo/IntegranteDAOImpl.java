@@ -42,7 +42,6 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 				ret.add(integrante);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret;
@@ -68,16 +67,15 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 	}
 
 	@Override
-	public Boolean borrarIntegrante(String dni) {
+	public Boolean borrarIntegrante(String legajo) {
 		ArrayList<String> parametros = new ArrayList<String>();
-		parametros.add(dni);
-		String consulta = "delete from integrantes where dni = ? ";
+		parametros.add(legajo);
+		String consulta = "delete from integrantes where legajo = ? ";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
 	@Override
 	public Boolean modificarIntegrante(Integrante integrante) {
-		// TODO Auto-generated method stub
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(integrante.getDni());
 		parametros.add(integrante.getApellido());
@@ -105,7 +103,6 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 					rs.getString("fechanacimiento"), rs.getString("direccion"), rs.getString("telefono"),
 					rs.getString("telefono2"), rs.getString("correo"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return integrante;

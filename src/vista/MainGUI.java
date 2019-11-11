@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.ArrayList;
+import javax.swing.JTextPane;
 
 public class MainGUI extends JFrame {
 
@@ -40,12 +41,18 @@ public class MainGUI extends JFrame {
 	private JTextField txtTelefono2;
 	private JTextField txtCorreo;
 	private JTextField txtComputadorasTrabajadas;
+	private JMenuItem mntmCerrarSesion;
+	private JMenuItem mntmIniciarSesion;
+	private JTextField txtLegajo;
+	private JTable tblPC;
+	private JTextPane txtpnDatospc;
 	
 	public MainGUI(CtrlMain ctrlMainGUI) {
 		this.setctrlMainGUI(ctrlMainGUI);
 		this.setTitle("Gestor Puente");
 		this.addWindowListener(this.getctrlMainGUI());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,7 +66,13 @@ public class MainGUI extends JFrame {
 		JMenu mnSesion = new JMenu("Sesion");
 		menuBar.add(mnSesion);
 
-		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar sesion");
+		mntmCerrarSesion = new JMenuItem("Cerrar sesion");
+		mntmCerrarSesion.addActionListener(this.getctrlMainGUI());
+		
+		mntmIniciarSesion = new JMenuItem("Iniciar Sesion");
+		mntmIniciarSesion.addActionListener(this.getctrlMainGUI());
+		
+		mnSesion.add(mntmIniciarSesion);
 		mnSesion.add(mntmCerrarSesion);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -112,104 +125,151 @@ public class MainGUI extends JFrame {
 		panelIntegrantesDatos.setBounds(278, 11, 421, 335);
 		panelIntegrantes.add(panelIntegrantesDatos);
 		panelIntegrantesDatos.setLayout(null);
+		
+		JLabel lblLegajo = new JLabel("Legajo");
+		lblLegajo.setBounds(12, 12, 155, 16);
+		panelIntegrantesDatos.add(lblLegajo);
 
 		JLabel lblDNI = new JLabel("DNI");
-		lblDNI.setBounds(10, 11, 155, 14);
+		lblDNI.setBounds(12, 40, 155, 14);
 		panelIntegrantesDatos.add(lblDNI);
 
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(10, 36, 155, 14);
+		lblApellido.setBounds(12, 66, 155, 14);
 		panelIntegrantesDatos.add(lblApellido);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 61, 155, 14);
+		lblNombre.setBounds(12, 92, 155, 14);
 		panelIntegrantesDatos.add(lblNombre);
 
 		JLabel lblFechaNacimiento = new JLabel("Fecha Nacimiento");
-		lblFechaNacimiento.setBounds(10, 86, 155, 14);
+		lblFechaNacimiento.setBounds(12, 118, 155, 14);
 		panelIntegrantesDatos.add(lblFechaNacimiento);
 
 		JLabel lblDireccion = new JLabel("Direccion");
-		lblDireccion.setBounds(10, 111, 155, 14);
+		lblDireccion.setBounds(12, 144, 155, 14);
 		panelIntegrantesDatos.add(lblDireccion);
 
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(10, 136, 155, 14);
+		lblTelefono.setBounds(12, 170, 155, 14);
 		panelIntegrantesDatos.add(lblTelefono);
 
 		JLabel lblTelefono_1 = new JLabel("Telefono 2");
-		lblTelefono_1.setBounds(10, 161, 155, 14);
+		lblTelefono_1.setBounds(12, 196, 155, 14);
 		panelIntegrantesDatos.add(lblTelefono_1);
 
 		JLabel lblCorreo = new JLabel("Correo");
-		lblCorreo.setBounds(10, 186, 155, 14);
+		lblCorreo.setBounds(12, 222, 155, 14);
 		panelIntegrantesDatos.add(lblCorreo);
 
 		JLabel lblComputadorasTrabajadas = new JLabel("Computadoras Trabajadas");
-		lblComputadorasTrabajadas.setBounds(10, 211, 155, 14);
+		lblComputadorasTrabajadas.setBounds(12, 248, 155, 14);
 		panelIntegrantesDatos.add(lblComputadorasTrabajadas);
 
 		txtDNI = new JTextField();
 		txtDNI.setEditable(false);
-		txtDNI.setBounds(175, 8, 96, 20);
+		txtDNI.setBounds(177, 37, 96, 20);
 		panelIntegrantesDatos.add(txtDNI);
 		txtDNI.setColumns(10);
 		arrayTextField.add(txtDNI);
 
 		txtApellido = new JTextField();
 		txtApellido.setEditable(false);
-		txtApellido.setBounds(175, 33, 96, 20);
+		txtApellido.setBounds(177, 63, 96, 20);
 		panelIntegrantesDatos.add(txtApellido);
 		txtApellido.setColumns(10);
 		arrayTextField.add(txtApellido);
 
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
-		txtNombre.setBounds(175, 58, 96, 20);
+		txtNombre.setBounds(177, 89, 96, 20);
 		panelIntegrantesDatos.add(txtNombre);
 		txtNombre.setColumns(10);
 		arrayTextField.add(txtNombre);
 
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setEditable(false);
-		txtFechaNacimiento.setBounds(175, 83, 96, 20);
+		txtFechaNacimiento.setBounds(177, 115, 96, 20);
 		panelIntegrantesDatos.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		arrayTextField.add(txtFechaNacimiento);
 
 		txtDireccion = new JTextField();
 		txtDireccion.setEditable(false);
-		txtDireccion.setBounds(175, 108, 96, 20);
+		txtDireccion.setBounds(177, 141, 96, 20);
 		panelIntegrantesDatos.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		arrayTextField.add(txtDireccion);
 
 		txtTelefono = new JTextField();
 		txtTelefono.setEditable(false);
-		txtTelefono.setBounds(175, 133, 96, 20);
+		txtTelefono.setBounds(177, 167, 96, 20);
 		panelIntegrantesDatos.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		arrayTextField.add(txtTelefono);
 
 		txtTelefono2 = new JTextField();
 		txtTelefono2.setEditable(false);
-		txtTelefono2.setBounds(175, 158, 96, 20);
+		txtTelefono2.setBounds(177, 193, 96, 20);
 		panelIntegrantesDatos.add(txtTelefono2);
 		txtTelefono2.setColumns(10);
 		arrayTextField.add(txtTelefono2);
 
 		txtCorreo = new JTextField();
 		txtCorreo.setEditable(false);
-		txtCorreo.setBounds(175, 183, 96, 20);
+		txtCorreo.setBounds(177, 219, 96, 20);
 		panelIntegrantesDatos.add(txtCorreo);
 		txtCorreo.setColumns(10);
 		arrayTextField.add(txtCorreo);
 
 		txtComputadorasTrabajadas = new JTextField();
 		txtComputadorasTrabajadas.setEditable(false);
-		txtComputadorasTrabajadas.setBounds(175, 208, 96, 20);
+		txtComputadorasTrabajadas.setBounds(177, 245, 96, 20);
 		panelIntegrantesDatos.add(txtComputadorasTrabajadas);
 		txtComputadorasTrabajadas.setColumns(10);
+		
+		txtLegajo = new JTextField();
+		txtLegajo.setEditable(false);
+		txtLegajo.setBounds(177, 10, 96, 20);
+		panelIntegrantesDatos.add(txtLegajo);
+		txtLegajo.setColumns(10);
+		
+		JPanel panelComputadoras = new JPanel();
+		panelComputadoras.setLayout(null);
+		tabbedPane.addTab("Computadoras", null, panelComputadoras, null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 256, 335);
+		panelComputadoras.add(scrollPane);
+		
+		tblPC = new JTable();
+		tblPC.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(tblPC);
+		
+		JButton btnEliminarPC = new JButton("Eliminar");
+		btnEliminarPC.setBounds(610, 355, 89, 23);
+		panelComputadoras.add(btnEliminarPC);
+		
+		JButton btnAñadirPC = new JButton("A\u00F1adir");
+		btnAñadirPC.setBounds(511, 355, 89, 23);
+		panelComputadoras.add(btnAñadirPC);
+		
+		JButton btnEditarPC = new JButton("Modificar");
+		btnEditarPC.setBounds(412, 355, 89, 23);
+		panelComputadoras.add(btnEditarPC);
+		
+		JButton btnBuscarPC = new JButton("Buscar");
+		btnBuscarPC.setBounds(10, 355, 89, 23);
+		panelComputadoras.add(btnBuscarPC);
+		
+		JButton btnMostrarTodoPC = new JButton("Mostrar Todo");
+		btnMostrarTodoPC.setBounds(111, 355, 110, 23);
+		panelComputadoras.add(btnMostrarTodoPC);
+		
+		txtpnDatospc = new JTextPane();
+		txtpnDatospc.setText("DatosPC");
+		txtpnDatospc.setBounds(278, 11, 419, 335);
+		panelComputadoras.add(txtpnDatospc);
 	}
 
 	public JButton getBtnModificar() {
@@ -326,5 +386,17 @@ public class MainGUI extends JFrame {
 
 	public JButton getBtnMostrarTodo() {
 		return btnMostrarTodo;
+	}
+
+	public JMenuItem getMntmCerrarSesion() {
+		return mntmCerrarSesion;
+	}
+
+	public JMenuItem getMntmIniciarSesion() {
+		return mntmIniciarSesion;
+	}
+
+	public JTextField getTxtLegajo() {
+		return txtLegajo;
 	}
 }
