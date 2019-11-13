@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.ArrayList;
 import javax.swing.JTextPane;
+import java.awt.SystemColor;
 
 public class MainGUI extends JFrame {
 
@@ -46,13 +47,44 @@ public class MainGUI extends JFrame {
 	private JTextField txtLegajo;
 	private JTable tblPC;
 	private JTextPane txtpnDatospc;
+	private JButton btnBuscarPC;
+	private JButton btnMostrarTodoPC;
+	private JButton btnEditarPC;
+	private JButton btnAñadirPC;
+	private JButton btnEliminarPC;
 	
+	public JTable getTblPC() {
+		return tblPC;
+	}
+
+	public JTextPane getTxtpnDatospc() {
+		return txtpnDatospc;
+	}
+
+	public JButton getBtnBuscarPC() {
+		return btnBuscarPC;
+	}
+
+	public JButton getBtnMostrarTodoPC() {
+		return btnMostrarTodoPC;
+	}
+
+	public JButton getBtnEditarPC() {
+		return btnEditarPC;
+	}
+
+	public JButton getBtnAñadirPC() {
+		return btnAñadirPC;
+	}
+
+	public JButton getBtnEliminarPC() {
+		return btnEliminarPC;
+	}
+
 	public MainGUI(CtrlMain ctrlMainGUI) {
 		this.setctrlMainGUI(ctrlMainGUI);
 		this.setTitle("Gestor Puente");
 		this.addWindowListener(this.getctrlMainGUI());
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 750, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -235,6 +267,7 @@ public class MainGUI extends JFrame {
 		txtLegajo.setColumns(10);
 		
 		JPanel panelComputadoras = new JPanel();
+		panelComputadoras.setForeground(SystemColor.info);
 		panelComputadoras.setLayout(null);
 		tabbedPane.addTab("Computadoras", null, panelComputadoras, null);
 		
@@ -244,29 +277,40 @@ public class MainGUI extends JFrame {
 		
 		tblPC = new JTable();
 		tblPC.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblPC.addMouseListener(this.getctrlMainGUI());
+		tblPC.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"ID", "Estado"}));
+		tblPC.getColumnModel().getColumn(0).setResizable(false);
+		tblPC.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane.setViewportView(tblPC);
 		
-		JButton btnEliminarPC = new JButton("Eliminar");
+		btnEliminarPC = new JButton("Eliminar");
 		btnEliminarPC.setBounds(610, 355, 89, 23);
+		btnEliminarPC.addActionListener(this.getctrlMainGUI());
 		panelComputadoras.add(btnEliminarPC);
 		
-		JButton btnAñadirPC = new JButton("A\u00F1adir");
+		btnAñadirPC = new JButton("A\u00F1adir");
 		btnAñadirPC.setBounds(511, 355, 89, 23);
+		btnAñadirPC.addActionListener(this.getctrlMainGUI());
 		panelComputadoras.add(btnAñadirPC);
 		
-		JButton btnEditarPC = new JButton("Modificar");
+		btnEditarPC = new JButton("Modificar");
 		btnEditarPC.setBounds(412, 355, 89, 23);
+		btnEditarPC.addActionListener(this.getctrlMainGUI());
 		panelComputadoras.add(btnEditarPC);
 		
-		JButton btnBuscarPC = new JButton("Buscar");
+		btnBuscarPC = new JButton("Buscar");
 		btnBuscarPC.setBounds(10, 355, 89, 23);
+		btnBuscarPC.addActionListener(this.getctrlMainGUI());
 		panelComputadoras.add(btnBuscarPC);
 		
-		JButton btnMostrarTodoPC = new JButton("Mostrar Todo");
+		btnMostrarTodoPC = new JButton("Mostrar Todo");
 		btnMostrarTodoPC.setBounds(111, 355, 110, 23);
+		btnMostrarTodoPC.addActionListener(this.getctrlMainGUI());
 		panelComputadoras.add(btnMostrarTodoPC);
 		
 		txtpnDatospc = new JTextPane();
+		txtpnDatospc.setBackground(SystemColor.text);
+		txtpnDatospc.setEditable(false);
 		txtpnDatospc.setText("DatosPC");
 		txtpnDatospc.setBounds(278, 11, 419, 335);
 		panelComputadoras.add(txtpnDatospc);

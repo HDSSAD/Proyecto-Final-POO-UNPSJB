@@ -90,12 +90,12 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 						ctrlBuscarIntegrante.getParametros());
 				this.updateTableIntegrantes(integrantes);
 			}
-			
+
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodo()) {
 			List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
-			if (integrantes != null)  
+			if (integrantes != null)
 				this.updateTableIntegrantes(integrantes);
-			
+
 		} else if (e.getSource() == this.getMainGUI().getMntmCerrarSesion()) {
 			int result = JOptionPane.showConfirmDialog(this.getMainGUI(), "Confirmar cierre de sesion", "Cerrar sesion",
 					JOptionPane.YES_NO_OPTION);
@@ -103,9 +103,22 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 				BD.getInstance().cerrarConexion();
 				this.openLoginWindow();
 			}
-			
+
 		} else if (e.getSource() == this.getMainGUI().getMntmIniciarSesion()) {
 			this.openLoginWindow();
+
+		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
+			CtrlAgregarPC ctrlAgregarPC = new CtrlAgregarPC();
+			ctrlAgregarPC.getVistaComputadora().setVisible(true);
+
+		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {
+
+		} else if (e.getSource() == this.getMainGUI().getBtnEditarPC()) {
+
+		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
+
+		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
+
 		}
 	}
 
@@ -127,7 +140,7 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		this.openLoginWindow();			
+		this.openLoginWindow();
 	}
 
 	@Override
@@ -162,7 +175,7 @@ public class CtrlMain implements ActionListener, WindowListener, MouseListener {
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		
+
 	}
 
 	@Override
