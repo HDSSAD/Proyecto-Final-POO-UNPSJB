@@ -5,18 +5,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import modelo.IntegranteDAOImpl;
-import vista.BuscarIntegrante;
+import vista.VistaIntegranteBuscar;
 
 public class CtrlBuscarIntegrante implements ActionListener {
 
 	private IntegranteDAOImpl integrante;
-	private BuscarIntegrante vistaBuscarIntegrante;
+	private VistaIntegranteBuscar vistaBuscarIntegrante;
 	private String where;
 	private ArrayList<String> parametros;
 
 	public CtrlBuscarIntegrante() {
 		this.setIntegrante(new IntegranteDAOImpl());
-		this.setVistaBuscarIntegrante(new BuscarIntegrante(this));
+		this.setVistaBuscarIntegrante(new VistaIntegranteBuscar(this));
 		this.setWhere("");
 		this.setParametros(new ArrayList<String>());
 	}
@@ -48,11 +48,11 @@ public class CtrlBuscarIntegrante implements ActionListener {
 		this.integrante = integrante;
 	}
 
-	public BuscarIntegrante getVistaBuscarIntegrante() {
+	public VistaIntegranteBuscar getVistaBuscarIntegrante() {
 		return vistaBuscarIntegrante;
 	}
 
-	public void setVistaBuscarIntegrante(BuscarIntegrante vistaBuscarIntegrante) {
+	public void setVistaBuscarIntegrante(VistaIntegranteBuscar vistaBuscarIntegrante) {
 		this.vistaBuscarIntegrante = vistaBuscarIntegrante;
 	}
 

@@ -12,12 +12,18 @@ import componentes.CompPlacaBase;
 import componentes.CompProcesador;
 import modelo.Computadora;
 import modelo.ComputadoraDAOImpl;
-import vista.AgregarPC;
+import vista.VistaAgregarPC;
 
 public class CtrlAgregarPC implements ActionListener {
 
 	private ComputadoraDAOImpl computadora;
-	private AgregarPC vistaComputadora;
+	private VistaAgregarPC vistaComputadora;
+	
+
+	public CtrlAgregarPC() {
+		this.setComputadora(new ComputadoraDAOImpl());
+		this.setVistaComputadora(new VistaAgregarPC(this));
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -74,10 +80,10 @@ public class CtrlAgregarPC implements ActionListener {
 				if (ramCapacidad < 2048)
 					isValid = false;
 			}
-			if (idsIntegrantes.isBlank()) {
-				if(!this.getVistaComputadora().getCboxComputadoraEstado().getSelectedItem().equals("Pendiente")) 
+			if (!estado.equals("Pendiente")) {
+				if (idsIntegrantes.isBlank()) 
 					isValid = false;
-				// si nadie lo reviso, solo puede tener el estado "Pendiente"
+				// si el estado no es pendiente, alguien debio revisarla
 			}
 			if (isValid) {
 				Computadora computadora = new Computadora(id, estado,
@@ -112,11 +118,11 @@ public class CtrlAgregarPC implements ActionListener {
 		this.computadora = computadora;
 	}
 
-	public AgregarPC getVistaComputadora() {
+	public VistaAgregarPC getVistaComputadora() {
 		return vistaComputadora;
 	}
 
-	public void setVistaComputadora(AgregarPC vistaComputadora) {
+	public void setVistaComputadora(VistaAgregarPC vistaComputadora) {
 		this.vistaComputadora = vistaComputadora;
 	}
 

@@ -7,23 +7,23 @@ import javax.swing.JOptionPane;
 
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
-import vista.EditarIntegrante;
+import vista.VistaIntegranteEditar;
 
 public class CtrlEditarIntegrante implements ActionListener {
 
 	private IntegranteDAOImpl integrante;
-	private EditarIntegrante vistaIntegrante;
+	private VistaIntegranteEditar vistaIntegrante;
 
 	public CtrlEditarIntegrante() {
 		this.setIntegrante(new IntegranteDAOImpl());
-		this.setVistaIntegrante(new EditarIntegrante(this));
+		this.setVistaIntegrante(new VistaIntegranteEditar(this));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaIntegrante().getBtnAceptar()) {
-			String legajo = this.getVistaIntegrante().getTxtLegajo().getText();
 			String dni = this.getVistaIntegrante().getTxtDNI().getText();
+			String contraseña = String.valueOf(this.getVistaIntegrante().getPassfContraseña().getPassword());
 			String apellido = this.getVistaIntegrante().getTxtApellido().getText();
 			String nombre = this.getVistaIntegrante().getTxtNombre().getText();
 			String fechaNacimiento = this.getVistaIntegrante().getTxtFechaNacimiento().getText();
@@ -31,19 +31,29 @@ public class CtrlEditarIntegrante implements ActionListener {
 			String telefono = this.getVistaIntegrante().getTxtTelefono().getText();
 			String telefono2 = this.getVistaIntegrante().getTxtTelefono2().getText();
 			String correo = this.getVistaIntegrante().getTxtCorreo().getText();
-			Boolean isValid = !(dni.isBlank() || apellido.isBlank() || nombre.isBlank() || fechaNacimiento.isBlank()
-					|| direccion.isBlank() || telefono.isBlank());
+			String tipo = this.getVistaIntegrante().getCboxTipoIntegrante().getSelectedItem().toString();
+
+			Boolean isValid = !(dni.isBlank() || contraseña.isBlank() || apellido.isBlank() || nombre.isBlank()
+					|| fechaNacimiento.isBlank() || direccion.isBlank() || telefono.isBlank());
 			if (isValid) {
-				Integrante integrante = new Integrante(legajo, dni, apellido, nombre, fechaNacimiento, direccion,
-						telefono, telefono2, correo);
-				if (this.getIntegrante().modificarIntegrante(integrante)) {
-					JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Integrante añadido correctamente",
-							"Sistema", JOptionPane.INFORMATION_MESSAGE);
-					this.getVistaIntegrante().dispose();
+				if (contraseña.equals(
+						String.valueOf(this.getVistaIntegrante().getPassfContraseñaConfirmar().getPassword()))) {
+					Integrante integrante = new Integrante(dni, contraseña, apellido, nombre, fechaNacimiento,
+							direccion, telefono, telefono2, correo, tipo);
+					if (this.getIntegrante().modificarIntegrante(integrante)) {
+						JOptionPane.showMessageDialog(this.getVistaIntegrante(),
+								"Informacion de integrante modificada correctamente", "Sistema",
+								JOptionPane.INFORMATION_MESSAGE);
+						this.getVistaIntegrante().dispose();
+					} else {
+						JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo editar el Integrante",
+								"Sistema", JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
-					JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo añadir el Integrante",
-							"Sistema", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Las contraseñas no coinciden", "Sistema",
+							JOptionPane.ERROR_MESSAGE);
 				}
+
 			} else {
 				JOptionPane.showMessageDialog(this.getVistaIntegrante(),
 						"Se deben completar los campos marcados con (*)", "Sistema", JOptionPane.ERROR_MESSAGE);
@@ -63,11 +73,11 @@ public class CtrlEditarIntegrante implements ActionListener {
 		this.integrante = integrante;
 	}
 
-	public EditarIntegrante getVistaIntegrante() {
+	public VistaIntegranteEditar getVistaIntegrante() {
 		return vistaIntegrante;
 	}
 
-	public void setVistaIntegrante(EditarIntegrante vistaIntegrante) {
+	public void setVistaIntegrante(VistaIntegranteEditar vistaIntegrante) {
 		this.vistaIntegrante = vistaIntegrante;
 	}
 }

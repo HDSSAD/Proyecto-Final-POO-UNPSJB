@@ -4,46 +4,59 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 import modelo.BD;
-import vista.Login;
+import modelo.Integrante;
+import modelo.IntegranteDAOImpl;
+import vista.VistaLogin;
 
 public class CtrlLogin implements ActionListener, WindowListener{
 	
-	private Login vistaLogin;
-	
+	private VistaLogin vistaLogin;
+	private IntegranteDAOImpl integrante;
 
 	public CtrlLogin() {
-		super();
-		this.setVistaLogin(new Login(this));
+		this.setIntegrante(new IntegranteDAOImpl());
+		this.setVistaLogin(new VistaLogin(this));
 		this.getVistaLogin().setVisible(true);
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getSource() == this.getVistaLogin().getBtnIngresar()) {
-			if (!this.getVistaLogin().getTxtUser().getText().isBlank() && !this.getVistaLogin().getTxtPass().getText().isBlank()) {
-				BD.createInstance(this.getVistaLogin().getTxtUser().getText(), this.getVistaLogin().getTxtPass().getText());
-				this.getVistaLogin().dispose();
-			} else {
-				JOptionPane.showMessageDialog(this.getVistaLogin(), "Se debe indicar Usuario y Contraseña",
-						"Sistema", JOptionPane.ERROR_MESSAGE);
+			ArrayList<String> parametros = new ArrayList<String>();
+			parametros.add(this.getVistaLogin().getTxtUser().getText());
+			parametros.add(String.valueOf(this.getVistaLogin().getPassfContraseña().getPassword()));
+			System.out.println(this.getVistaLogin().getPassfContraseña().getPassword());
+			this.getVistaLogin().getPassfContraseña().setText("");
+			Integrante integrante = this.getIntegrante().loginIntegrante(parametros);
+			parametros = null;
+			System.out.println(integrante);
+			if (integrante != null) {
+				this.getVistaLogin().setVisible(false);
+				if (integrante.getTipo().equals("Administrador")) {
+					new CtrlMainAdmin(this, integrante.getDni());
+				} else if (integrante.getTipo().equals("Coordinador")) {
+					new CtrlMainCoordinador(this, integrante.getDni());
+				} else if (integrante.getTipo().equals("Integrante")){
+					new CtrlMainIntegrante(this, integrante.getDni());
+				}
 			}
+		} else if (e.getSource() == this.getVistaLogin().getBtnCancelar()) {
+			this.getVistaLogin().dispose();
 		}
 	}
 
 
-	public Login getVistaLogin() {
+	public VistaLogin getVistaLogin() {
 		return vistaLogin;
 	}
 
 
-	public void setVistaLogin(Login vistaLogin) {
-		this.vistaLogin = vistaLogin;
+	public void setVistaLogin(VistaLogin vistaLogin2) {
+		this.vistaLogin = vistaLogin2;
 	}
 
 
@@ -95,4 +108,13 @@ public class CtrlLogin implements ActionListener, WindowListener{
 		
 	}
 
+
+	public IntegranteDAOImpl getIntegrante() {
+		return integrante;
+	}
+
+
+	public void setIntegrante(IntegranteDAOImpl integrante) {
+		this.integrante = integrante;
+	}
 }

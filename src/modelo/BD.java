@@ -12,17 +12,20 @@ public class BD {
 
 	private Connection conexion = null;
 	private static BD bd = null;
+	private static String pass = "Sebastian", user = "postgres";
 
-	public static void createInstance(String user, String pass) {
-		bd = new BD(user, pass);
-		bd.checkConection();
-	}
-
-	private void checkConection() {
-		if (conexion == null) {
-			bd = null;
-		}
-	}
+//	public static void createInstance(String user, String pass) {
+//		if (bd != null)
+//			return;
+//		bd = new BD(user, pass);
+//		bd.checkConection();
+//	}
+//
+//	private void checkConection() {
+//		if (conexion == null) {
+//			bd = null;
+//		}
+//	}
 	private BD(String user, String pass) {
 		this.cerrarConexion();
 		String url = "jdbc:postgresql://localhost:5432/GestorPuente";
@@ -46,8 +49,8 @@ public class BD {
 		if (conexion != null)
 			return;
 		String url = "jdbc:postgresql://localhost:5432/GestorPuente";
-		String user = "postgres";
-		String pass = "Sebastian";
+//		String user = "postgres";
+//		String pass = "Sebastian";
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.out.println(url + " " + user + " " + pass);
@@ -62,8 +65,8 @@ public class BD {
 
 	public static BD getInstance() {
 		if (bd == null)
-//			bd = new BD();
-			return null;
+			bd = new BD();
+//			return null;
 		return bd;
 	}
 
