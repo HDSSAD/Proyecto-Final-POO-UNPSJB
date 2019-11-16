@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Computadora;
+import modelo.ComputadoraDAOImpl;
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
 import vista.VistaMainGUIAdmin;
@@ -21,6 +23,7 @@ import vista.VistaMainGUIAdmin;
 public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListener {
 
 	private IntegranteDAOImpl integrante;
+	private ComputadoraDAOImpl computadora;
 	private VistaMainGUIAdmin mainGUI;
 	private CtrlLogin ctrlLogin;
 	private String dni;
@@ -56,6 +59,8 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			modelo.addRow(row);
 		}
 		this.getMainGUI().getTblIntegrantes().setModel(modelo);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMaxWidth(70);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMinWidth(70);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setResizable(false);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(1).setResizable(false);
 	}
@@ -63,7 +68,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getMainGUI().getBtnAnadir()) {
-			CtrlAgregarIntegrante ctrlAgregarintegrante = new CtrlAgregarIntegrante();
+			CtrlIntegranteAgregar ctrlAgregarintegrante = new CtrlIntegranteAgregar();
 			ctrlAgregarintegrante.getVistaIntegrante().setVisible(true);
 			this.updateTableIntegrantes(this.getIntegrante().buscarIntegrante());
 
@@ -80,7 +85,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 
 		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
-				CtrlEditarIntegrante ctrlEditarIntegrante = new CtrlEditarIntegrante();
+				CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
 				for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
 					ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)
 							.setText(this.getMainGUI().getArrayTextField().get(i).getText());
@@ -113,13 +118,15 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 				this.openDBLoginWindow();
 			}
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
-			CtrlAgregarPC ctrlAgregarPC = new CtrlAgregarPC();
+			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {
 
 		} else if (e.getSource() == this.getMainGUI().getBtnEditarPC()) {
-
+			CtrlPCEditar ctrlPCEditar = new CtrlPCEditar();
+			ctrlPCEditar.getVistaComputadora().setVisible(true);
+			
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
 
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
@@ -207,6 +214,12 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			this.getMainGUI().getTxtTelefono().setText(integrante.getTelefono());
 			this.getMainGUI().getTxtTelefono2().setText(integrante.getTelefono2());
 			this.getMainGUI().getTxtCorreo().setText(integrante.getCorreo());
+		} else if (e.getSource() == this.getMainGUI().getTblPC()) {
+			JTable table = this.getMainGUI().getTblPC();
+			Integer idComputadora = Integer.parseInt((table.getValueAt(table.getSelectedRow(), 0).toString()));
+			// si el anterior retorna un objeto, un cast a Integer podria ser suficiente
+			Computadora computadora = this.getComputadora().buscarComputadora(idComputadora);
+			this.getMainGUI().getTxtpnDatospc().setText(computadora.toString());
 		}
 	}
 
@@ -248,6 +261,14 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+
+	public ComputadoraDAOImpl getComputadora() {
+		return computadora;
+	}
+
+	public void setComputadora(ComputadoraDAOImpl computadora) {
+		this.computadora = computadora;
 	}
 
 }

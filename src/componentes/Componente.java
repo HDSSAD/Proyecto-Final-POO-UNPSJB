@@ -22,7 +22,7 @@ public class Componente {
 	}
 	
 	public String toString() {
-		return "Componente\nTipo: " + this.getTipo() + "\nModelo: " + this.getModelo() + "\nEstado: "
+		return "\nTipo: " + this.getTipo() + "\nModelo: " + this.getModelo() + "\nEstado: "
 				+ this.getEstado() + "\nCantidad: " + this.getCantidad() + "\n";
 	}
 

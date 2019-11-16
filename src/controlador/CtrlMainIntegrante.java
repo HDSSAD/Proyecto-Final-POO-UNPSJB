@@ -55,6 +55,8 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 			modelo.addRow(row);
 		}
 		this.getMainGUI().getTblIntegrantes().setModel(modelo);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMaxWidth(70);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMinWidth(70);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setResizable(false);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(1).setResizable(false);
 	}
@@ -74,7 +76,8 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
 				if (this.getDni().equals(this.getMainGUI().getTxtTipoIntegrante().getText())) {
-					CtrlEditarIntegrante ctrlEditarIntegrante = new CtrlEditarIntegrante();
+					CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
+					ctrlEditarIntegrante.getVistaIntegrante().getCboxTipoIntegrante().setEnabled(false);
 					for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
 						ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)
 								.setText(this.getMainGUI().getArrayTextField().get(i).getText());
@@ -82,8 +85,8 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 					ctrlEditarIntegrante.getVistaIntegrante().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(this.getMainGUI(),
-							"Solo tienes permiso de editar tu propia informacion", "Sistema",
-							JOptionPane.ERROR_MESSAGE);
+							"Solo tienes permiso de editar tu propia informacion o la informacion de otros integrantes de menor nivel administrativo",
+							"Sistema", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -109,7 +112,7 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 				this.openDBLoginWindow();
 			}
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
-			CtrlAgregarPC ctrlAgregarPC = new CtrlAgregarPC();
+			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {

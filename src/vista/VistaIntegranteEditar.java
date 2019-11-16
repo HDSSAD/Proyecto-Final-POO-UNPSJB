@@ -1,14 +1,14 @@
 package vista;
 
-import controlador.CtrlEditarIntegrante;
+import controlador.CtrlIntegranteEditar;
 
 public class VistaIntegranteEditar extends VistaIntegrante {
 
 	private static final long serialVersionUID = 1L;
 	
-	private CtrlEditarIntegrante ctrlEditarIntegrante;
+	private CtrlIntegranteEditar ctrlEditarIntegrante;
 
-	public VistaIntegranteEditar(CtrlEditarIntegrante ctrlEditarIntegrante) {
+	public VistaIntegranteEditar(CtrlIntegranteEditar ctrlEditarIntegrante) {
 		super();
 		this.getTxtDNI().setEnabled(false);
 		this.setCtrlEditarIntegrante(ctrlEditarIntegrante);
@@ -17,11 +17,11 @@ public class VistaIntegranteEditar extends VistaIntegrante {
 		
 	}
 
-	public CtrlEditarIntegrante getCtrlEditarIntegrante() {
+	public CtrlIntegranteEditar getCtrlEditarIntegrante() {
 		return ctrlEditarIntegrante;
 	}
 
-	public void setCtrlEditarIntegrante(CtrlEditarIntegrante ctrlEditarIntegrante) {
+	public void setCtrlEditarIntegrante(CtrlIntegranteEditar ctrlEditarIntegrante) {
 		this.ctrlEditarIntegrante = ctrlEditarIntegrante;
 	}
 

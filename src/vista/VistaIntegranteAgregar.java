@@ -1,14 +1,14 @@
 package vista;
 
-import controlador.CtrlAgregarIntegrante;
+import controlador.CtrlIntegranteAgregar;
 
 public class VistaIntegranteAgregar extends VistaIntegrante {
 
 	private static final long serialVersionUID = 1L;
 
-	private CtrlAgregarIntegrante ctrlAgregarIntegrante;
+	private CtrlIntegranteAgregar ctrlAgregarIntegrante;
 	
-	public VistaIntegranteAgregar(CtrlAgregarIntegrante ctrlAgregarIntegrante) {
+	public VistaIntegranteAgregar(CtrlIntegranteAgregar ctrlAgregarIntegrante) {
 		super();
 		this.setCtrlAgregarIntegrante(ctrlAgregarIntegrante);
 		this.getBtnAceptar().addActionListener(this.getCtrlAgregarIntegrante());
@@ -16,11 +16,11 @@ public class VistaIntegranteAgregar extends VistaIntegrante {
 		
 	}
 
-	public CtrlAgregarIntegrante getCtrlAgregarIntegrante() {
+	public CtrlIntegranteAgregar getCtrlAgregarIntegrante() {
 		return ctrlAgregarIntegrante;
 	}
 
-	public void setCtrlAgregarIntegrante(CtrlAgregarIntegrante ctrlAgregarIntegrante) {
+	public void setCtrlAgregarIntegrante(CtrlIntegranteAgregar ctrlAgregarIntegrante) {
 		this.ctrlAgregarIntegrante = ctrlAgregarIntegrante;
 	}
 	

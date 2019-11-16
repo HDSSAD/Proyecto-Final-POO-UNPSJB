@@ -24,7 +24,7 @@ public class CompDiscoRigido extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Capacidad: " + this.getCapacidad() + " GB";
+		return super.toString() + "Capacidad: " + this.getCapacidad() + " GB\n";
 	}
 
 	public String toSqlArray() {

@@ -1,7 +1,5 @@
 package modelo;
 
-//import java.util.ArrayList;
-
 import componentes.CompDiscoRigido;
 import componentes.CompLectora;
 import componentes.CompMemoriaRam;
@@ -10,21 +8,15 @@ import componentes.CompProcesador;
 
 public class Computadora {
 
-	private String idComputadora, estado;
+	private String idComputadora, estado, notas;
 	private CompPlacaBase placaBase;
 	private CompProcesador procesador;
 	private CompDiscoRigido disco;
 	private CompMemoriaRam ram;
 	private CompLectora lectora;
 
-	/*
-	 * public Computadora(String idComputadora, String estado,
-	 * ArrayList<CompPlacaBase> placaBase, ArrayList<CompProcesador> procesador,
-	 * ArrayList<CompDiscoRigido> disco, ArrayList<CompMemoriaRam> ram,
-	 * ArrayList<CompLectora> lectora) {
-	 */
 	public Computadora(String idComputadora, String estado, CompPlacaBase placaBase, CompProcesador procesador,
-			CompDiscoRigido disco, CompMemoriaRam ram, CompLectora lectora) {
+			CompDiscoRigido disco, CompMemoriaRam ram, CompLectora lectora, String notas) {
 		super();
 		this.setIdComputadora(idComputadora);
 		this.setEstado(estado);
@@ -35,18 +27,14 @@ public class Computadora {
 		this.setLectora(lectora);
 	}
 
-	/*
-	 * public ArrayList<CompPlacaBase> getPlacaBase() { return placaBase; } public
-	 * void setPlacaBase(ArrayList<CompPlacaBase> placaBase) { this.placaBase =
-	 * placaBase; } public ArrayList<CompProcesador> getProcesador() { return
-	 * procesador; } public void setProcesador(ArrayList<CompProcesador> procesador)
-	 * { this.procesador = procesador; } public ArrayList<CompDiscoRigido>
-	 * getDisco() { return disco; } public void setDisco(ArrayList<CompDiscoRigido>
-	 * disco) { this.disco = disco; } public ArrayList<CompMemoriaRam> getRam() {
-	 * return ram; } public void setRam(ArrayList<CompMemoriaRam> ram) { this.ram =
-	 * ram; } public ArrayList<CompLectora> getLectora() { return lectora; } public
-	 * void setLectora(ArrayList<CompLectora> lectora) { this.lectora = lectora; }
-	 */
+	@Override
+	public String toString() {
+		return "Nº Computadora: " + this.getIdComputadora() + "\nEstado: " + this.getEstado() + "\nPlaca Base: "
+				+ this.getPlacaBase().toString() + "\nProcesador: " + this.getProcesador().toString() + "\nDisco: "
+				+ this.getDisco().toString() + "\nMemoria Ram: " + this.getRam().toString() + "\nLectora: "
+				+ this.getLectora().toString();
+	}
+
 	public String getIdComputadora() {
 		return idComputadora;
 	}
@@ -101,6 +89,14 @@ public class Computadora {
 
 	public void setLectora(CompLectora lectora) {
 		this.lectora = lectora;
+	}
+
+	public String getNotas() {
+		return notas;
+	}
+
+	public void setNotas(String notas) {
+		this.notas = notas;
 	}
 
 }

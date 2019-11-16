@@ -16,7 +16,7 @@ public class CompLectora extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Color: " + this.getColor();
+		return super.toString() + "Color: " + this.getColor() + "\n";
 	}
 
 	@Override

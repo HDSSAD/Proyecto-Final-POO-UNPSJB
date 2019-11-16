@@ -16,7 +16,7 @@ public class CompMemoriaRam extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Capacidad: " + this.getCapacidad() + " MB";
+		return super.toString() + "Capacidad: " + this.getCapacidad() + " MB\n";
 	}
 
 	@Override

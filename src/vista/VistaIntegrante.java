@@ -1,5 +1,8 @@
 package vista;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -9,9 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import enumTypes.TipoIntegranteAdmin;
+import javax.swing.JFormattedTextField;
 
 
 public class VistaIntegrante extends JDialog {
@@ -23,7 +28,6 @@ public class VistaIntegrante extends JDialog {
 	private JTextField txtDNI;
 	private JTextField txtApellido;
 	private JTextField txtNombre;
-	private JTextField txtFechaNacimiento;
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 	private JTextField txtTelefono2;
@@ -33,6 +37,7 @@ public class VistaIntegrante extends JDialog {
 	private JPasswordField passfContraseñaConfirmar;
 	private JPasswordField passfContraseña;
 	private JComboBox cboxTipoIntegrante;
+	private JFormattedTextField txtFechaNacimiento;
 	
 	public VistaIntegrante() {
 		this.setModal(true);
@@ -107,12 +112,17 @@ public class VistaIntegrante extends JDialog {
 		panel.add(txtNombre);
 		arrayTxtField.add(txtNombre);
 
-		txtFechaNacimiento = new JTextField();
-		txtFechaNacimiento.setColumns(10);
+		MaskFormatter mask = null;
+		try {
+			mask = new MaskFormatter("####/##/##");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		txtFechaNacimiento = new JFormattedTextField(mask);
 		txtFechaNacimiento.setBounds(141, 168, 130, 20);
 		panel.add(txtFechaNacimiento);
 		arrayTxtField.add(txtFechaNacimiento);
-
+		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(141, 194, 130, 20);
@@ -152,6 +162,7 @@ public class VistaIntegrante extends JDialog {
 		passfContraseña = new JPasswordField();
 		passfContraseña.setBounds(141, 61, 129, 20);
 		panel.add(passfContraseña);
+		
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(203, 320, 89, 23);
@@ -178,13 +189,6 @@ public class VistaIntegrante extends JDialog {
 		this.txtNombre = txtNombre;
 	}
 
-	public JTextField getTxtFechaNacimiento() {
-		return txtFechaNacimiento;
-	}
-
-	public void setTxtFechaNacimiento(JTextField txtFechaNacimiento) {
-		this.txtFechaNacimiento = txtFechaNacimiento;
-	}
 
 	public JTextField getTxtDNI() {
 		return txtDNI;
@@ -272,5 +276,13 @@ public class VistaIntegrante extends JDialog {
 
 	public void setCboxTipoIntegrante(JComboBox cboxTipoIntegrante) {
 		this.cboxTipoIntegrante = cboxTipoIntegrante;
+	}
+
+	public JFormattedTextField getTxtFechaNacimiento() {
+		return txtFechaNacimiento;
+	}
+
+	public void setTxtFechaNacimiento(JFormattedTextField txtFechaNacimiento) {
+		this.txtFechaNacimiento = txtFechaNacimiento;
 	}
 }

@@ -13,29 +13,6 @@ import componentes.CompProcesador;
 
 public class ComputadoraDAOImpl implements ComputadoraDAO {
 
-//	private static String separator = ";";
-	/*
-	 * private ArrayList<String> pcDataToArray (Computadora computadora) {
-	 * ArrayList<String> parametros = new ArrayList<String>(); String tempString =
-	 * ""; parametros.add(computadora.getIdComputadora());
-	 * parametros.add(computadora.getEstado()); for (CompPlacaBase comp :
-	 * computadora.getPlacaBase()) { if (tempString.isBlank()) { tempString +=
-	 * comp.toSqlArray(); } else { tempString += ";" + comp.toSqlArray(); } }
-	 * parametros.add(tempString); tempString=""; for (CompProcesador comp :
-	 * computadora.getProcesador()) { if (tempString.isBlank()) { tempString +=
-	 * comp.toSqlArray(); } else { tempString += ";" + comp.toSqlArray(); } }
-	 * parametros.add(tempString); tempString=""; for (CompDiscoRigido comp :
-	 * computadora.getDisco()) { if (tempString.isBlank()) { tempString +=
-	 * comp.toSqlArray(); } else { tempString += ";" + comp.toSqlArray(); } }
-	 * parametros.add(tempString); tempString=""; for (CompMemoriaRam comp :
-	 * computadora.getRam()) { if (tempString.isBlank()) { tempString +=
-	 * comp.toSqlArray(); } else { tempString += ";" + comp.toSqlArray(); } }
-	 * parametros.add(tempString); tempString=""; for (CompLectora comp :
-	 * computadora.getLectora()) { if (tempString.isBlank()) { tempString +=
-	 * comp.toSqlArray(); } else { tempString += ";" + comp.toSqlArray(); } }
-	 * parametros.add(tempString); return parametros; }
-	 */
-
 	private ArrayList<String> getParamFromPC(Computadora computadora) {
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(computadora.getIdComputadora());
@@ -45,6 +22,20 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		parametros.add(computadora.getDisco().toSqlArray());
 		parametros.add(computadora.getRam().toSqlArray());
 		parametros.add(computadora.getLectora().toSqlArray());
+		parametros.add(computadora.getNotas());
+		return parametros;
+	}
+
+	private ArrayList<String> getParamFromPC_Update(Computadora computadora) {
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(computadora.getEstado());
+		parametros.add(computadora.getPlacaBase().toSqlArray());
+		parametros.add(computadora.getProcesador().toSqlArray());
+		parametros.add(computadora.getDisco().toSqlArray());
+		parametros.add(computadora.getRam().toSqlArray());
+		parametros.add(computadora.getLectora().toSqlArray());
+		parametros.add(computadora.getNotas());
+		parametros.add(computadora.getIdComputadora());
 		return parametros;
 	}
 
@@ -57,7 +48,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 						new CompProcesador(rs.getString("procesador").split(",")),
 						new CompDiscoRigido(rs.getString("disco").split(",")),
 						new CompMemoriaRam(rs.getString("ram").split(",")),
-						new CompLectora(rs.getString("lectora").split(","))));
+						new CompLectora(rs.getString("lectora").split(",")), rs.getString("notas")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,9 +57,21 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	}
 
 	@Override
+	public Boolean agregarIntegranteComputadora(String idIntegrante, String idComputadora) {
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idComputadora);
+		parametros.add(idIntegrante);
+		if (this.existeIntegranteComputadora(idIntegrante, idComputadora)) {
+			return true;
+		}
+		String consulta = "insert into integrantes_computadoras (idComputadora, idIntegrante) values (?,?)";
+		return BD.getInstance().manipularEntidades(consulta, parametros);
+	}
+
+	@Override
 	public Boolean agregarComputadora(Computadora computadora) {
 		ArrayList<String> parametros = this.getParamFromPC(computadora);
-		String consulta = "insert into computadoras (id,estado,placaBase,procesador,disco,ram,lectora) values (?,?,?,?,?,?,?)";
+		String consulta = "insert into computadoras (id,estado,placaBase,procesador,disco,ram,lectora,notas) values (?,?,?,?,?,?,?,?)";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
@@ -100,7 +103,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 					new CompProcesador(rs.getString("procesador").split(",")),
 					new CompDiscoRigido(rs.getString("disco").split(",")),
 					new CompMemoriaRam(rs.getString("ram").split(",")),
-					new CompLectora(rs.getString("lectora").split(",")));
+					new CompLectora(rs.getString("lectora").split(",")), rs.getString("notas"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -117,11 +120,23 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 
 	@Override
 	public Boolean modificarComputadora(Computadora computadora) {
-		ArrayList<String> parametros = this.getParamFromPC(computadora);
+		ArrayList<String> parametros = this.getParamFromPC_Update(computadora);
 		String consulta = "update computadoras "
-				+ "set id = ?, set estado = ?, placaBase = ?, procesador = ?, disco = ?, ram = ?, lectora = ? "
+				+ "set estado = ?, placaBase = ?, procesador = ?, disco = ?, ram = ?, lectora = ?, notas = ?"
 				+ "where id = ? ";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
+	}
+
+	private Boolean existeIntegranteComputadora(String idIntegrante, String idComputadora) {
+		Boolean ret = false;
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idIntegrante);
+		parametros.add(idComputadora);
+		String consulta = "select * " + "from integrantes_computadoras "
+				+ "where idIntegrante ilike ? and idComputadora ilike ?";
+		if (BD.getInstance().listarEntidadesParametrizada(consulta, parametros) != null)
+			ret = true;
+		return ret;
 	}
 
 }

@@ -26,7 +26,7 @@ public class CompProcesador extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Nucleos: " + this.getNucleos() + "\nVelocidad: " + this.getGhz() + " Ghz";
+		return super.toString() + "Nucleos: " + this.getNucleos() + "\nVelocidad: " + this.getGhz() + " Ghz\n";
 	}
 
 	@Override

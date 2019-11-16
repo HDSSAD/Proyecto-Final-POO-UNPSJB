@@ -55,6 +55,8 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 			modelo.addRow(row);
 		}
 		this.getMainGUI().getTblIntegrantes().setModel(modelo);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMaxWidth(70);
+		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setMinWidth(70);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(0).setResizable(false);
 		this.getMainGUI().getTblIntegrantes().getColumnModel().getColumn(1).setResizable(false);
 	}
@@ -85,8 +87,10 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 
 		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
-				if (this.getMainGUI().getTxtTipoIntegrante().getText().equals("Integrante")) {
-					CtrlEditarIntegrante ctrlEditarIntegrante = new CtrlEditarIntegrante();
+				if (this.getMainGUI().getTxtTipoIntegrante().getText().equals("Integrante")
+						|| this.getDni().equals(this.getMainGUI().getTxtTipoIntegrante())) {
+					CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
+					ctrlEditarIntegrante.getVistaIntegrante().getCboxTipoIntegrante().setEnabled(false);
 					for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
 						ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)
 								.setText(this.getMainGUI().getArrayTextField().get(i).getText());
@@ -121,7 +125,7 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 				this.openDBLoginWindow();
 			}
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
-			CtrlAgregarPC ctrlAgregarPC = new CtrlAgregarPC();
+			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {

@@ -53,7 +53,7 @@ public class VistaMainGUI extends JDialog {
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
 		this.setModal(true);
-		setBounds(100, 100, 750, 500);
+		setBounds(100, 100, 676, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,7 +75,7 @@ public class VistaMainGUI extends JDialog {
 		mnSesion.add(mntmCerrarSesion);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 33, 714, 417);
+		tabbedPane.setBounds(10, 33, 643, 417);
 		contentPane.add(tabbedPane);
 
 		JPanel panelIntegrantes = new JPanel();
@@ -83,27 +83,29 @@ public class VistaMainGUI extends JDialog {
 		panelIntegrantes.setLayout(null);
 
 		JScrollPane scrlpIntegrantes = new JScrollPane();
-		scrlpIntegrantes.setBounds(10, 11, 256, 335);
+		scrlpIntegrantes.setBounds(10, 11, 250, 335);
 		panelIntegrantes.add(scrlpIntegrantes);
 
 		tblIntegrantes = new JTable();
 		tblIntegrantes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblIntegrantes.setModel(new DefaultTableModel(new Object[][] {}, new String[] {"DNI", "Apellido y Nombre"}));
+		tblIntegrantes.getColumnModel().getColumn(0).setMaxWidth(70);
+		tblIntegrantes.getColumnModel().getColumn(0).setMinWidth(70);
 		tblIntegrantes.getColumnModel().getColumn(0).setResizable(false);
 		tblIntegrantes.getColumnModel().getColumn(1).setResizable(false);
 		
 		scrlpIntegrantes.setViewportView(tblIntegrantes);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(610, 355, 89, 23);
+		btnEliminar.setBounds(538, 355, 89, 23);
 		panelIntegrantes.add(btnEliminar);
 
 		btnAnadir = new JButton("A\u00F1adir");
-		btnAnadir.setBounds(511, 355, 89, 23);
+		btnAnadir.setBounds(439, 355, 89, 23);
 		panelIntegrantes.add(btnAnadir);
 
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(412, 355, 89, 23);
+		btnModificar.setBounds(340, 355, 89, 23);
 		panelIntegrantes.add(btnModificar);
 
 		btnBuscar = new JButton("Buscar");
@@ -115,7 +117,7 @@ public class VistaMainGUI extends JDialog {
 		panelIntegrantes.add(btnMostrarTodo);
 
 		JPanel panelIntegrantesDatos = new JPanel();
-		panelIntegrantesDatos.setBounds(278, 11, 421, 335);
+		panelIntegrantesDatos.setBounds(270, 11, 357, 335);
 		panelIntegrantes.add(panelIntegrantesDatos);
 		panelIntegrantesDatos.setLayout(null);
 		
@@ -161,70 +163,70 @@ public class VistaMainGUI extends JDialog {
 		
 		txtTipoIntegrante = new JTextField();
 		txtTipoIntegrante.setEditable(false);
-		txtTipoIntegrante.setBounds(177, 10, 96, 20);
+		txtTipoIntegrante.setBounds(177, 10, 170, 20);
 		panelIntegrantesDatos.add(txtTipoIntegrante);
 		txtTipoIntegrante.setColumns(10);
 //		arrayTextField.add(txtTipoIntegrante);
 		
 		txtDNI = new JTextField();
 		txtDNI.setEditable(false);
-		txtDNI.setBounds(177, 37, 96, 20);
+		txtDNI.setBounds(177, 37, 170, 20);
 		panelIntegrantesDatos.add(txtDNI);
 		txtDNI.setColumns(10);
 		arrayTextField.add(txtDNI);
 
 		txtApellido = new JTextField();
 		txtApellido.setEditable(false);
-		txtApellido.setBounds(177, 63, 96, 20);
+		txtApellido.setBounds(177, 63, 170, 20);
 		panelIntegrantesDatos.add(txtApellido);
 		txtApellido.setColumns(10);
 		arrayTextField.add(txtApellido);
 
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
-		txtNombre.setBounds(177, 89, 96, 20);
+		txtNombre.setBounds(177, 89, 170, 20);
 		panelIntegrantesDatos.add(txtNombre);
 		txtNombre.setColumns(10);
 		arrayTextField.add(txtNombre);
 
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setEditable(false);
-		txtFechaNacimiento.setBounds(177, 115, 96, 20);
+		txtFechaNacimiento.setBounds(177, 115, 170, 20);
 		panelIntegrantesDatos.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		arrayTextField.add(txtFechaNacimiento);
 
 		txtDireccion = new JTextField();
 		txtDireccion.setEditable(false);
-		txtDireccion.setBounds(177, 141, 96, 20);
+		txtDireccion.setBounds(177, 141, 170, 20);
 		panelIntegrantesDatos.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		arrayTextField.add(txtDireccion);
 
 		txtTelefono = new JTextField();
 		txtTelefono.setEditable(false);
-		txtTelefono.setBounds(177, 167, 96, 20);
+		txtTelefono.setBounds(177, 167, 170, 20);
 		panelIntegrantesDatos.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		arrayTextField.add(txtTelefono);
 
 		txtTelefono2 = new JTextField();
 		txtTelefono2.setEditable(false);
-		txtTelefono2.setBounds(177, 193, 96, 20);
+		txtTelefono2.setBounds(177, 193, 170, 20);
 		panelIntegrantesDatos.add(txtTelefono2);
 		txtTelefono2.setColumns(10);
 		arrayTextField.add(txtTelefono2);
 
 		txtCorreo = new JTextField();
 		txtCorreo.setEditable(false);
-		txtCorreo.setBounds(177, 219, 96, 20);
+		txtCorreo.setBounds(177, 219, 170, 20);
 		panelIntegrantesDatos.add(txtCorreo);
 		txtCorreo.setColumns(10);
 		arrayTextField.add(txtCorreo);
 
 		txtComputadorasTrabajadas = new JTextField();
 		txtComputadorasTrabajadas.setEditable(false);
-		txtComputadorasTrabajadas.setBounds(177, 245, 96, 20);
+		txtComputadorasTrabajadas.setBounds(177, 245, 170, 20);
 		panelIntegrantesDatos.add(txtComputadorasTrabajadas);
 		txtComputadorasTrabajadas.setColumns(10);
 		
@@ -234,7 +236,7 @@ public class VistaMainGUI extends JDialog {
 		tabbedPane.addTab("Computadoras", null, panelComputadoras, null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 256, 335);
+		scrollPane.setBounds(10, 11, 250, 335);
 		panelComputadoras.add(scrollPane);
 		
 		tblPC = new JTable();
@@ -245,15 +247,15 @@ public class VistaMainGUI extends JDialog {
 		scrollPane.setViewportView(tblPC);
 		
 		btnEliminarPC = new JButton("Eliminar");
-		btnEliminarPC.setBounds(610, 355, 89, 23);
+		btnEliminarPC.setBounds(538, 355, 89, 23);
 		panelComputadoras.add(btnEliminarPC);
 		
 		btnAñadirPC = new JButton("A\u00F1adir");
-		btnAñadirPC.setBounds(511, 355, 89, 23);
+		btnAñadirPC.setBounds(439, 355, 89, 23);
 		panelComputadoras.add(btnAñadirPC);
 		
 		btnEditarPC = new JButton("Modificar");
-		btnEditarPC.setBounds(412, 355, 89, 23);
+		btnEditarPC.setBounds(340, 355, 89, 23);
 		panelComputadoras.add(btnEditarPC);
 		
 		btnBuscarPC = new JButton("Buscar");
@@ -268,7 +270,7 @@ public class VistaMainGUI extends JDialog {
 		txtpnDatospc.setBackground(SystemColor.text);
 		txtpnDatospc.setEditable(false);
 		txtpnDatospc.setText("DatosPC");
-		txtpnDatospc.setBounds(278, 11, 419, 335);
+		txtpnDatospc.setBounds(270, 11, 357, 335);
 		panelComputadoras.add(txtpnDatospc);
 	}
 
