@@ -36,7 +36,6 @@ public class CtrlPCAgregar implements ActionListener {
 			String estado = this.getVistaComputadora().getCboxComputadoraEstado().getSelectedItem().toString();
 
 			String placaBase = this.getVistaComputadora().getTxtPlacaBase().getText();
-			System.out.println(placaBase);
 			String placaBaseEstado = this.getVistaComputadora().getCboxPlacaBaseEstado().getSelectedItem().toString();
 			Integer placaBaseCantidad;
 			if (!this.getVistaComputadora().getTxtPlacaBase().getText().isBlank()) {
@@ -65,7 +64,7 @@ public class CtrlPCAgregar implements ActionListener {
 			String lectoraEstado = this.getVistaComputadora().getCboxLectoraEstado().getSelectedItem().toString();
 			Integer lectoraCantidad = (Integer) this.getVistaComputadora().getSpnLectoraCantidad().getValue();
 			String lectoraColor = this.getVistaComputadora().getCboxLectoraColor().getSelectedItem().toString();
-			
+
 			String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText();
 
 			Boolean isValid = true;
@@ -114,6 +113,22 @@ public class CtrlPCAgregar implements ActionListener {
 								"Sistema", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+			} else { // el estado si es pendiente
+				if (!this.getVistaComputadora().getTxtIdsIntegrantes().getText().isBlank()) {
+					String integranteFaltante = "";
+					for (String integrante : idsIntegrantes.split(",")) {
+						if (this.getIntegrante().buscarIntegrante(integrante) == null) {
+							integranteFaltante += "  " + integrante + "\n";
+						}
+					}
+					if (!integranteFaltante.isBlank()) {
+						isValid = false;
+						JOptionPane.showMessageDialog(this.getVistaComputadora(),
+								"No se encontraron los siguientes integrantes en la base de datos: \n"
+										+ integranteFaltante,
+								"Sistema", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 
 			if (isValid) {
@@ -123,21 +138,15 @@ public class CtrlPCAgregar implements ActionListener {
 								procesadorGhz, procesadorNucleos),
 						new CompDiscoRigido("Disco Rigido", disco, discoEstado, discoCantidad, discoCapacidad),
 						new CompMemoriaRam("Memoria Ram", ram, ramEstado, ramCantidad, ramCapacidad),
-						new CompLectora("Lectora", lectora, lectoraEstado, lectoraCantidad, lectoraColor),
-						notasPC);
+						new CompLectora("Lectora", lectora, lectoraEstado, lectoraCantidad, lectoraColor), notasPC);
 				if (this.getComputadora().agregarComputadora(computadora)) {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(), "Computadora añadida correctamente",
 							"Sistema", JOptionPane.INFORMATION_MESSAGE);
-					this.getVistaComputadora().dispose();
 				} else {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(), "No se pudo añadir la Computadora",
 							"Sistema", JOptionPane.ERROR_MESSAGE);
 				}
 				String asignacionFaltante = "";
-				/*
-				 * en caso de que ocurra un error, aunque los integrantes ya se comprobaron a
-				 * este punto y las computadoras tambien
-				 */
 				for (String integrante : idsIntegrantes.split(",")) {
 					if (!this.getComputadora().agregarIntegranteComputadora(integrante, id)) {
 						asignacionFaltante += "  " + integrante + "\n";
@@ -145,17 +154,17 @@ public class CtrlPCAgregar implements ActionListener {
 				}
 				if (!asignacionFaltante.isBlank()) {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(),
-							"Ha ocurrido un error al intentar asignar la computadora a los siguientes integrantes: \n"
-									+ asignacionFaltante,
+							"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
+									+ asignacionFaltante
+									+ "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
 							"Sistema", JOptionPane.ERROR_MESSAGE);
 				}
-			} else {
-
+				this.getVistaComputadora().dispose();
 			}
+
 		} else if (e.getSource() == this.getVistaComputadora().getBtnCancelar()) {
 			this.getVistaComputadora().dispose();
 		}
-
 	}
 
 	public ComputadoraDAOImpl getComputadora() {

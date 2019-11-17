@@ -110,7 +110,24 @@ public class CtrlPCEditar implements ActionListener {
 								"Sistema", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+			} else {	// el estado si es pendiente
+				if (!this.getVistaComputadora().getTxtIdsIntegrantes().getText().isBlank()) {
+					String integranteFaltante = "";
+					for (String integrante : idsIntegrantes.split(",")) {
+						if (this.getIntegrante().buscarIntegrante(integrante) == null) {
+							integranteFaltante += "  " + integrante + "\n";
+						}
+					}
+					if (!integranteFaltante.isBlank()) {
+						isValid = false;
+						JOptionPane.showMessageDialog(this.getVistaComputadora(),
+								"No se encontraron los siguientes integrantes en la base de datos: \n"
+										+ integranteFaltante,
+								"Sistema", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
+			
 			if (isValid) {
 				Computadora computadora = new Computadora(id, estado,
 						new CompPlacaBase("Placa Base", placaBase, placaBaseEstado, placaBaseCantidad),
@@ -123,7 +140,6 @@ public class CtrlPCEditar implements ActionListener {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(),
 							"Informacion de Computadora modificada correctamente", "Sistema",
 							JOptionPane.INFORMATION_MESSAGE);
-					this.getVistaComputadora().dispose();
 				} else {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(),
 							"No se pudo editar la informacion de la Computadora", "Sistema", JOptionPane.ERROR_MESSAGE);
@@ -136,10 +152,11 @@ public class CtrlPCEditar implements ActionListener {
 				}
 				if (!asignacionFaltante.isBlank()) {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(),
-							"Ha ocurrido un error al intentar asignar la computadora a los siguientes integrantes: \n"
-									+ asignacionFaltante,
+							"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
+									+ asignacionFaltante + "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
 							"Sistema", JOptionPane.ERROR_MESSAGE);
 				}
+				this.getVistaComputadora().dispose();
 			} else {
 				JOptionPane.showMessageDialog(this.getVistaComputadora(),
 						"Los datos introducidos de 'cantidad' no corresponden al resto de la informacion", "Sistema",
@@ -148,7 +165,6 @@ public class CtrlPCEditar implements ActionListener {
 		} else if (e.getSource() == this.getVistaComputadora().getBtnCancelar()) {
 			this.getVistaComputadora().dispose();
 		}
-
 	}
 
 	public ComputadoraDAOImpl getComputadora() {

@@ -10,7 +10,6 @@ public class apMain {
 			public void run() {
 				try {
 					new CtrlLogin();
-//					new CtrlMain();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

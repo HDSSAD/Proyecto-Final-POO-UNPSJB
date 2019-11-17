@@ -44,8 +44,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 	}
 
 	private void updateTableComputadoras(List<Computadora> computadoras) {
-		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro PC", "Estado" }) {
+		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {}, new String[] { "Nro PC", "Estado" }) {
 			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] { false, false };
 
@@ -66,6 +65,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		this.getMainGUI().getTblPC().getColumnModel().getColumn(1).setResizable(false);
 
 	}
+
 	private void updateTableIntegrantes(List<Integrante> integrantes) {
 		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {},
 				new String[] { "DNI", "Apellido y Nombre" }) {
@@ -141,6 +141,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			if (result == JOptionPane.YES_OPTION) {
 				this.openDBLoginWindow();
 			}
+
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
@@ -149,9 +150,53 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {
 
 		} else if (e.getSource() == this.getMainGUI().getBtnEditarPC()) {
-			CtrlPCEditar ctrlPCEditar = new CtrlPCEditar();
-			ctrlPCEditar.getVistaComputadora().setVisible(true);
-			
+			if (this.getMainGUI().getTblPC().getSelectedRow() != -1) {
+				CtrlPCEditar ctrlPCEditar = new CtrlPCEditar();
+				Computadora computadora = this.getComputadora().buscarComputadora(
+						Integer.valueOf((this.getMainGUI().getTblPC().getValueAt(
+								this.getMainGUI().getTblPC().getSelectedRow(), 0).toString())
+						));
+				if (computadora != null) {
+					ctrlPCEditar.getVistaComputadora().getTxtIdComputadora().setText(computadora.getIdComputadora());
+					ctrlPCEditar.getVistaComputadora().getTxtPlacaBase().setText(computadora.getPlacaBase().getModelo());
+					ctrlPCEditar.getVistaComputadora().getTxtpnNotasPC().setText(computadora.getNotas());
+					ctrlPCEditar.getVistaComputadora().getTxtProcesador().setText(computadora.getProcesador().getModelo());
+					ctrlPCEditar.getVistaComputadora().getTxtProcesadorGhz().setText(computadora.getProcesador().getGhz());
+					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoEstado().setSelectedItem(computadora.getDisco().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoTipo().setSelectedItem(computadora.getDisco().getTipo());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraColor().setSelectedItem(computadora.getLectora().getColor());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraEstado().setSelectedItem(computadora.getLectora().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraTipo().setSelectedItem(computadora.getLectora().getTipo());
+					ctrlPCEditar.getVistaComputadora().getCboxPlacaBaseEstado().setSelectedItem(computadora.getPlacaBase().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxProcesadorEstado().setSelectedItem(computadora.getProcesador().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxRamEstado().setSelectedItem(computadora.getRam().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxRamTipo().setSelectedItem(computadora.getRam().getTipo());
+					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCantidad().setValue(computadora.getDisco().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCapacidad().setValue(computadora.getDisco().getCapacidad());
+					ctrlPCEditar.getVistaComputadora().getSpnLectoraCantidad().setValue(computadora.getLectora().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnProcesadorCantidad().setValue(computadora.getProcesador().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnProcesadorNucleos().setValue(computadora.getProcesador().getNucleos());
+					ctrlPCEditar.getVistaComputadora().getSpnRamCantidad().setValue(computadora.getRam().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnRamCapacidad().setValue(computadora.getRam().getCapacidad());
+					
+					String participantes = this.getComputadora().getIntegranteFromIntPC(computadora.getIdComputadora());
+					if (!participantes.isBlank()) {
+						ctrlPCEditar.getVistaComputadora().getTxtIdsIntegrantes().setText(participantes);
+						ctrlPCEditar.getVistaComputadora().getCboxComputadoraEstado().setSelectedItem(computadora.getEstado());
+					} else {
+						ctrlPCEditar.getVistaComputadora().getCboxComputadoraEstado().setSelectedItem("Pendiente");
+					}
+
+					ctrlPCEditar.getVistaComputadora().setVisible(true);
+					this.updateTableComputadoras(this.getComputadora().buscarComputadora());
+				} else {
+					ctrlPCEditar.getVistaComputadora().dispose();
+					JOptionPane.showMessageDialog(this.getMainGUI(), 
+							"Ocurrio un error al recibir datos de la computadora desde la base de datos", 
+							"Sistema", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
 			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
@@ -185,7 +230,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			this.updateTableIntegrantes(integrantes);
 		List<Computadora> computadoras;
 		computadoras = this.getComputadora().buscarComputadora();
-		if (computadoras != null) 
+		if (computadoras != null)
 			this.updateTableComputadoras(computadoras);
 	}
 
@@ -250,12 +295,11 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			JTable table = this.getMainGUI().getTblPC();
 			String idComputadora = table.getValueAt(table.getSelectedRow(), 0).toString();
 			// si el anterior retorna un objeto, un cast a Integer podria ser suficiente
-			System.out.println(Integer.valueOf(idComputadora));
 			Computadora computadora = this.getComputadora().buscarComputadora(Integer.valueOf(idComputadora));
 			if (computadora != null) {
 				this.getMainGUI().getTxtpnDatospc().setText(computadora.toString());
 			}
-			
+
 		}
 	}
 

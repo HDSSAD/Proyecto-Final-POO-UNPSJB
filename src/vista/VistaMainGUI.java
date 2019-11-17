@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
 
-public class VistaMainGUI extends JDialog {
+public class VistaMainGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -52,7 +53,7 @@ public class VistaMainGUI extends JDialog {
 	
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
-		this.setModal(true);
+//		this.setModal(true);
 		setBounds(100, 100, 676, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

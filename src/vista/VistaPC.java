@@ -17,7 +17,6 @@ import enumTypes.EstadosPC;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.text.NumberFormat;
-
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.DefaultComboBoxModel;
@@ -77,17 +76,6 @@ public class VistaPC extends JDialog {
 		lblEstado.setBounds(10, 36, 105, 14);
 		contentPanel.add(lblEstado);
 		
-		/*
-	NumberFormat format = NumberFormat.getInstance();
-    NumberFormatter formatter = new NumberFormatter(format);
-    formatter.setValueClass(Integer.class);
-    formatter.setMinimum(0); //valor mínimo
-    formatter.setMaximum(Integer.MAX_VALUE); //valor máximo
-    formatter.setAllowsInvalid(false);
-    // Si quieres comprobar que sea válido, cada vez que se pulse una tecla
-    formatter.setCommitsOnValidEdit(true);
-    JFormattedTextField field = new JFormattedTextField(formatter);
-		 */
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Integer.class);
@@ -553,5 +541,4 @@ public class VistaPC extends JDialog {
 	public void setSpnLectoraCantidad(JSpinner spnLectoraCantidad) {
 		this.spnLectoraCantidad = spnLectoraCantidad;
 	}
-
 }

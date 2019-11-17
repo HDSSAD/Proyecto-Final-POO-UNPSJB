@@ -64,7 +64,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		if (this.existeIntegranteComputadora(idIntegrante, idComputadora)) {
 			return true;
 		}
-		String consulta = "insert into integrantes_computadoras (idComputadora, idIntegrante) values (?,?)";
+		String consulta = "insert into integrantes_computadoras (idcomputadora, idintegrante) values (?,?)";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
@@ -87,9 +87,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	public List<Computadora> buscarComputadora() {
 		String consulta = "select * from computadoras";
 		ResultSet rs = BD.getInstance().listarEntidades(consulta);
-		System.out.println("Before data to pc list");
 		List<Computadora> ret = this.dataBaseToPcList(rs);
-		System.out.println("end database to pc list");
 		return ret;
 	}
 
@@ -131,15 +129,41 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
-	private Boolean existeIntegranteComputadora(String idIntegrante, String idComputadora) {
+	public Boolean existeIntegranteComputadora(String idIntegrante, String idComputadora) {
 		Boolean ret = false;
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(idIntegrante);
 		parametros.add(idComputadora);
 		String consulta = "select * " + "from integrantes_computadoras "
-				+ "where idIntegrante ilike ? and idComputadora ilike ?";
-		if (BD.getInstance().listarEntidadesParametrizada(consulta, parametros) != null)
-			ret = true;
+				+ "where idintegrante like ? and idcomputadora like ?";
+		try {
+			if (BD.getInstance().listarEntidadesParametrizada(consulta, parametros).next())
+				ret = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public String getIntegranteFromIntPC(String idComputadora) {
+		String ret = "";
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idComputadora);
+		String consulta = "select * from integrantes_computadoras "
+				+ "where idcomputadora ilike ? ";
+		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
+		try {
+			while (rs.next()) {
+				if (ret.isBlank()) {
+					ret = rs.getString("idintegrante");
+				} else {
+					ret += ", " + rs.getString("idintegrante");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ret;
 	}
 

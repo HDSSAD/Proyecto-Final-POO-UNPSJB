@@ -22,6 +22,7 @@ public class CompProcesador extends Componente {
 	public CompProcesador(String[] array) {
 		super(array);
 		this.setGhz(array[3]);
+		this.setNucleos(Integer.valueOf(array[4]));
 	}
 
 	@Override
