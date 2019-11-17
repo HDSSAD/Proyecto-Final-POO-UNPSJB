@@ -1,0 +1,26 @@
+-- Table: public.computadoras
+
+-- DROP TABLE public.computadoras;
+
+CREATE TABLE public.computadoras
+(
+    serialcomputadora integer NOT NULL DEFAULT nextval('"computadoras_serialComputadora_seq"'::regclass),
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    estado character varying COLLATE pg_catalog."default" NOT NULL,
+    placabase character varying COLLATE pg_catalog."default",
+    procesador character varying COLLATE pg_catalog."default",
+    disco character varying COLLATE pg_catalog."default",
+    ram character varying COLLATE pg_catalog."default",
+    lectora character varying COLLATE pg_catalog."default",
+    notas character varying COLLATE pg_catalog."default",
+    CONSTRAINT computadoras_pkey PRIMARY KEY (id, serialcomputadora),
+    CONSTRAINT "computadoras_idComputadora_key" UNIQUE (id)
+
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.computadoras
+    OWNER to postgres;
