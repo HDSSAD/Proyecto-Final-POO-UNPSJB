@@ -31,7 +31,8 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 	public CtrlMainAdmin(CtrlLogin ctrlLogin, String dni) {
 		this.setCtrlLogin(ctrlLogin);
 		this.setDni(dni);
-		this.setIntegrante(this.getCtrlLogin().getIntegrante());
+		this.setIntegrante(new IntegranteDAOImpl());
+		this.setComputadora(new ComputadoraDAOImpl());
 		this.setMainGUI(new VistaMainGUIAdmin(this));
 		this.getMainGUI().setTitle(this.getMainGUI().getTitle() + " - " + this.getIntegrante().getAdminLevel(dni));
 		this.getMainGUI().setVisible(true);
@@ -42,6 +43,29 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		this.getCtrlLogin().getVistaLogin().setVisible(true);
 	}
 
+	private void updateTableComputadoras(List<Computadora> computadoras) {
+		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nro PC", "Estado" }) {
+			private static final long serialVersionUID = 1L;
+			boolean[] columnEditables = new boolean[] { false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};
+		for (Computadora computadora : computadoras) {
+			Object[] row = new Object[2];
+			row[0] = computadora.getIdComputadora();
+			row[1] = computadora.getEstado();
+			modelo.addRow(row);
+		}
+		this.getMainGUI().getTblPC().setModel(modelo);
+		this.getMainGUI().getTblPC().getColumnModel().getColumn(0).setMaxWidth(70);
+		this.getMainGUI().getTblPC().getColumnModel().getColumn(0).setMinWidth(70);
+		this.getMainGUI().getTblPC().getColumnModel().getColumn(0).setResizable(false);
+		this.getMainGUI().getTblPC().getColumnModel().getColumn(1).setResizable(false);
+
+	}
 	private void updateTableIntegrantes(List<Integrante> integrantes) {
 		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {},
 				new String[] { "DNI", "Apellido y Nombre" }) {
@@ -120,6 +144,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
+			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscarPC()) {
 
@@ -128,9 +153,12 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			ctrlPCEditar.getVistaComputadora().setVisible(true);
 			
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
+			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
-
+			List<Computadora> computadora = this.getComputadora().buscarComputadora();
+			if (computadora != null)
+				this.updateTableComputadoras(computadora);
 		}
 	}
 
@@ -155,6 +183,10 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
 		if (integrantes != null)
 			this.updateTableIntegrantes(integrantes);
+		List<Computadora> computadoras;
+		computadoras = this.getComputadora().buscarComputadora();
+		if (computadoras != null) 
+			this.updateTableComputadoras(computadoras);
 	}
 
 	@Override
@@ -216,10 +248,14 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			this.getMainGUI().getTxtCorreo().setText(integrante.getCorreo());
 		} else if (e.getSource() == this.getMainGUI().getTblPC()) {
 			JTable table = this.getMainGUI().getTblPC();
-			Integer idComputadora = Integer.parseInt((table.getValueAt(table.getSelectedRow(), 0).toString()));
+			String idComputadora = table.getValueAt(table.getSelectedRow(), 0).toString();
 			// si el anterior retorna un objeto, un cast a Integer podria ser suficiente
-			Computadora computadora = this.getComputadora().buscarComputadora(idComputadora);
-			this.getMainGUI().getTxtpnDatospc().setText(computadora.toString());
+			System.out.println(Integer.valueOf(idComputadora));
+			Computadora computadora = this.getComputadora().buscarComputadora(Integer.valueOf(idComputadora));
+			if (computadora != null) {
+				this.getMainGUI().getTxtpnDatospc().setText(computadora.toString());
+			}
+			
 		}
 	}
 

@@ -16,12 +16,18 @@ public class CompLectora extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Color: " + this.getColor() + "\n";
+		String ret;
+		if (this.getCantidad() < 1) {
+			ret = "\n Faltante \n";
+		} else {
+			ret = super.toString() + "   Color: " + this.getColor() + "\n";
+		}
+		return ret;
 	}
 
 	@Override
 	public String toSqlArray() {
-		return super.toSqlArray() + this.getColor();
+		return super.toSqlArray() + "," + this.getColor();
 	}
 
 	public String getColor() {

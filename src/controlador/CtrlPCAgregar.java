@@ -36,10 +36,13 @@ public class CtrlPCAgregar implements ActionListener {
 			String estado = this.getVistaComputadora().getCboxComputadoraEstado().getSelectedItem().toString();
 
 			String placaBase = this.getVistaComputadora().getTxtPlacaBase().getText();
+			System.out.println(placaBase);
 			String placaBaseEstado = this.getVistaComputadora().getCboxPlacaBaseEstado().getSelectedItem().toString();
-			Integer placaBaseCantidad = 0;
+			Integer placaBaseCantidad;
 			if (!this.getVistaComputadora().getTxtPlacaBase().getText().isBlank()) {
 				placaBaseCantidad = 1;
+			} else {
+				placaBaseCantidad = 0;
 			}
 
 			String procesador = this.getVistaComputadora().getTxtProcesador().getText();

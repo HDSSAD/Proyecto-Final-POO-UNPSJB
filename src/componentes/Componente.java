@@ -13,21 +13,21 @@ public class Componente {
 		this.setCantidad(cantidad);
 	}
 
-	public Componente (String[] array) {
+	public Componente(String[] array) {
 		super();
 		this.setTipo(array[0]);
 		this.setModelo(array[1]);
 		this.setEstado(array[2]);
 		this.setCantidad(Integer.parseInt(array[3]));
 	}
-	
+
 	public String toString() {
-		return "\nTipo: " + this.getTipo() + "\nModelo: " + this.getModelo() + "\nEstado: "
-				+ this.getEstado() + "\nCantidad: " + this.getCantidad() + "\n";
+		return " - Estado: " + this.getEstado() + "\n   Modelo: " + this.getModelo() + ", Cantidad: "
+				+ this.getCantidad() + "\n";
 	}
 
 	public String toSqlArray() {
-		return this.getTipo() + "," + this.getModelo() + "," + this.getEstado() + "," + this.getCantidad() + ",";
+		return this.getTipo() + "," + this.getModelo() + "," + this.getEstado() + "," + this.getCantidad();
 	}
 
 	public String getTipo() {

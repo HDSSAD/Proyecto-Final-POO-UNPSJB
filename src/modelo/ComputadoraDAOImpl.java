@@ -44,7 +44,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		try {
 			while (rs.next()) {
 				ret.add(new Computadora(rs.getString("id"), rs.getString("estado"),
-						new CompPlacaBase(rs.getString("placaBase").split(",")),
+						new CompPlacaBase(rs.getString("placabase").split(",")),
 						new CompProcesador(rs.getString("procesador").split(",")),
 						new CompDiscoRigido(rs.getString("disco").split(",")),
 						new CompMemoriaRam(rs.getString("ram").split(",")),
@@ -71,7 +71,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	@Override
 	public Boolean agregarComputadora(Computadora computadora) {
 		ArrayList<String> parametros = this.getParamFromPC(computadora);
-		String consulta = "insert into computadoras (id,estado,placaBase,procesador,disco,ram,lectora,notas) values (?,?,?,?,?,?,?,?)";
+		String consulta = "insert into computadoras (id,estado,placabase,procesador,disco,ram,lectora,notas) values (?,?,?,?,?,?,?,?)";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
@@ -87,19 +87,23 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	public List<Computadora> buscarComputadora() {
 		String consulta = "select * from computadoras";
 		ResultSet rs = BD.getInstance().listarEntidades(consulta);
+		System.out.println("Before data to pc list");
 		List<Computadora> ret = this.dataBaseToPcList(rs);
+		System.out.println("end database to pc list");
 		return ret;
 	}
 
 	@Override
 	public Computadora buscarComputadora(Integer idComputadora) {
-		String consulta = "select * from computadoras where id = " + idComputadora.toString();
-		ResultSet rs = BD.getInstance().listarEntidades(consulta);
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(String.valueOf(idComputadora));
+		String consulta = "select * from computadoras where id ilike ? ";
+		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		Computadora computadora = null;
 		try {
 			rs.next();
 			computadora = new Computadora(rs.getString("id"), rs.getString("estado"),
-					new CompPlacaBase(rs.getString("placaBase").split(",")),
+					new CompPlacaBase(rs.getString("placabase").split(",")),
 					new CompProcesador(rs.getString("procesador").split(",")),
 					new CompDiscoRigido(rs.getString("disco").split(",")),
 					new CompMemoriaRam(rs.getString("ram").split(",")),
@@ -122,7 +126,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	public Boolean modificarComputadora(Computadora computadora) {
 		ArrayList<String> parametros = this.getParamFromPC_Update(computadora);
 		String consulta = "update computadoras "
-				+ "set estado = ?, placaBase = ?, procesador = ?, disco = ?, ram = ?, lectora = ?, notas = ?"
+				+ "set estado = ?, placabase = ?, procesador = ?, disco = ?, ram = ?, lectora = ?, notas = ?"
 				+ "where id = ? ";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}

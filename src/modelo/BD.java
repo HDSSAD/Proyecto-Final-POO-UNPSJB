@@ -76,7 +76,6 @@ public class BD {
 			Statement s = conexion.createStatement();
 			rs = s.executeQuery(consulta);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
@@ -93,7 +92,6 @@ public class BD {
 			}
 			rs = s.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;

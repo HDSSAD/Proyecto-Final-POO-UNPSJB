@@ -11,17 +11,23 @@ public class CompMemoriaRam extends Componente {
 
 	public CompMemoriaRam(String[] array) {
 		super(array);
-		this.setCapacidad(Integer.parseInt(array[3]));
+		this.setCapacidad(Integer.parseInt(array[4]));
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "Capacidad: " + this.getCapacidad() + " MB\n";
+		String ret;
+		if (this.getCantidad() < 1) {
+			ret = "\n Faltante \n";
+		} else {
+			ret = super.toString() + "   Capacidad: " + this.getCapacidad() + " MB\n";
+		}
+		return ret;
 	}
 
 	@Override
 	public String toSqlArray() {
-		return super.toSqlArray() + this.getCapacidad();
+		return super.toSqlArray() + "," + this.getCapacidad();
 	}
 
 	public Integer getCapacidad() {

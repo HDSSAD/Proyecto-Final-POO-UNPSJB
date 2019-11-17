@@ -12,7 +12,13 @@ public class CompPlacaBase extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		String ret;
+		if (this.getCantidad() < 1) {
+			ret = "\n Faltante \n";
+		} else {
+			ret = super.toString();
+		}
+		return ret;
 	}
 
 	public String toSqlArray() {

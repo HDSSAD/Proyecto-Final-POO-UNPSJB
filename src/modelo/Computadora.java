@@ -29,9 +29,9 @@ public class Computadora {
 
 	@Override
 	public String toString() {
-		return "Nº Computadora: " + this.getIdComputadora() + "\nEstado: " + this.getEstado() + "\nPlaca Base: "
-				+ this.getPlacaBase().toString() + "\nProcesador: " + this.getProcesador().toString() + "\nDisco: "
-				+ this.getDisco().toString() + "\nMemoria Ram: " + this.getRam().toString() + "\nLectora: "
+		return "Nº Computadora: " + this.getIdComputadora() + "  -  Estado: " + this.getEstado() + "\n \nPlaca Base "
+				+ this.getPlacaBase().toString() + "\nProcesador " + this.getProcesador().toString() + "\nDisco "
+				+ this.getDisco().toString() + "\nMemoria Ram " + this.getRam().toString() + "\nLectora "
 				+ this.getLectora().toString();
 	}
 

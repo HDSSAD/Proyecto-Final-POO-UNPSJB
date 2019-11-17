@@ -11,7 +11,7 @@ public class CompDiscoRigido extends Componente {
 
 	public CompDiscoRigido(String[] array) {
 		super(array);
-		this.setCapacidad(Integer.parseInt(array[3]));
+		this.setCapacidad(Integer.parseInt(array[4]));
 	}
 
 	public Integer getCapacidad() {
@@ -24,10 +24,16 @@ public class CompDiscoRigido extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Capacidad: " + this.getCapacidad() + " GB\n";
+		String ret;
+		if (this.getCantidad() < 1) {
+			ret = "\n Faltante \n";
+		} else {
+			ret = super.toString() + "   Capacidad: " + this.getCapacidad() + " GB\n";
+		}
+		return ret;
 	}
 
 	public String toSqlArray() {
-		return super.toSqlArray() + this.getCapacidad();
+		return super.toSqlArray() + "," + this.getCapacidad();
 	}
 }

@@ -26,12 +26,18 @@ public class CompProcesador extends Componente {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Nucleos: " + this.getNucleos() + "\nVelocidad: " + this.getGhz() + " Ghz\n";
+		String ret;
+		if (this.getCantidad() < 1) {
+			ret = "\n Faltante \n";
+		} else {
+			ret = super.toString() + "   Nucleos: " + this.getNucleos() + ", Velocidad: " + this.getGhz() + " Ghz\n";
+		}
+		return ret;
 	}
 
 	@Override
 	public String toSqlArray() {
-		return super.toSqlArray() + this.getNucleos() + "," + this.getGhz();
+		return super.toSqlArray() + "," + this.getNucleos() + "," + this.getGhz();
 	}
 
 	public String getGhz() {

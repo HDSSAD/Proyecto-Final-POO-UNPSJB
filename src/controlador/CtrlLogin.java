@@ -6,6 +6,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import modelo.BD;
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
@@ -29,7 +31,9 @@ public class CtrlLogin implements ActionListener, WindowListener{
 			ArrayList<String> parametros = new ArrayList<String>();
 			parametros.add(this.getVistaLogin().getTxtUser().getText());
 			parametros.add(String.valueOf(this.getVistaLogin().getPassfContraseña().getPassword()));
+			
 			System.out.println(this.getVistaLogin().getPassfContraseña().getPassword());
+			
 			this.getVistaLogin().getPassfContraseña().setText("");
 			Integrante integrante = this.getIntegrante().loginIntegrante(parametros);
 			parametros = null;
@@ -43,6 +47,8 @@ public class CtrlLogin implements ActionListener, WindowListener{
 				} else if (integrante.getTipo().equals("Integrante")){
 					new CtrlMainIntegrante(this, integrante.getDni());
 				}
+			} else {
+				JOptionPane.showMessageDialog(this.getVistaLogin(), "No se encontro el integrante en la base de datos", "Sistema", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (e.getSource() == this.getVistaLogin().getBtnCancelar()) {
 			this.getVistaLogin().dispose();
