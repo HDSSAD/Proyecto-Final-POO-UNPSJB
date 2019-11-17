@@ -25,6 +25,7 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 		this.setComputadora(new ComputadoraDAOImpl());
 		this.setIntegrante(new IntegranteDAOImpl());
 		this.setParametros(new ArrayList<String>());
+		this.setWhere("");
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 					}
 				}
 			}
-
+			this.getVistaPCBuscar().dispose();
 		} else if (e.getSource() == this.getVistaPCBuscar().getBtnCancelar()) {
 			this.getVistaPCBuscar().dispose();
 		}

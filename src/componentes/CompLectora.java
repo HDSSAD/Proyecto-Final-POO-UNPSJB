@@ -11,7 +11,7 @@ public class CompLectora extends Componente {
 
 	public CompLectora(String[] array) {
 		super(array);
-		this.setColor(array[3]);
+		this.setColor(array[4]);
 	}
 
 	@Override

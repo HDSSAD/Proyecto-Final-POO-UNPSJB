@@ -47,7 +47,7 @@ public class CtrlPCEditar implements ActionListener {
 			Integer procesadorNucleos = (Integer) this.getVistaComputadora().getSpnProcesadorNucleos().getValue();
 			String procesadorGhz = this.getVistaComputadora().getTxtProcesadorGhz().getText();
 
-			String disco = this.getVistaComputadora().getCboxDiscoRigidoEstado().getSelectedItem().toString();
+			String disco = this.getVistaComputadora().getCboxDiscoRigidoTipo().getSelectedItem().toString();
 			String discoEstado = this.getVistaComputadora().getCboxDiscoRigidoEstado().getSelectedItem().toString();
 			Integer discoCantidad = (Integer) this.getVistaComputadora().getSpnDiscoRigidoCantidad().getValue();
 			Integer discoCapacidad = (Integer) this.getVistaComputadora().getSpnDiscoRigidoCapacidad().getValue();

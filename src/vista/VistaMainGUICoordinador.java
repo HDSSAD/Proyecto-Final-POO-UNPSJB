@@ -12,14 +12,15 @@ public class VistaMainGUICoordinador extends VistaMainGUI {
 		this.setCtrlMainGUI(ctrlMainGUI);
 		this.addWindowListener(this.getCtrlMainGUI());
 		this.getMntmCerrarSesion().addActionListener(this.getCtrlMainGUI());
-		this.getMntmIniciarSesion().addActionListener(this.getCtrlMainGUI());
 		this.getTblIntegrantes().addMouseListener(this.getCtrlMainGUI());
+		this.getBtnEliminar().setEnabled(false);
 		this.getBtnEliminar().addActionListener(this.getCtrlMainGUI());
 		this.getBtnAnadir().addActionListener(this.getCtrlMainGUI());
 		this.getBtnModificar().addActionListener(this.getCtrlMainGUI());
 		this.getBtnBuscar().addActionListener(this.getCtrlMainGUI());
 		this.getBtnMostrarTodo().addActionListener(this.getCtrlMainGUI());
 		this.getTblPC().addMouseListener(this.getCtrlMainGUI());
+		this.getBtnEditarPC().setEnabled(false);
 		this.getBtnEliminarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnAñadirPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnEditarPC().addActionListener(this.getCtrlMainGUI());

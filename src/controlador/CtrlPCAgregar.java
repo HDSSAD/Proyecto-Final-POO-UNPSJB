@@ -50,7 +50,7 @@ public class CtrlPCAgregar implements ActionListener {
 			Integer procesadorNucleos = (Integer) this.getVistaComputadora().getSpnProcesadorNucleos().getValue();
 			String procesadorGhz = this.getVistaComputadora().getTxtProcesadorGhz().getText();
 
-			String disco = this.getVistaComputadora().getCboxDiscoRigidoEstado().getSelectedItem().toString();
+			String disco = this.getVistaComputadora().getCboxDiscoRigidoTipo().getSelectedItem().toString();
 			String discoEstado = this.getVistaComputadora().getCboxDiscoRigidoEstado().getSelectedItem().toString();
 			Integer discoCantidad = (Integer) this.getVistaComputadora().getSpnDiscoRigidoCantidad().getValue();
 			Integer discoCapacidad = (Integer) this.getVistaComputadora().getSpnDiscoRigidoCapacidad().getValue();
@@ -108,6 +108,7 @@ public class CtrlPCAgregar implements ActionListener {
 					} else if (!(placaBaseEstado.equals("Correcto") || procesadorEstado.equals("Correcto")
 							|| discoEstado.equals("Correcto") || ramEstado.equals("Correcto")
 							|| lectoraEstado.equals("Correcto"))) {
+						isValid = false;
 						JOptionPane.showMessageDialog(this.getVistaComputadora(),
 								"Los componentes de una computadora marcada como 'Completada' deben estar marcados como 'Correctos'",
 								"Sistema", JOptionPane.ERROR_MESSAGE);

@@ -71,9 +71,11 @@ public class VistaPCBuscar extends JDialog {
 			
 			btnAceptar = new JButton("Aceptar");
 			buttonPane.add(btnAceptar);
+			btnAceptar.addActionListener(this.getCtrlPCBuscar());
 			
 			btnCancelar = new JButton("Cancelar");
 			buttonPane.add(btnCancelar);
+			btnCancelar.addActionListener(this.getCtrlPCBuscar());
 		}
 	}
 

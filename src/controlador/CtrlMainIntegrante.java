@@ -119,7 +119,7 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 			}
 
 		} else if (e.getSource() == this.getMainGUI().getBtnBuscar()) {
-			CtrlBuscarIntegrante ctrlBuscarIntegrante = new CtrlBuscarIntegrante();
+			CtrlIntegranteBuscar ctrlBuscarIntegrante = new CtrlIntegranteBuscar();
 			ctrlBuscarIntegrante.getVistaBuscarIntegrante().setVisible(true);
 			if (!ctrlBuscarIntegrante.getWhere().isBlank()) {
 				List<Integrante> integrantes = this.getIntegrante().buscarIntegrante(ctrlBuscarIntegrante.getWhere(),
