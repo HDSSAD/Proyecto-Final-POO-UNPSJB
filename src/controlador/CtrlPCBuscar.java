@@ -32,8 +32,8 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaPCBuscar().getBtnAceptar()) {
 			String estado = this.getVistaPCBuscar().getCboxEstado().getSelectedItem().toString();
-			String idIntegrante = this.getVistaPCBuscar().getTxtIntegrante().getText();
-			String idComputadora = this.getVistaPCBuscar().getTxtNroComputadora().getText();
+			String idIntegrante = this.getVistaPCBuscar().getTxtIntegrante().getText().replaceAll("\\s", "");
+			String idComputadora = this.getVistaPCBuscar().getTxtNroComputadora().getText().replaceAll("\\s", "");
 
 			if (estado.equals("Pendiente")) {
 				this.getParametros().add(estado);

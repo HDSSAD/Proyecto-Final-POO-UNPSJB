@@ -2,7 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 import modelo.Integrante;
@@ -19,44 +20,61 @@ public class CtrlIntegranteAgregar implements ActionListener {
 		this.setVistaIntegrante(new VistaIntegranteAgregar(this));
 	}
 
+	private Boolean validarFecha(String fecha) {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		formatoFecha.setLenient(false);
+		try {
+			formatoFecha.parse(fecha);
+		} catch (ParseException e) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaIntegrante().getBtnAceptar()) {
-			String dni = this.getVistaIntegrante().getTxtDNI().getText();
+			String dni = this.getVistaIntegrante().getTxtDNI().getText().replaceAll("\\s", "");
 			String contraseña = String.valueOf(this.getVistaIntegrante().getPassfContraseña().getPassword());
-			String apellido = this.getVistaIntegrante().getTxtApellido().getText();
-			String nombre = this.getVistaIntegrante().getTxtNombre().getText();
+			String apellido = this.getVistaIntegrante().getTxtApellido().getText().strip();
+			String nombre = this.getVistaIntegrante().getTxtNombre().getText().strip();
 			String fechaNacimiento = this.getVistaIntegrante().getTxtFechaNacimiento().getText();
-			String direccion = this.getVistaIntegrante().getTxtDireccion().getText();
-			String telefono = this.getVistaIntegrante().getTxtTelefono().getText();
-			String telefono2 = this.getVistaIntegrante().getTxtTelefono2().getText();
-			String correo = this.getVistaIntegrante().getTxtCorreo().getText();
+			String direccion = this.getVistaIntegrante().getTxtDireccion().getText().strip();
+			String telefono = this.getVistaIntegrante().getTxtTelefono().getText().replaceAll("\\s", "");
+			String telefono2 = this.getVistaIntegrante().getTxtTelefono2().getText().replaceAll("\\s", "");
+			String correo = this.getVistaIntegrante().getTxtCorreo().getText().strip();
 			String tipo = this.getVistaIntegrante().getCboxTipoIntegrante().getSelectedItem().toString();
 
 			Boolean isValid = !(dni.isBlank() || contraseña.isBlank() || apellido.isBlank() || nombre.isBlank()
-					|| fechaNacimiento.isBlank() || direccion.isBlank() || telefono.isBlank());
+					|| !this.validarFecha(fechaNacimiento) || direccion.isBlank() || telefono.isBlank());
+
 			if (isValid) {
-				if (contraseña.equals(
-						String.valueOf(this.getVistaIntegrante().getPassfContraseñaConfirmar().getPassword()))) {
-					Integrante integrante = new Integrante(dni, contraseña, apellido, nombre, fechaNacimiento,
-							direccion, telefono, telefono2, correo, tipo);
-					if (this.getIntegrante().agregarIntegrante(integrante)) {
-						JOptionPane.showMessageDialog(this.getVistaIntegrante(), 
-								"Integrante añadido correctamente",
-								"Sistema", JOptionPane.INFORMATION_MESSAGE);
-						this.getVistaIntegrante().dispose();
+				if (this.getIntegrante().buscarIntegrante(dni) == null) {
+					if (contraseña.equals(
+							String.valueOf(this.getVistaIntegrante().getPassfContraseñaConfirmar().getPassword()))) {
+						Integrante integrante = new Integrante(dni, contraseña, apellido, nombre, fechaNacimiento,
+								direccion, telefono, telefono2, correo, tipo);
+						if (this.getIntegrante().agregarIntegrante(integrante)) {
+							JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Integrante añadido correctamente",
+									"Sistema", JOptionPane.INFORMATION_MESSAGE);
+							this.getVistaIntegrante().dispose();
+						} else {
+							JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo añadir el Integrante",
+									"Sistema", JOptionPane.ERROR_MESSAGE);
+						}
 					} else {
-						JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo añadir el Integrante",
+						JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Las contraseñas no coinciden",
 								"Sistema", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Las contraseñas no coinciden", "Sistema",
+					JOptionPane.showMessageDialog(this.getVistaIntegrante(),
+							"El integrante con DNI = " + dni + " ya se encuentra en la base de datos", "Sistema",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			} else {
 				JOptionPane.showMessageDialog(this.getVistaIntegrante(),
-						"Se deben completar los campos marcados con (*)", "Sistema", JOptionPane.ERROR_MESSAGE);
+						"Uno de los campos requeridos (*) no se llenado correctamente", "Sistema", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if (e.getSource() == this.getVistaIntegrante().getBtnCancelar()) {

@@ -30,16 +30,9 @@ public class CtrlLogin implements ActionListener, WindowListener{
 			ArrayList<String> parametros = new ArrayList<String>();
 			parametros.add(this.getVistaLogin().getTxtUser().getText());
 			parametros.add(String.valueOf(this.getVistaLogin().getPassfContraseña().getPassword()));
-			
-			System.out.println(this.getVistaLogin().getPassfContraseña().getPassword());
-			// Esto esta aqui para revisar la conexion con la base de datos
-			// Solo durante el proceso de programacion
-			// Retirar al terminar
-			
 			this.getVistaLogin().getPassfContraseña().setText("");
 			Integrante integrante = this.getIntegrante().loginIntegrante(parametros);
 			parametros = null;
-			System.out.println(integrante);
 			if (integrante != null) {
 				this.getVistaLogin().setVisible(false);
 				if (integrante.getTipo().equals("Administrador")) {

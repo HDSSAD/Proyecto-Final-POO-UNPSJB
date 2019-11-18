@@ -10,6 +10,7 @@ public interface ComputadoraDAO {
 	public List<Computadora> buscarComputadora();
 	public Computadora buscarComputadora(Integer idComputadora);
 	public Boolean borrarComputadora(Integer idComputadora);
+	public Boolean borrarComputadoraIntegrante(String idIntegrante, String idComputadora);
 	public Boolean modificarComputadora(Computadora computadora);
 	public Boolean agregarIntegranteComputadora(String idIntegrante, String idComputadora);
 	

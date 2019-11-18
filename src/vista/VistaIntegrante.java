@@ -11,17 +11,17 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import enumTypes.TipoIntegranteAdmin;
 import javax.swing.JFormattedTextField;
 
-
 public class VistaIntegrante extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
+
 	private ArrayList<JTextField> arrayTxtField = new ArrayList<JTextField>();
 	private JTextField txtDNI;
 	private JTextField txtApellido;
@@ -36,7 +36,7 @@ public class VistaIntegrante extends JDialog {
 	private JPasswordField passfContraseña;
 	private JComboBox cboxTipoIntegrante;
 	private JFormattedTextField txtFechaNacimiento;
-	
+
 	public VistaIntegrante() {
 		this.setModal(true);
 		setBounds(100, 100, 318, 390);
@@ -86,7 +86,7 @@ public class VistaIntegrante extends JDialog {
 		JLabel lblCorreo = new JLabel("Correo");
 		lblCorreo.setBounds(12, 275, 122, 14);
 		panel.add(lblCorreo);
-		
+
 		cboxTipoIntegrante = new JComboBox();
 		cboxTipoIntegrante.setModel(new DefaultComboBoxModel(TipoIntegranteAdmin.values()));
 		cboxTipoIntegrante.setBounds(141, 8, 130, 20);
@@ -112,15 +112,16 @@ public class VistaIntegrante extends JDialog {
 
 		MaskFormatter mask = null;
 		try {
-			mask = new MaskFormatter("####/##/##");
+			mask = new MaskFormatter("####-##-##");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
 		txtFechaNacimiento = new JFormattedTextField(mask);
 		txtFechaNacimiento.setBounds(141, 168, 130, 20);
 		panel.add(txtFechaNacimiento);
 		arrayTxtField.add(txtFechaNacimiento);
-		
+
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(141, 194, 130, 20);
@@ -145,22 +146,21 @@ public class VistaIntegrante extends JDialog {
 		panel.add(txtCorreo);
 		arrayTxtField.add(txtCorreo);
 
-		JLabel lblContraseña = new JLabel("Contrase\u00F1a");
+		JLabel lblContraseña = new JLabel("Contrase\u00F1a (*)");
 		lblContraseña.setBounds(12, 63, 122, 16);
 		panel.add(lblContraseña);
 
 		passfContraseñaConfirmar = new JPasswordField();
 		passfContraseñaConfirmar.setBounds(141, 89, 130, 20);
 		panel.add(passfContraseñaConfirmar);
-		
-				JLabel lblConfirmar = new JLabel("Confirmar");
-				lblConfirmar.setBounds(22, 91, 112, 16);
-				panel.add(lblConfirmar);
+
+		JLabel lblConfirmar = new JLabel("Confirmar (*)");
+		lblConfirmar.setBounds(22, 91, 112, 16);
+		panel.add(lblConfirmar);
 
 		passfContraseña = new JPasswordField();
 		passfContraseña.setBounds(141, 61, 129, 20);
 		panel.add(passfContraseña);
-		
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(203, 320, 89, 23);
@@ -186,7 +186,6 @@ public class VistaIntegrante extends JDialog {
 	public void setTxtNombre(JTextField txtNombre) {
 		this.txtNombre = txtNombre;
 	}
-
 
 	public JTextField getTxtDNI() {
 		return txtDNI;

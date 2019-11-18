@@ -167,4 +167,15 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		return ret;
 	}
 
+	@Override
+	public Boolean borrarComputadoraIntegrante(String idIntegrante, String idComputadora) {
+		Boolean ret = false;
+		String consulta = "delete from integrantes_computadoras "
+				+ "where idintegrante like ? and idcomputadora like ?";
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idIntegrante);
+		ret = BD.getInstance().manipularEntidades(consulta, parametros);
+		return ret;
+	}
+
 }

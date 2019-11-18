@@ -316,17 +316,17 @@ public class VistaPC extends JDialog {
 		panelNotas.add(txtpnNotasPC);
 		
 		txtIdsIntegrantes = new JTextField();
-		txtIdsIntegrantes.setBounds(370, 8, 128, 20);
+		txtIdsIntegrantes.setBounds(249, 33, 249, 20);
 		contentPanel.add(txtIdsIntegrantes);
 		txtIdsIntegrantes.setColumns(10);
 		
 		JLabel lblIdsIntegrantes = new JLabel("IDs Integrantes");
-		lblIdsIntegrantes.setBounds(247, 10, 105, 16);
+		lblIdsIntegrantes.setBounds(249, 10, 105, 16);
 		contentPanel.add(lblIdsIntegrantes);
 		
-		JLabel lblIdsSeparadosPor = new JLabel("IDs separados por una coma \",\"");
+		JLabel lblIdsSeparadosPor = new JLabel("separados por coma \",\"");
 		lblIdsSeparadosPor.setForeground(SystemColor.controlDkShadow);
-		lblIdsSeparadosPor.setBounds(257, 35, 241, 16);
+		lblIdsSeparadosPor.setBounds(362, 10, 136, 16);
 		contentPanel.add(lblIdsSeparadosPor);
 		{	// Botones
 			btnAceptar = new JButton("Aceptar");

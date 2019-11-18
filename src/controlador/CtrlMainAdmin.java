@@ -99,6 +99,9 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminar()) {
 			String dni = this.getMainGUI().getTxtDNI().getText();
 			if (!dni.isBlank()) {
+				if (this.getComputadora().existeIntegranteComputadora(dni, "%")) {
+					this.getComputadora().borrarComputadoraIntegrante(dni, "%");
+				}
 				this.getIntegrante().borrarIntegrante(dni);
 				List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
 				this.updateTableIntegrantes(integrantes);
@@ -114,6 +117,8 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 					ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)
 							.setText(this.getMainGUI().getArrayTextField().get(i).getText());
 				}
+				ctrlEditarIntegrante.getVistaIntegrante().getTxtFechaNacimiento()
+						.setValue(this.getMainGUI().getTxtFechaNacimiento().getText());
 				ctrlEditarIntegrante.getVistaIntegrante().getCboxTipoIntegrante().setEditable(true);
 				ctrlEditarIntegrante.getVistaIntegrante().getCboxTipoIntegrante()
 						.setSelectedItem(this.getMainGUI().getTxtTipoIntegrante().getText());
@@ -163,44 +168,63 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 						.getTblPC().getValueAt(this.getMainGUI().getTblPC().getSelectedRow(), 0).toString())));
 				if (computadora != null) {
 					ctrlPCEditar.getVistaComputadora().getTxtIdComputadora().setText(computadora.getIdComputadora());
-					ctrlPCEditar.getVistaComputadora().getTxtPlacaBase().setText(computadora.getPlacaBase().getModelo());
+					ctrlPCEditar.getVistaComputadora().getTxtIdComputadora().setEditable(false);
+					ctrlPCEditar.getVistaComputadora().getTxtPlacaBase()
+							.setText(computadora.getPlacaBase().getModelo());
 					ctrlPCEditar.getVistaComputadora().getTxtpnNotasPC().setText(computadora.getNotas());
-					ctrlPCEditar.getVistaComputadora().getTxtProcesador().setText(computadora.getProcesador().getModelo());
-					ctrlPCEditar.getVistaComputadora().getTxtProcesadorGhz().setText(computadora.getProcesador().getGhz());
+					ctrlPCEditar.getVistaComputadora().getTxtProcesador()
+							.setText(computadora.getProcesador().getModelo());
+					ctrlPCEditar.getVistaComputadora().getTxtProcesadorGhz()
+							.setText(computadora.getProcesador().getGhz());
 					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoEstado().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoEstado().setSelectedItem(computadora.getDisco().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoEstado()
+							.setSelectedItem(computadora.getDisco().getEstado());
 					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoEstado().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoTipo().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoTipo().setSelectedItem(computadora.getDisco().getModelo());
+					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoTipo()
+							.setSelectedItem(computadora.getDisco().getModelo());
 					ctrlPCEditar.getVistaComputadora().getCboxDiscoRigidoTipo().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraColor().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxLectoraColor().setSelectedItem(computadora.getLectora().getColor());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraColor()
+							.setSelectedItem(computadora.getLectora().getColor());
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraColor().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraEstado().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxLectoraEstado().setSelectedItem(computadora.getLectora().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraEstado()
+							.setSelectedItem(computadora.getLectora().getEstado());
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraEstado().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraTipo().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxLectoraTipo().setSelectedItem(computadora.getLectora().getModelo());
+					ctrlPCEditar.getVistaComputadora().getCboxLectoraTipo()
+							.setSelectedItem(computadora.getLectora().getModelo());
 					ctrlPCEditar.getVistaComputadora().getCboxLectoraTipo().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxPlacaBaseEstado().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxPlacaBaseEstado().setSelectedItem(computadora.getPlacaBase().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxPlacaBaseEstado()
+							.setSelectedItem(computadora.getPlacaBase().getEstado());
 					ctrlPCEditar.getVistaComputadora().getCboxPlacaBaseEstado().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxProcesadorEstado().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxProcesadorEstado().setSelectedItem(computadora.getProcesador().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxProcesadorEstado()
+							.setSelectedItem(computadora.getProcesador().getEstado());
 					ctrlPCEditar.getVistaComputadora().getCboxProcesadorEstado().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxRamEstado().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxRamEstado().setSelectedItem(computadora.getRam().getEstado());
+					ctrlPCEditar.getVistaComputadora().getCboxRamEstado()
+							.setSelectedItem(computadora.getRam().getEstado());
 					ctrlPCEditar.getVistaComputadora().getCboxRamEstado().setEditable(false);
 					ctrlPCEditar.getVistaComputadora().getCboxRamTipo().setEditable(true);
-					ctrlPCEditar.getVistaComputadora().getCboxRamTipo().setSelectedItem(computadora.getRam().getModelo());
+					ctrlPCEditar.getVistaComputadora().getCboxRamTipo()
+							.setSelectedItem(computadora.getRam().getModelo());
 					ctrlPCEditar.getVistaComputadora().getCboxRamTipo().setEditable(false);
-					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCantidad().setValue(computadora.getDisco().getCantidad());
-					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCapacidad().setValue(computadora.getDisco().getCapacidad());
-					ctrlPCEditar.getVistaComputadora().getSpnLectoraCantidad().setValue(computadora.getLectora().getCantidad());
-					ctrlPCEditar.getVistaComputadora().getSpnProcesadorCantidad().setValue(computadora.getProcesador().getCantidad());
-					ctrlPCEditar.getVistaComputadora().getSpnProcesadorNucleos().setValue(computadora.getProcesador().getNucleos());
+					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCantidad()
+							.setValue(computadora.getDisco().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnDiscoRigidoCapacidad()
+							.setValue(computadora.getDisco().getCapacidad());
+					ctrlPCEditar.getVistaComputadora().getSpnLectoraCantidad()
+							.setValue(computadora.getLectora().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnProcesadorCantidad()
+							.setValue(computadora.getProcesador().getCantidad());
+					ctrlPCEditar.getVistaComputadora().getSpnProcesadorNucleos()
+							.setValue(computadora.getProcesador().getNucleos());
 					ctrlPCEditar.getVistaComputadora().getSpnRamCantidad().setValue(computadora.getRam().getCantidad());
-					ctrlPCEditar.getVistaComputadora().getSpnRamCapacidad().setValue(computadora.getRam().getCapacidad());
+					ctrlPCEditar.getVistaComputadora().getSpnRamCapacidad()
+							.setValue(computadora.getRam().getCapacidad());
 
 					String participantes = this.getComputadora().getIntegranteFromIntPC(computadora.getIdComputadora());
 					if (!participantes.isBlank()) {
@@ -222,7 +246,19 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			}
 
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
-			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
+			String idComputadora = this.getMainGUI().getTblPC()
+					.getValueAt(this.getMainGUI().getTblPC().getSelectedRow(), 0).toString();
+			if (this.getComputadora().existeIntegranteComputadora("%", idComputadora)) {
+				this.getComputadora().borrarComputadoraIntegrante("%", idComputadora);
+			}
+			if (this.getComputadora().borrarComputadora(Integer.valueOf(idComputadora))) {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "Computadora eliminada correctamente", "Sistema",
+						JOptionPane.INFORMATION_MESSAGE);
+				this.updateTableComputadoras(this.getComputadora().buscarComputadora());
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "La computadora no se pudo eliminar", "Sistema",
+						JOptionPane.ERROR_MESSAGE);
+			}
 
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();

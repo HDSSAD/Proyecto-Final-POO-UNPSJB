@@ -27,11 +27,11 @@ public class CtrlIntegranteBuscar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaBuscarIntegrante().getBtnAceptar()) {
 			String tipo = this.getVistaBuscarIntegrante().getCboxTipo().getSelectedItem().toString();
-			String dni = this.getVistaBuscarIntegrante().getTxtDni().getText();
-			String apellido = this.getVistaBuscarIntegrante().getTxtApellido().getText();
-			String nombre = this.getVistaBuscarIntegrante().getTxtNombre().getText();
-			String telefono = this.getVistaBuscarIntegrante().getTxtTelefono().getText();
-			String correo = this.getVistaBuscarIntegrante().getTxtCorreo().getText();
+			String dni = this.getVistaBuscarIntegrante().getTxtDni().getText().replaceAll("\\s", "").replaceAll(".", "");
+			String apellido = this.getVistaBuscarIntegrante().getTxtApellido().getText().strip();
+			String nombre = this.getVistaBuscarIntegrante().getTxtNombre().getText().strip();
+			String telefono = this.getVistaBuscarIntegrante().getTxtTelefono().getText().replaceAll("\\s", "");
+			String correo = this.getVistaBuscarIntegrante().getTxtCorreo().getText().strip();
 			if (!dni.isBlank() || !apellido.isBlank() || !nombre.isBlank() || !telefono.isBlank()
 					|| !dni.isBlank()) {
 				if (!tipo.equals("Sin seleccion")) {
@@ -54,9 +54,9 @@ public class CtrlIntegranteBuscar implements ActionListener {
 				}
 				if (!nombre.isBlank()) {
 					if (this.getWhere().isBlank()) {
-						this.setWhere("where nombre ilike %?%");
+						this.setWhere("where nombre ilike ?");
 					} else
-						this.setWhere(" and nombre ilike %?%");
+						this.setWhere(" and nombre ilike ?");
 					this.getParametros().add(nombre);
 				}
 				if (!telefono.isBlank()) {
