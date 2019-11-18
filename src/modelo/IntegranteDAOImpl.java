@@ -101,7 +101,6 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 	@Override
 	public Boolean modificarIntegrante(Integrante integrante) {
 		ArrayList<String> parametros = new ArrayList<String>();
-//		parametros.add(integrante.getDni());
 		parametros.add(integrante.getApellido());
 		parametros.add(integrante.getNombre());
 		parametros.add(integrante.getFechaNacimiento());

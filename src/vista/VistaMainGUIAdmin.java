@@ -12,6 +12,7 @@ public class VistaMainGUIAdmin extends VistaMainGUI {
 		this.setCtrlMainGUI(ctrlMainGUI);
 		this.addWindowListener(this.getCtrlMainGUI());
 		this.getMntmCerrarSesion().addActionListener(this.getCtrlMainGUI());
+		this.getMntmCambiarContraseña().addActionListener(getCtrlMainGUI());
 		this.getTblIntegrantes().addMouseListener(this.getCtrlMainGUI());
 		this.getBtnEliminar().addActionListener(this.getCtrlMainGUI());
 		this.getBtnAnadir().addActionListener(this.getCtrlMainGUI());

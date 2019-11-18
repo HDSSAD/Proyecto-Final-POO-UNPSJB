@@ -24,23 +24,13 @@ public class VistaLogin extends JFrame {
 
 	public VistaLogin(CtrlLogin ctrlLogin2) {
 		this.setCtrlLogin(ctrlLogin2);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 250, 140);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 254, 135);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		this.setLocationRelativeTo(null);
-
-		btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(44, 65, 82, 26);
-		btnIngresar.addActionListener(this.getCtrlLogin());
-		contentPanel.add(btnIngresar);
-
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(138, 65, 86, 26);
-		btnCancelar.addActionListener(this.getCtrlLogin());
-		contentPanel.add(btnCancelar);
 
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setBounds(10, 11, 75, 14);
@@ -54,12 +44,21 @@ public class VistaLogin extends JFrame {
 		txtUser.setBounds(95, 8, 129, 20);
 		contentPanel.add(txtUser);
 		txtUser.setColumns(10);
-		
-		this.getRootPane().setDefaultButton(btnIngresar);
-		
+
 		passfContraseña = new JPasswordField();
 		passfContraseña.setBounds(95, 33, 129, 20);
 		contentPanel.add(passfContraseña);
+
+		btnIngresar = new JButton("Ingresar");
+		btnIngresar.setBounds(64, 64, 75, 23);
+		contentPanel.add(btnIngresar);
+		btnIngresar.addActionListener(this.getCtrlLogin());
+		this.getRootPane().setDefaultButton(btnIngresar);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(149, 64, 75, 23);
+		contentPanel.add(btnCancelar);
+		btnCancelar.addActionListener(this.getCtrlLogin());
 	}
 
 	public CtrlLogin getCtrlLogin() {
@@ -84,5 +83,21 @@ public class VistaLogin extends JFrame {
 
 	public JPasswordField getPassfContraseña() {
 		return passfContraseña;
+	}
+
+	public void setTxtUser(JTextField txtUser) {
+		this.txtUser = txtUser;
+	}
+
+	public void setBtnIngresar(JButton btnIngresar) {
+		this.btnIngresar = btnIngresar;
+	}
+
+	public void setBtnCancelar(JButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
+	}
+
+	public void setPassfContraseña(JPasswordField passfContraseña) {
+		this.passfContraseña = passfContraseña;
 	}
 }

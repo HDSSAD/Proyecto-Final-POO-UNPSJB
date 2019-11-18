@@ -146,6 +146,9 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			if (result == JOptionPane.YES_OPTION) {
 				this.openDBLoginWindow();
 			}
+		} else if (e.getSource() == this.getMainGUI().getMntmCambiarContraseña()) {
+			CtrlContraseña ctrlContraseña = new CtrlContraseña(this.getDni());
+			ctrlContraseña.getVistaContraseña().setVisible(true);
 
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();

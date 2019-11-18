@@ -11,6 +11,8 @@ public class VistaIntegranteEditar extends VistaIntegrante {
 	public VistaIntegranteEditar(CtrlIntegranteEditar ctrlEditarIntegrante) {
 		super();
 		this.getTxtDNI().setEnabled(false);
+		this.getPassfContraseña().setEnabled(false);
+		this.getPassfContraseñaConfirmar().setEnabled(false);
 		this.setCtrlEditarIntegrante(ctrlEditarIntegrante);
 		this.getBtnAceptar().addActionListener(this.getCtrlEditarIntegrante());
 		this.getBtnCancelar().addActionListener(this.getCtrlEditarIntegrante());

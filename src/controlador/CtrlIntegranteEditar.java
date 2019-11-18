@@ -47,7 +47,7 @@ public class CtrlIntegranteEditar implements ActionListener {
 			String tipo = this.getVistaIntegrante().getCboxTipoIntegrante().getSelectedItem().toString();
 
 			Boolean isValid = !(dni.isBlank() || contraseña.isBlank() || apellido.isBlank() || nombre.isBlank()
-					|| fechaNacimiento.isBlank() || direccion.isBlank() || telefono.isBlank());
+					|| !this.validarFecha(fechaNacimiento) || direccion.isBlank() || telefono.isBlank());
 			if (isValid) {
 				if (this.getIntegrante().buscarIntegrante(dni) != null) {
 					if (contraseña.equals(

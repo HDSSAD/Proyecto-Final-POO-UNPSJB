@@ -48,6 +48,7 @@ public class VistaMainGUI extends JFrame {
 	private JButton btnEditarPC;
 	private JButton btnAñadirPC;
 	private JButton btnEliminarPC;
+	private JMenuItem mntmCambiarContraseña;
 	
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
@@ -68,6 +69,12 @@ public class VistaMainGUI extends JFrame {
 
 		mntmCerrarSesion = new JMenuItem("Cerrar sesion");
 		mnSesion.add(mntmCerrarSesion);
+		
+		JMenu mnUsuario = new JMenu("Usuario");
+		menuBar.add(mnUsuario);
+		
+		mntmCambiarContraseña = new JMenuItem("Cambiar Contrase\u00F1a");
+		mnUsuario.add(mntmCambiarContraseña);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 33, 664, 417);
@@ -417,4 +424,63 @@ public class VistaMainGUI extends JFrame {
 		return btnEliminarPC;
 	}
 
+	public JMenuItem getMntmCambiarContraseña() {
+		return mntmCambiarContraseña;
+	}
+
+	public void setMntmCambiarContraseña(JMenuItem mntmCambiarContraseña) {
+		this.mntmCambiarContraseña = mntmCambiarContraseña;
+	}
+
+	public void setBtnModificar(JButton btnModificar) {
+		this.btnModificar = btnModificar;
+	}
+
+	public void setBtnAnadir(JButton btnAnadir) {
+		this.btnAnadir = btnAnadir;
+	}
+
+	public void setBtnEliminar(JButton btnEliminar) {
+		this.btnEliminar = btnEliminar;
+	}
+
+	public void setBtnBuscar(JButton btnBuscar) {
+		this.btnBuscar = btnBuscar;
+	}
+
+	public void setBtnMostrarTodo(JButton btnMostrarTodo) {
+		this.btnMostrarTodo = btnMostrarTodo;
+	}
+
+	public void setMntmCerrarSesion(JMenuItem mntmCerrarSesion) {
+		this.mntmCerrarSesion = mntmCerrarSesion;
+	}
+
+	public void setTblPC(JTable tblPC) {
+		this.tblPC = tblPC;
+	}
+
+	public void setTxtpnDatospc(JTextPane txtpnDatospc) {
+		this.txtpnDatospc = txtpnDatospc;
+	}
+
+	public void setBtnBuscarPC(JButton btnBuscarPC) {
+		this.btnBuscarPC = btnBuscarPC;
+	}
+
+	public void setBtnMostrarTodoPC(JButton btnMostrarTodoPC) {
+		this.btnMostrarTodoPC = btnMostrarTodoPC;
+	}
+
+	public void setBtnEditarPC(JButton btnEditarPC) {
+		this.btnEditarPC = btnEditarPC;
+	}
+
+	public void setBtnAñadirPC(JButton btnAñadirPC) {
+		this.btnAñadirPC = btnAñadirPC;
+	}
+
+	public void setBtnEliminarPC(JButton btnEliminarPC) {
+		this.btnEliminarPC = btnEliminarPC;
+	}
 }

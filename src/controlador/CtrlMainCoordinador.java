@@ -144,6 +144,10 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 			if (result == JOptionPane.YES_OPTION) {
 				this.openDBLoginWindow();
 			}
+		} else if (e.getSource() == this.getMainGUI().getMntmCambiarContraseña()) {
+			CtrlContraseña ctrlContraseña = new CtrlContraseña(this.getDni());
+			ctrlContraseña.getVistaContraseña().setVisible(true);
+			
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
