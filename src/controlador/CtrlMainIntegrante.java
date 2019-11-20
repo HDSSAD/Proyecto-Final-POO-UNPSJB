@@ -62,7 +62,7 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 		this.getMainGUI().getTblPC().getColumnModel().getColumn(0).setMinWidth(70);
 		this.getMainGUI().getTblPC().getColumnModel().getColumn(0).setResizable(false);
 		this.getMainGUI().getTblPC().getColumnModel().getColumn(1).setResizable(false);
-	
+
 	}
 
 	private void updateTableIntegrantes(List<Integrante> integrantes) {
@@ -90,17 +90,7 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.getMainGUI().getBtnAnadir()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Integrante' no tiene permiso de agregar usuarios", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
-
-		} else if (e.getSource() == this.getMainGUI().getBtnEliminar()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Integrante' no tiene permiso de eliminar usuarios", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
-
-		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
+		if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
 				if (this.getDni().equals(this.getMainGUI().getTxtDNI().getText())) {
 					CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
@@ -146,9 +136,12 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 		} else if (e.getSource() == this.getMainGUI().getMntmCambiarContraseña()) {
 			CtrlContraseña ctrlContraseña = new CtrlContraseña(this.getDni());
 			ctrlContraseña.getVistaContraseña().setVisible(true);
-			
+
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora()
+					.setText(String.valueOf(Integer.parseInt(this.getComputadora().obtenerUltimoNroPC()) + 1));
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora().setEnabled(false);
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
@@ -244,11 +237,6 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
-		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Integrante' no tiene permiso de elimar registros de Computadoras", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();
 			if (computadora != null)

@@ -2,7 +2,7 @@ package vista;
 
 import controlador.CtrlIntegranteEditar;
 
-public class VistaIntegranteEditar extends VistaIntegrante {
+public class VistaIntegranteEditar extends VistaIntegrante2 {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -11,8 +11,8 @@ public class VistaIntegranteEditar extends VistaIntegrante {
 	public VistaIntegranteEditar(CtrlIntegranteEditar ctrlEditarIntegrante) {
 		super();
 		this.getTxtDNI().setEnabled(false);
-		this.getPassfContraseña().setEnabled(false);
-		this.getPassfContraseñaConfirmar().setEnabled(false);
+//		this.getPassfContraseña().setEnabled(false);
+//		this.getPassfContraseñaConfirmar().setEnabled(false);
 		this.setCtrlEditarIntegrante(ctrlEditarIntegrante);
 		this.getBtnAceptar().addActionListener(this.getCtrlEditarIntegrante());
 		this.getBtnCancelar().addActionListener(this.getCtrlEditarIntegrante());

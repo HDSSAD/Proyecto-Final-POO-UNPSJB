@@ -57,6 +57,25 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	}
 
 	@Override
+	public String obtenerUltimoNroPC() {
+		String ret = null;
+		String consulta = "select max(id) from computadoras";
+		ResultSet rs = BD.getInstance().listarEntidades(consulta);
+		try {
+			if (rs.next()) {
+				ret = rs.getString("max");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (ret == null) {
+			ret = "0";
+		}
+		return ret;
+	}
+
+	@Override
 	public Boolean agregarIntegranteComputadora(String idIntegrante, String idComputadora) {
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(idComputadora);
@@ -78,6 +97,8 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	@Override
 	public List<Computadora> buscarComputadora(String where, ArrayList<String> parametros) {
 		String consulta = "select * from computadoras " + where;
+		// pasar como parametro el where puede no ser algo agradable
+		// probablemente deba cambiarse por solo un string consulta y el where pasarlo al array de parametros
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		List<Computadora> ret = this.dataBaseToPcList(rs);
 		return ret;
@@ -95,17 +116,18 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	public Computadora buscarComputadora(Integer idComputadora) {
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(String.valueOf(idComputadora));
-		String consulta = "select * from computadoras where id ilike ? ";
+		String consulta = "select * from computadoras where id like ? ";
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		Computadora computadora = null;
 		try {
-			rs.next();
-			computadora = new Computadora(rs.getString("id"), rs.getString("estado"),
-					new CompPlacaBase(rs.getString("placabase").split(",")),
-					new CompProcesador(rs.getString("procesador").split(",")),
-					new CompDiscoRigido(rs.getString("disco").split(",")),
-					new CompMemoriaRam(rs.getString("ram").split(",")),
-					new CompLectora(rs.getString("lectora").split(",")), rs.getString("notas"));
+			if (rs.next()) {
+				computadora = new Computadora(rs.getString("id"), rs.getString("estado"),
+						new CompPlacaBase(rs.getString("placabase").split(",")),
+						new CompProcesador(rs.getString("procesador").split(",")),
+						new CompDiscoRigido(rs.getString("disco").split(",")),
+						new CompMemoriaRam(rs.getString("ram").split(",")),
+						new CompLectora(rs.getString("lectora").split(",")), rs.getString("notas"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -144,13 +166,12 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		}
 		return ret;
 	}
-	
+
 	public String getIntegranteFromIntPC(String idComputadora) {
 		String ret = "";
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(idComputadora);
-		String consulta = "select * from integrantes_computadoras "
-				+ "where idcomputadora ilike ? ";
+		String consulta = "select * from integrantes_computadoras " + "where idcomputadora ilike ? ";
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		try {
 			while (rs.next()) {

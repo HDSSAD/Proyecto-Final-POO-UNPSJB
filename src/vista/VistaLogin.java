@@ -50,13 +50,13 @@ public class VistaLogin extends JFrame {
 		contentPanel.add(passfContraseña);
 
 		btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(64, 64, 75, 23);
+		btnIngresar.setBounds(40, 64, 86, 23);
 		contentPanel.add(btnIngresar);
 		btnIngresar.addActionListener(this.getCtrlLogin());
 		this.getRootPane().setDefaultButton(btnIngresar);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(149, 64, 75, 23);
+		btnCancelar.setBounds(138, 64, 86, 23);
 		contentPanel.add(btnCancelar);
 		btnCancelar.addActionListener(this.getCtrlLogin());
 	}

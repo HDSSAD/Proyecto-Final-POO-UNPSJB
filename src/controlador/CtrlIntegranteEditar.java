@@ -36,7 +36,6 @@ public class CtrlIntegranteEditar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaIntegrante().getBtnAceptar()) {
 			String dni = this.getVistaIntegrante().getTxtDNI().getText();
-			String contraseña = String.valueOf(this.getVistaIntegrante().getPassfContraseña().getPassword());
 			String apellido = this.getVistaIntegrante().getTxtApellido().getText();
 			String nombre = this.getVistaIntegrante().getTxtNombre().getText();
 			String fechaNacimiento = this.getVistaIntegrante().getTxtFechaNacimiento().getText();
@@ -46,25 +45,19 @@ public class CtrlIntegranteEditar implements ActionListener {
 			String correo = this.getVistaIntegrante().getTxtCorreo().getText();
 			String tipo = this.getVistaIntegrante().getCboxTipoIntegrante().getSelectedItem().toString();
 
-			Boolean isValid = !(dni.isBlank() || contraseña.isBlank() || apellido.isBlank() || nombre.isBlank()
+			Boolean isValid = !(dni.isBlank() || apellido.isBlank() || nombre.isBlank()
 					|| !this.validarFecha(fechaNacimiento) || direccion.isBlank() || telefono.isBlank());
 			if (isValid) {
 				if (this.getIntegrante().buscarIntegrante(dni) != null) {
-					if (contraseña.equals(
-							String.valueOf(this.getVistaIntegrante().getPassfContraseñaConfirmar().getPassword()))) {
-						Integrante integrante = new Integrante(dni, contraseña, apellido, nombre, fechaNacimiento,
-								direccion, telefono, telefono2, correo, tipo);
-						if (this.getIntegrante().modificarIntegrante(integrante)) {
-							JOptionPane.showMessageDialog(this.getVistaIntegrante(),
-									"Informacion de integrante modificada correctamente", "Sistema",
-									JOptionPane.INFORMATION_MESSAGE);
-							this.getVistaIntegrante().dispose();
-						} else {
-							JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo editar el Integrante",
-									"Sistema", JOptionPane.ERROR_MESSAGE);
-						}
+					Integrante integrante = new Integrante(dni, "", apellido, nombre, fechaNacimiento,
+							direccion, telefono, telefono2, correo, tipo);
+					if (this.getIntegrante().modificarIntegranteNoPass(integrante)) {
+						JOptionPane.showMessageDialog(this.getVistaIntegrante(),
+								"Informacion de integrante modificada correctamente", "Sistema",
+								JOptionPane.INFORMATION_MESSAGE);
+						this.getVistaIntegrante().dispose();
 					} else {
-						JOptionPane.showMessageDialog(this.getVistaIntegrante(), "Las contraseñas no coinciden",
+						JOptionPane.showMessageDialog(this.getVistaIntegrante(), "No se pudo editar el Integrante",
 								"Sistema", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {

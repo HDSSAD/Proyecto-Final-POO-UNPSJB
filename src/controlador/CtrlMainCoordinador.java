@@ -90,17 +90,7 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.getMainGUI().getBtnAnadir()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Coordinador' no tiene permiso de agregar usuarios", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
-
-		} else if (e.getSource() == this.getMainGUI().getBtnEliminar()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Coordinador' no tiene permiso de eliminar usuarios", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
-
-		} else if (e.getSource() == this.getMainGUI().getBtnModificar()) {
+		if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
 				if (this.getMainGUI().getTxtTipoIntegrante().getText().equals("Integrante")
 						|| this.getDni().equals(this.getMainGUI().getTxtDNI().getText())) {
@@ -147,9 +137,12 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 		} else if (e.getSource() == this.getMainGUI().getMntmCambiarContraseña()) {
 			CtrlContraseña ctrlContraseña = new CtrlContraseña(this.getDni());
 			ctrlContraseña.getVistaContraseña().setVisible(true);
-			
+
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora()
+					.setText(String.valueOf(Integer.parseInt(this.getComputadora().obtenerUltimoNroPC()) + 1));
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora().setEnabled(false);
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
@@ -245,11 +238,7 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
-		} else if (e.getSource() == this.getMainGUI().getBtnEliminarPC()) {
-			JOptionPane.showMessageDialog(this.getMainGUI(),
-					"Una cuenta de 'Coordinador' no tiene permiso de elimar registros de Computadoras", "Sistema",
-					JOptionPane.ERROR_MESSAGE);
+			
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();
 			if (computadora != null)

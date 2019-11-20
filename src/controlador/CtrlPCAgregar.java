@@ -72,70 +72,75 @@ public class CtrlPCAgregar implements ActionListener {
 				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText().strip();
 
 				Boolean isValid = true;
-
-				if (!estado.equals("Pendiente")) {
-					// si el estado no es pendiente, alguien debio revisarla
-					if (idsIntegrantes.isBlank()) {
-						isValid = false;
-						JOptionPane.showMessageDialog(this.getVistaComputadora(),
-								"La informacion de los integrantes no puede estar vacia en una computadora que ya fue revisada",
-								"Sistema", JOptionPane.ERROR_MESSAGE);
-					} else {
-						String integranteFaltante = "";
-						// si alguien la trabajo y y los datos son correctos, se revisa la existencia de
-						// los integrantes asginados
-						for (String integrante : idsIntegrantes.split(",")) {
-							if (this.getIntegrante().buscarIntegrante(integrante) == null) {
-								integranteFaltante += "  " + integrante + "\n";
+				if (placaBaseCantidad > 1) {
+					if (!estado.equals("Pendiente")) {
+						// si el estado no es pendiente, alguien debio revisarla
+						if (idsIntegrantes.isBlank()) {
+							isValid = false;
+							JOptionPane.showMessageDialog(this.getVistaComputadora(),
+									"La informacion de los integrantes no puede estar vacia en una computadora que ya fue revisada",
+									"Sistema", JOptionPane.ERROR_MESSAGE);
+						} else {
+							String integranteFaltante = "";
+							// si alguien la trabajo y y los datos son correctos, se revisa la existencia de
+							// los integrantes asginados
+							for (String integrante : idsIntegrantes.split(",")) {
+								if (this.getIntegrante().buscarIntegrante(integrante) == null) {
+									integranteFaltante += "  " + integrante + "\n";
+								}
+							}
+							if (!integranteFaltante.isBlank()) {
+								isValid = false;
+								JOptionPane.showMessageDialog(this.getVistaComputadora(),
+										"No se encontraron los siguientes integrantes en la base de datos: \n"
+												+ integranteFaltante,
+										"Sistema", JOptionPane.ERROR_MESSAGE);
 							}
 						}
-						if (!integranteFaltante.isBlank()) {
-							isValid = false;
-							JOptionPane.showMessageDialog(this.getVistaComputadora(),
-									"No se encontraron los siguientes integrantes en la base de datos: \n"
-											+ integranteFaltante,
-									"Sistema", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-					if (estado.equals("Completada")) {
-						if (ramCantidad < 1 || ramCapacidad < 2048 || discoCantidad < 1 || discoCapacidad < 80
-								|| procesadorCantidad < 1 || procesadorGhz.isBlank() || procesadorNucleos < 1
-								|| procesador.isBlank() || lectora.isBlank() || lectoraCantidad < 1) {
-							isValid = false;
-							JOptionPane.showMessageDialog(this.getVistaComputadora(),
-									"Una computadora marcada como 'Completada' debe cumplir lo siguientes requisitos minimos: \n"
-											+ "- Almenos una placa de RAM instalada, con un total minimo de 2GB (2048MB) \n"
-											+ "- Almenos un Disco Rigido con capacidad minima de 80GB \n"
-											+ "- Almenos un Procesador, indicando el modelo, los nucleos y su velocidad en GHz \n"
-											+ "- Almenos una lectora de DVD/CD ",
-									"Sistema", JOptionPane.ERROR_MESSAGE);
-						} else if (!(placaBaseEstado.equals("Correcto") || procesadorEstado.equals("Correcto")
-								|| discoEstado.equals("Correcto") || ramEstado.equals("Correcto")
-								|| lectoraEstado.equals("Correcto"))) {
-							isValid = false;
-							JOptionPane.showMessageDialog(this.getVistaComputadora(),
-									"Los componentes de una computadora marcada como 'Completada' deben estar marcados como 'Correctos'",
-									"Sistema", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				} else { // el estado si es pendiente
-					if (!this.getVistaComputadora().getTxtIdsIntegrantes().getText().isBlank()) {
-						String integranteFaltante = "";
-						for (String integrante : idsIntegrantes.split(",")) {
-							if (this.getIntegrante().buscarIntegrante(integrante) == null) {
-								integranteFaltante += "  " + integrante + "\n";
+						if (estado.equals("Completada")) {
+							if (ramCantidad < 1 || ramCapacidad < 2048 || discoCantidad < 1 || discoCapacidad < 80
+									|| procesadorCantidad < 1 || procesadorGhz.isBlank() || procesadorNucleos < 1
+									|| procesador.isBlank() || lectora.isBlank() || lectoraCantidad < 1) {
+								isValid = false;
+								JOptionPane.showMessageDialog(this.getVistaComputadora(),
+										"Una computadora marcada como 'Completada' debe cumplir lo siguientes requisitos minimos: \n"
+												+ "- Almenos una placa de RAM instalada, con un total minimo de 2GB (2048MB) \n"
+												+ "- Almenos un Disco Rigido con capacidad minima de 80GB \n"
+												+ "- Almenos un Procesador, indicando el modelo, los nucleos y su velocidad en GHz \n"
+												+ "- Almenos una lectora de DVD/CD ",
+										"Sistema", JOptionPane.ERROR_MESSAGE);
+							} else if (!(placaBaseEstado.equals("Correcto") || procesadorEstado.equals("Correcto")
+									|| discoEstado.equals("Correcto") || ramEstado.equals("Correcto")
+									|| lectoraEstado.equals("Correcto"))) {
+								isValid = false;
+								JOptionPane.showMessageDialog(this.getVistaComputadora(),
+										"Los componentes de una computadora marcada como 'Completada' deben estar marcados como 'Correctos'",
+										"Sistema", JOptionPane.ERROR_MESSAGE);
 							}
 						}
-						if (!integranteFaltante.isBlank()) {
-							isValid = false;
-							JOptionPane.showMessageDialog(this.getVistaComputadora(),
-									"No se encontraron los siguientes integrantes en la base de datos: \n"
-											+ integranteFaltante,
-									"Sistema", JOptionPane.ERROR_MESSAGE);
+					} else { // el estado si es pendiente
+						if (!this.getVistaComputadora().getTxtIdsIntegrantes().getText().isBlank()) {
+							String integranteFaltante = "";
+							for (String integrante : idsIntegrantes.split(",")) {
+								if (this.getIntegrante().buscarIntegrante(integrante) == null) {
+									integranteFaltante += "  " + integrante + "\n";
+								}
+							}
+							if (!integranteFaltante.isBlank()) {
+								isValid = false;
+								JOptionPane.showMessageDialog(this.getVistaComputadora(),
+										"No se encontraron los siguientes integrantes en la base de datos: \n"
+												+ integranteFaltante,
+										"Sistema", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
+				} else {
+					isValid = false;
+					JOptionPane.showMessageDialog(this.getVistaComputadora(),
+							"No se puede almacenar la informacion de computadoras sin Placa Base", "Sistema",
+							JOptionPane.ERROR_MESSAGE);
 				}
-
 				if (isValid) {
 					Computadora computadora = new Computadora(id, estado,
 							new CompPlacaBase("Placa Base", placaBase, placaBaseEstado, placaBaseCantidad),
@@ -151,18 +156,20 @@ public class CtrlPCAgregar implements ActionListener {
 						JOptionPane.showMessageDialog(this.getVistaComputadora(), "No se pudo añadir la Computadora",
 								"Sistema", JOptionPane.ERROR_MESSAGE);
 					}
-					String asignacionFaltante = "";
-					for (String integrante : idsIntegrantes.split(",")) {
-						if (!this.getComputadora().agregarIntegranteComputadora(integrante, id)) {
-							asignacionFaltante += "  " + integrante + "\n";
+					if (!idsIntegrantes.isBlank()) {
+						String asignacionFaltante = "";
+						for (String integrante : idsIntegrantes.split(",")) {
+							if (!this.getComputadora().agregarIntegranteComputadora(integrante, id)) {
+								asignacionFaltante += "  " + integrante + "\n";
+							}
 						}
-					}
-					if (!asignacionFaltante.isBlank()) {
-						JOptionPane.showMessageDialog(this.getVistaComputadora(),
-								"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
-										+ asignacionFaltante
-										+ "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
-								"Sistema", JOptionPane.ERROR_MESSAGE);
+						if (!asignacionFaltante.isBlank()) {
+							JOptionPane.showMessageDialog(this.getVistaComputadora(),
+									"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
+											+ asignacionFaltante
+											+ "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
+									"Sistema", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					this.getVistaComputadora().dispose();
 				}

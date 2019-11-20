@@ -14,18 +14,6 @@ public class BD {
 	private static BD bd = null;
 	private static String pass = "Sebastian", user = "postgres";
 
-//	public static void createInstance(String user, String pass) {
-//		if (bd != null)
-//			return;
-//		bd = new BD(user, pass);
-//		bd.checkConection();
-//	}
-//
-//	private void checkConection() {
-//		if (conexion == null) {
-//			bd = null;
-//		}
-//	}
 	private BD(String user, String pass) {
 		this.cerrarConexion();
 		String url = "jdbc:postgresql://localhost:5432/GestorPuente";

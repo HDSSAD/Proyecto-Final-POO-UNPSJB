@@ -101,6 +101,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			if (!dni.isBlank()) {
 				if (this.getComputadora().existeIntegranteComputadora(dni, "%")) {
 					this.getComputadora().borrarComputadoraIntegrante(dni, "%");
+					// esto podria estar escrito mejor.
 				}
 				this.getIntegrante().borrarIntegrante(dni);
 				List<Integrante> integrantes = this.getIntegrante().buscarIntegrante();
@@ -152,6 +153,9 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 
 		} else if (e.getSource() == this.getMainGUI().getBtnAñadirPC()) {
 			CtrlPCAgregar ctrlAgregarPC = new CtrlPCAgregar();
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora()
+					.setText(String.valueOf(Integer.parseInt(this.getComputadora().obtenerUltimoNroPC()) + 1));
+			ctrlAgregarPC.getVistaComputadora().getTxtIdComputadora().setEnabled(false);
 			ctrlAgregarPC.getVistaComputadora().setVisible(true);
 			this.updateTableComputadoras(this.getComputadora().buscarComputadora());
 
