@@ -27,7 +27,7 @@ public class CtrlIntegranteBuscar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getVistaBuscarIntegrante().getBtnAceptar()) {
 			String tipo = this.getVistaBuscarIntegrante().getCboxTipo().getSelectedItem().toString();
-			String dni = this.getVistaBuscarIntegrante().getTxtDni().getText().replaceAll("\\s", "").replaceAll(".", "");
+			String dni = this.getVistaBuscarIntegrante().getTxtDni().getText().replaceAll("\\s", "");
 			String apellido = this.getVistaBuscarIntegrante().getTxtApellido().getText().strip();
 			String nombre = this.getVistaBuscarIntegrante().getTxtNombre().getText().strip();
 			String telefono = this.getVistaBuscarIntegrante().getTxtTelefono().getText().replaceAll("\\s", "");

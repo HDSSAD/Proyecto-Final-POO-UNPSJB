@@ -117,13 +117,21 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 
 	@Override
 	public List<Computadora> buscarComputadora(String where, ArrayList<String> parametros) {
+		List<Computadora> computadoras = new ArrayList<Computadora>();
 		String consulta = "select * from computadoras " + where;
 		// pasar como parametro el where puede no ser algo agradable
 		// probablemente deba cambiarse por solo un string consulta y el where pasarlo
 		// al array de parametros
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
-		List<Computadora> ret = this.dataBaseToPcList(rs);
-		return ret;
+		try {
+			if (rs.next()) {
+				computadoras = this.dataBaseToPcList(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return computadoras;
 	}
 
 	@Override
@@ -189,6 +197,26 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 		return ret;
 	}
 
+	public String getComputadoraFromIntPC(String idIntegrante) {
+		String ret = "";
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idIntegrante);
+		String consulta = "select * from integrantes_computadoras " + "where idintegrante ilike ? ";
+		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
+		try {
+			while (rs.next()) {
+				if (ret.isBlank()) {
+					ret = rs.getString("idcomputadora");
+				} else {
+					ret += ", " + rs.getString("idcomputadora");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+	}
 	public String getIntegranteFromIntPC(String idComputadora) {
 		String ret = "";
 		ArrayList<String> parametros = new ArrayList<String>();

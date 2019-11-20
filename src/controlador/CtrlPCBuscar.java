@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import modelo.Computadora;
 import modelo.ComputadoraDAOImpl;
 import modelo.IntegranteDAOImpl;
 import vista.VistaPCBuscar;
@@ -19,7 +21,8 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 	private IntegranteDAOImpl integrante;
 	private String where;
 	private ArrayList<String> parametros;
-
+	private List<Computadora> listaComputadora;
+	
 	public CtrlPCBuscar() {
 		this.setVistaPCBuscar(new VistaPCBuscar(this));
 		this.setComputadora(new ComputadoraDAOImpl());
@@ -58,10 +61,12 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 				} else {
 					if (idIntegrante.isBlank()) {
 						this.getParametros().add(idComputadora);
-						this.setWhere("where idcomputadora like ?");
+						this.setWhere("where id like ?");
+						
 					} else if (idComputadora.isBlank()) {
 						this.getParametros().add(idIntegrante);
 						this.setWhere("where idintegrante like ?");
+						
 					} else {
 						this.getParametros().add(idIntegrante);
 						this.getParametros().add(idComputadora);
@@ -135,6 +140,14 @@ public class CtrlPCBuscar implements ItemListener, ActionListener {
 
 	public void setParametros(ArrayList<String> parametros) {
 		this.parametros = parametros;
+	}
+
+	public List<Computadora> getListaComputadora() {
+		return listaComputadora;
+	}
+
+	public void setListaComputadora(List<Computadora> listaComputadora) {
+		this.listaComputadora = listaComputadora;
 	}
 
 }

@@ -19,11 +19,56 @@ public class CtrlPCEditar implements ActionListener {
 	private ComputadoraDAOImpl computadora;
 	private VistaPCEditar vistaComputadora;
 	private IntegranteDAOImpl integrante;
+	private Computadora pcActual;
 
-	public CtrlPCEditar() {
+	public CtrlPCEditar(Computadora pcActual) {
+		this.setPcActual(pcActual);
 		this.setComputadora(new ComputadoraDAOImpl());
 		this.setIntegrante(new IntegranteDAOImpl());
 		this.setVistaComputadora(new VistaPCEditar(this));
+		if (computadora != null) {
+			this.getVistaComputadora().getTxtIdComputadora().setText(pcActual.getIdComputadora());
+			this.getVistaComputadora().getTxtIdComputadora().setEditable(false);
+			this.getVistaComputadora().getTxtPlacaBase().setText(pcActual.getPlacaBase().getModelo());
+			this.getVistaComputadora().getTxtpnNotasPC().setText(pcActual.getNotas());
+			this.getVistaComputadora().getTxtProcesador().setText(pcActual.getProcesador().getModelo());
+			this.getVistaComputadora().getTxtProcesadorGhz().setText(pcActual.getProcesador().getGhz());
+			this.getVistaComputadora().getCboxDiscoRigidoEstado().setEditable(true);
+			this.getVistaComputadora().getCboxDiscoRigidoEstado().setSelectedItem(pcActual.getDisco().getEstado());
+			this.getVistaComputadora().getCboxDiscoRigidoEstado().setEditable(false);
+			this.getVistaComputadora().getCboxDiscoRigidoTipo().setEditable(true);
+			this.getVistaComputadora().getCboxDiscoRigidoTipo().setSelectedItem(pcActual.getDisco().getModelo());
+			this.getVistaComputadora().getCboxDiscoRigidoTipo().setEditable(false);
+			this.getVistaComputadora().getCboxLectoraColor().setEditable(true);
+			this.getVistaComputadora().getCboxLectoraColor().setSelectedItem(pcActual.getLectora().getColor());
+			this.getVistaComputadora().getCboxLectoraColor().setEditable(false);
+			this.getVistaComputadora().getCboxLectoraEstado().setEditable(true);
+			this.getVistaComputadora().getCboxLectoraEstado().setSelectedItem(pcActual.getLectora().getEstado());
+			this.getVistaComputadora().getCboxLectoraEstado().setEditable(false);
+			this.getVistaComputadora().getCboxLectoraTipo().setEditable(true);
+			this.getVistaComputadora().getCboxLectoraTipo().setSelectedItem(pcActual.getLectora().getModelo());
+			this.getVistaComputadora().getCboxLectoraTipo().setEditable(false);
+			this.getVistaComputadora().getCboxPlacaBaseEstado().setEditable(true);
+			this.getVistaComputadora().getCboxPlacaBaseEstado().setSelectedItem(pcActual.getPlacaBase().getEstado());
+			this.getVistaComputadora().getCboxPlacaBaseEstado().setEditable(false);
+			this.getVistaComputadora().getCboxProcesadorEstado().setEditable(true);
+			this.getVistaComputadora().getCboxProcesadorEstado().setSelectedItem(pcActual.getProcesador().getEstado());
+			this.getVistaComputadora().getCboxProcesadorEstado().setEditable(false);
+			this.getVistaComputadora().getCboxRamEstado().setEditable(true);
+			this.getVistaComputadora().getCboxRamEstado().setSelectedItem(pcActual.getRam().getEstado());
+			this.getVistaComputadora().getCboxRamEstado().setEditable(false);
+			this.getVistaComputadora().getCboxRamTipo().setEditable(true);
+			this.getVistaComputadora().getCboxRamTipo().setSelectedItem(pcActual.getRam().getModelo());
+			this.getVistaComputadora().getCboxRamTipo().setEditable(false);
+			this.getVistaComputadora().getSpnDiscoRigidoCantidad().setValue(pcActual.getDisco().getCantidad());
+			this.getVistaComputadora().getSpnDiscoRigidoCapacidad().setValue(pcActual.getDisco().getCapacidad());
+			this.getVistaComputadora().getSpnLectoraCantidad().setValue(pcActual.getLectora().getCantidad());
+			this.getVistaComputadora().getSpnProcesadorCantidad().setValue(pcActual.getProcesador().getCantidad());
+			this.getVistaComputadora().getSpnProcesadorNucleos().setValue(pcActual.getProcesador().getNucleos());
+			this.getVistaComputadora().getSpnRamCantidad().setValue(pcActual.getRam().getCantidad());
+			this.getVistaComputadora().getSpnRamCapacidad().setValue(pcActual.getRam().getCapacidad());
+		}
+
 	}
 
 	@Override
@@ -105,9 +150,10 @@ public class CtrlPCEditar implements ActionListener {
 											+ "- Almenos un Procesador, indicando el modelo, los nucleos y su velocidad en GHz \n"
 											+ "- Almenos una lectora de DVD/CD ",
 									"Sistema", JOptionPane.ERROR_MESSAGE);
-						} else if (!(placaBaseEstado.equals("Correcto") || procesadorEstado.equals("Correcto")
-								|| discoEstado.equals("Correcto") || ramEstado.equals("Correcto")
-								|| lectoraEstado.equals("Correcto"))) {
+						} else if (!placaBaseEstado.equals("Correcto") || !procesadorEstado.equals("Correcto")
+								|| !discoEstado.equals("Correcto") || !ramEstado.equals("Correcto")
+								|| !lectoraEstado.equals("Correcto")) {
+							isValid = false;
 							JOptionPane.showMessageDialog(this.getVistaComputadora(),
 									"Los componentes de una computadora marcada como 'Completada' deben estar marcados como 'Correctos'",
 									"Sistema", JOptionPane.ERROR_MESSAGE);
@@ -148,24 +194,26 @@ public class CtrlPCEditar implements ActionListener {
 								"No se pudo editar la informacion de la Computadora", "Sistema",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					String asignacionFaltante = "";
-					for (String integrante : idsIntegrantes.split(",")) {
-						if (!this.getComputadora().agregarIntegranteComputadora(integrante, id)) {
-							asignacionFaltante += "  " + integrante + "\n";
+					if (!idsIntegrantes.isBlank()) {
+						String asignacionFaltante = "";
+						for (String integrante : idsIntegrantes.split(",")) {
+							if (!this.getComputadora().agregarIntegranteComputadora(integrante, id)) {
+								asignacionFaltante += "  " + integrante + "\n";
+							}
 						}
-					}
-					if (!asignacionFaltante.isBlank()) {
-						JOptionPane.showMessageDialog(this.getVistaComputadora(),
-								"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
-										+ asignacionFaltante
-										+ "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
-								"Sistema", JOptionPane.ERROR_MESSAGE);
+						if (!asignacionFaltante.isBlank()) {
+							JOptionPane.showMessageDialog(this.getVistaComputadora(),
+									"Ha ocurrido un error en la base de datos al intentar asignar la computadora a los siguientes integrantes: \n"
+											+ asignacionFaltante
+											+ "\nSe recomienda iniciar sesion nuevamente y modificar los integrantes en la computadora agregada",
+									"Sistema", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					this.getVistaComputadora().dispose();
 				} else {
 					JOptionPane.showMessageDialog(this.getVistaComputadora(),
-							"Los datos introducidos de 'cantidad' no corresponden al resto de la informacion",
-							"Sistema", JOptionPane.ERROR_MESSAGE);
+							"Se ha indtroducido una combinacion de datos no validos", "Sistema",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
 				JOptionPane.showMessageDialog(this.getVistaComputadora(),
@@ -199,6 +247,14 @@ public class CtrlPCEditar implements ActionListener {
 
 	public void setIntegrante(IntegranteDAOImpl integrante) {
 		this.integrante = integrante;
+	}
+
+	public Computadora getPcActual() {
+		return pcActual;
+	}
+
+	public void setPcActual(Computadora pcActual) {
+		this.pcActual = pcActual;
 	}
 
 }

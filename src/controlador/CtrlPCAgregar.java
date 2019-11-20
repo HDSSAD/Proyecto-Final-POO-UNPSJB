@@ -72,7 +72,7 @@ public class CtrlPCAgregar implements ActionListener {
 				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText().strip();
 
 				Boolean isValid = true;
-				if (placaBaseCantidad > 1) {
+				if (placaBaseCantidad > 0) {
 					if (!estado.equals("Pendiente")) {
 						// si el estado no es pendiente, alguien debio revisarla
 						if (idsIntegrantes.isBlank()) {
@@ -109,9 +109,9 @@ public class CtrlPCAgregar implements ActionListener {
 												+ "- Almenos un Procesador, indicando el modelo, los nucleos y su velocidad en GHz \n"
 												+ "- Almenos una lectora de DVD/CD ",
 										"Sistema", JOptionPane.ERROR_MESSAGE);
-							} else if (!(placaBaseEstado.equals("Correcto") || procesadorEstado.equals("Correcto")
-									|| discoEstado.equals("Correcto") || ramEstado.equals("Correcto")
-									|| lectoraEstado.equals("Correcto"))) {
+							} else if (!placaBaseEstado.equals("Correcto") || !procesadorEstado.equals("Correcto")
+									|| !discoEstado.equals("Correcto") || !ramEstado.equals("Correcto")
+									|| !lectoraEstado.equals("Correcto")) {
 								isValid = false;
 								JOptionPane.showMessageDialog(this.getVistaComputadora(),
 										"Los componentes de una computadora marcada como 'Completada' deben estar marcados como 'Correctos'",
@@ -172,6 +172,10 @@ public class CtrlPCAgregar implements ActionListener {
 						}
 					}
 					this.getVistaComputadora().dispose();
+				} else {
+					JOptionPane.showMessageDialog(this.getVistaComputadora(),
+							"Se ha indtroducido una combinacion de datos no validos", "Sistema",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			} else { // la computadora ya esta en la base de datos
