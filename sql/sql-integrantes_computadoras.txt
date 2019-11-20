@@ -7,8 +7,6 @@ CREATE TABLE public.integrantes_computadoras
     idcomputadora character varying COLLATE pg_catalog."default",
     idintegrante character varying COLLATE pg_catalog."default",
     serial integer NOT NULL DEFAULT nextval('integrantes_computadoras_serial_seq'::regclass),
-    CONSTRAINT "integrantes_computadoras_idComputadora_key" UNIQUE (idcomputadora)
-,
     CONSTRAINT fk_computadora FOREIGN KEY (idcomputadora)
         REFERENCES public.computadoras (id) MATCH SIMPLE
         ON UPDATE NO ACTION

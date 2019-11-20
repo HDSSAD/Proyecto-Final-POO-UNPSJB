@@ -12,7 +12,7 @@ CREATE TABLE public.integrantes
     telefono character varying COLLATE pg_catalog."default",
     telefono2 character varying COLLATE pg_catalog."default",
     correo character varying COLLATE pg_catalog."default",
-    "contraseÃ±a" character varying COLLATE pg_catalog."default",
+    "contraseña" character varying COLLATE pg_catalog."default",
     legajo smallint NOT NULL DEFAULT nextval('integrantes_legajo_seq'::regclass),
     tipo character varying COLLATE pg_catalog."default",
     CONSTRAINT integrantes_pkey PRIMARY KEY (legajo, dni),
