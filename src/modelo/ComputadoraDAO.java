@@ -14,4 +14,5 @@ public interface ComputadoraDAO {
 	public Boolean modificarComputadora(Computadora computadora);
 	public Boolean agregarIntegranteComputadora(String idIntegrante, String idComputadora);
 	public String obtenerUltimoNroPC();
+	public String obtenerComputadorasTrabajadas(String dni);
 }

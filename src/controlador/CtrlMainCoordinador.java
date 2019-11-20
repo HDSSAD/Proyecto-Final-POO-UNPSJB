@@ -238,7 +238,7 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
+
 		} else if (e.getSource() == this.getMainGUI().getBtnMostrarTodoPC()) {
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();
 			if (computadora != null)
@@ -330,6 +330,8 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 			this.getMainGUI().getTxtTelefono().setText(integrante.getTelefono());
 			this.getMainGUI().getTxtTelefono2().setText(integrante.getTelefono2());
 			this.getMainGUI().getTxtCorreo().setText(integrante.getCorreo());
+			this.getMainGUI().getTxtComputadorasTrabajadas()
+					.setText(this.getComputadora().obtenerComputadorasTrabajadas(integrante.getDni()));
 		} else if (e.getSource() == this.getMainGUI().getTblPC()) {
 			JTable table = this.getMainGUI().getTblPC();
 			String idComputadora = table.getValueAt(table.getSelectedRow(), 0).toString();

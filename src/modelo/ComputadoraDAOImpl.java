@@ -57,6 +57,27 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	}
 
 	@Override
+	public String obtenerComputadorasTrabajadas(String dni) {
+		String ret = null;
+		String consulta = "select count(*) from integrantes_computadoras where idintegrante like ?";
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(dni);
+		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
+		try {
+			if (rs.next()) {
+				ret = rs.getString("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (ret == null) {
+			ret = "0";
+		}
+		return ret;
+	}
+
+	@Override
 	public String obtenerUltimoNroPC() {
 		String ret = null;
 		String consulta = "select max(id) from computadoras";
@@ -98,7 +119,8 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 	public List<Computadora> buscarComputadora(String where, ArrayList<String> parametros) {
 		String consulta = "select * from computadoras " + where;
 		// pasar como parametro el where puede no ser algo agradable
-		// probablemente deba cambiarse por solo un string consulta y el where pasarlo al array de parametros
+		// probablemente deba cambiarse por solo un string consulta y el where pasarlo
+		// al array de parametros
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		List<Computadora> ret = this.dataBaseToPcList(rs);
 		return ret;
