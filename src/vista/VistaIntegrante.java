@@ -1,5 +1,6 @@
 package vista;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
+import javax.swing.text.NumberFormatter;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import enumTypes.TipoIntegranteAdmin;
@@ -92,7 +93,15 @@ public class VistaIntegrante extends JDialog {
 		cboxTipoIntegrante.setBounds(141, 8, 130, 20);
 		panel.add(cboxTipoIntegrante);
 
-		txtDNI = new JTextField();
+		NumberFormat format = NumberFormat.getInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0);
+	    formatter.setMaximum(Integer.MAX_VALUE);
+	    formatter.setAllowsInvalid(false);
+	    formatter.setCommitsOnValidEdit(true);
+	    
+		txtDNI = new JFormattedTextField(formatter);
 		txtDNI.setColumns(10);
 		txtDNI.setBounds(141, 34, 130, 20);
 		panel.add(txtDNI);

@@ -13,6 +13,7 @@ public class VistaPCAgregar extends VistaPC {
 		this.setCtrlPCAgregar(ctrlPCAgregar);
 		this.getBtnAceptar().addActionListener(ctrlPCAgregar);
 		this.getBtnCancelar().addActionListener(ctrlPCAgregar);
+		this.getCboxSeleccionarIntegrante().addItemListener(ctrlPCAgregar);
 	}
 
 	public CtrlPCAgregar getCtrlPCAgregar() {

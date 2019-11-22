@@ -2,7 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import componentes.CompDiscoRigido;
@@ -12,10 +14,11 @@ import componentes.CompPlacaBase;
 import componentes.CompProcesador;
 import modelo.Computadora;
 import modelo.ComputadoraDAOImpl;
+import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
 import vista.VistaPCAgregar;
 
-public class CtrlPCAgregar implements ActionListener {
+public class CtrlPCAgregar implements ActionListener, ItemListener {
 
 	private ComputadoraDAOImpl computadora;
 	private VistaPCAgregar vistaComputadora;
@@ -25,6 +28,12 @@ public class CtrlPCAgregar implements ActionListener {
 		this.setComputadora(new ComputadoraDAOImpl());
 		this.setIntegrante(new IntegranteDAOImpl());
 		this.setVistaComputadora(new VistaPCAgregar(this));
+		DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<String>(new String[] {});
+		modelo.addElement("Seleccionar integrante");
+		for (Integrante integrante : this.getIntegrante().buscarIntegrante()) {
+			modelo.addElement(integrante.getApellido() + ", " + integrante.getNombre());
+		}
+		this.getVistaComputadora().getCboxSeleccionarIntegrante().setModel(modelo);
 	}
 
 	@Override
@@ -52,7 +61,7 @@ public class CtrlPCAgregar implements ActionListener {
 						.toString();
 				Integer procesadorCantidad = (Integer) this.getVistaComputadora().getSpnProcesadorCantidad().getValue();
 				Integer procesadorNucleos = (Integer) this.getVistaComputadora().getSpnProcesadorNucleos().getValue();
-				String procesadorGhz = this.getVistaComputadora().getTxtProcesadorGhz().getText().replaceAll("\\s", "");
+				Double procesadorGhz = (Double) this.getVistaComputadora().getTxtProcesadorGhz().getValue();
 
 				String disco = this.getVistaComputadora().getCboxDiscoRigidoTipo().getSelectedItem().toString().strip();
 				String discoEstado = this.getVistaComputadora().getCboxDiscoRigidoEstado().getSelectedItem().toString();
@@ -99,8 +108,8 @@ public class CtrlPCAgregar implements ActionListener {
 						}
 						if (estado.equals("Completada")) {
 							if (ramCantidad < 1 || ramCapacidad < 2048 || discoCantidad < 1 || discoCapacidad < 80
-									|| procesadorCantidad < 1 || procesadorGhz.isBlank() || procesadorNucleos < 1
-									|| procesador.isBlank() || lectora.isBlank() || lectoraCantidad < 1) {
+									|| procesadorCantidad < 1 || procesadorNucleos < 1 || procesador.isBlank()
+									|| lectora.isBlank() || lectoraCantidad < 1) {
 								isValid = false;
 								JOptionPane.showMessageDialog(this.getVistaComputadora(),
 										"Una computadora marcada como 'Completada' debe cumplir lo siguientes requisitos minimos: \n"
@@ -145,7 +154,7 @@ public class CtrlPCAgregar implements ActionListener {
 					Computadora computadora = new Computadora(id, estado,
 							new CompPlacaBase("Placa Base", placaBase, placaBaseEstado, placaBaseCantidad),
 							new CompProcesador("Procesador", procesador, procesadorEstado, procesadorCantidad,
-									procesadorGhz, procesadorNucleos),
+									String.valueOf(procesadorGhz), procesadorNucleos),
 							new CompDiscoRigido("Disco Rigido", disco, discoEstado, discoCantidad, discoCapacidad),
 							new CompMemoriaRam("Memoria Ram", ram, ramEstado, ramCantidad, ramCapacidad),
 							new CompLectora("Lectora", lectora, lectoraEstado, lectoraCantidad, lectoraColor), notasPC);
@@ -211,6 +220,39 @@ public class CtrlPCAgregar implements ActionListener {
 
 	public void setIntegrante(IntegranteDAOImpl integrante) {
 		this.integrante = integrante;
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			if (e.getSource() == this.getVistaComputadora().getCboxSeleccionarIntegrante()) {
+				String integranteSeleccionado = this.getVistaComputadora().getCboxSeleccionarIntegrante()
+						.getSelectedItem().toString();
+				if (integranteSeleccionado != "Seleccionar integrante") {
+					String integrantesActuales = this.getVistaComputadora().getTxtIdsIntegrantes().getText();
+					String idIntegrante = this.getIntegrante()._getIdFromName(integranteSeleccionado);
+					if (idIntegrante != null) {
+						if (integrantesActuales.isBlank()) {
+							this.getVistaComputadora().getTxtIdsIntegrantes().setText(idIntegrante);
+						} else {
+							Boolean add = true;
+							for (String string : integrantesActuales.split(",")) {
+								if (string.strip().equals(idIntegrante)) {
+									add = false;
+								}
+							}
+							if (add) {
+								this.getVistaComputadora().getTxtIdsIntegrantes()
+										.setText(integrantesActuales + ", " + idIntegrante);
+							}
+						}
+					}
+				}
+			}
+		}
+		this.getVistaComputadora().getCboxSeleccionarIntegrante().removeItemListener(this);
+		this.getVistaComputadora().getCboxSeleccionarIntegrante().setSelectedIndex(0);
+		this.getVistaComputadora().getCboxSeleccionarIntegrante().addItemListener(this);
 	}
 
 }

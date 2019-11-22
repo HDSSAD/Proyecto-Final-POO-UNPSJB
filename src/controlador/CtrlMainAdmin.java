@@ -295,12 +295,12 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			JTable table = this.getMainGUI().getTblIntegrantes();
 			String dni = table.getValueAt(table.getSelectedRow(), 0).toString();
 			Integrante integrante = this.getIntegrante().buscarIntegrante(dni);
-			this.getMainGUI().getTxtDNI().setText(integrante.getDni());
+//			this.getMainGUI().getTxtDNI().setText(integrante.getDni());
 			this.getMainGUI().getTxtTipoIntegrante().setText(integrante.getTipo());
 			this.getMainGUI().getTxtApellido().setText(integrante.getApellido());
 			this.getMainGUI().getTxtNombre().setText(integrante.getNombre());
 			this.getMainGUI().getTxtFechaNacimiento().setText(integrante.getFechaNacimiento());
-			this.getMainGUI().getTxtDireccion().setText(integrante.getDireccion());
+//			this.getMainGUI().getTxtDireccion().setText(integrante.getDireccion());
 			this.getMainGUI().getTxtTelefono().setText(integrante.getTelefono());
 			this.getMainGUI().getTxtTelefono2().setText(integrante.getTelefono2());
 			this.getMainGUI().getTxtCorreo().setText(integrante.getCorreo());

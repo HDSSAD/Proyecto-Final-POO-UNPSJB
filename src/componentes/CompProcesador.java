@@ -21,8 +21,8 @@ public class CompProcesador extends Componente {
 
 	public CompProcesador(String[] array) {
 		super(array);
-		this.setGhz(array[3]);
-		this.setNucleos(Integer.valueOf(array[4]));
+		this.setGhz(array[4]);
+		this.setNucleos(Integer.valueOf(array[5]));
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class CompProcesador extends Componente {
 
 	@Override
 	public String toSqlArray() {
-		return super.toSqlArray() + "," + this.getNucleos() + "," + this.getGhz();
+		return super.toSqlArray() + "," + this.getGhz() + "," + this.getNucleos();
 	}
 
 	public String getGhz() {

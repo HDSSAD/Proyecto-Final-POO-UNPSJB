@@ -12,7 +12,7 @@ public class BD {
 
 	private Connection conexion = null;
 	private static BD bd = null;
-	private static String pass = "Mepache", user = "postgres";
+	private static String pass = "Sebastian", user = "postgres";
 
 	private BD(String user, String pass) {
 		this.cerrarConexion();

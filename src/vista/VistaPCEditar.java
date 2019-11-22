@@ -13,6 +13,7 @@ public class VistaPCEditar extends VistaPC {
 		this.setCtrlPCEditar(ctrlPCEditar);
 		this.getBtnAceptar().addActionListener(ctrlPCEditar);
 		this.getBtnCancelar().addActionListener(ctrlPCEditar);
+		this.getCboxSeleccionarIntegrante().addItemListener(ctrlPCEditar);
 	}
 
 	public CtrlPCEditar getCtrlPCEditar() {

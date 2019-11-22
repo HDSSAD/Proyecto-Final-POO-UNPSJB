@@ -14,4 +14,5 @@ public interface IntegranteDAO {
 	public Boolean modificarIntegrante(Integrante integrante);
 	public String getAdminLevel(String dni);
 	public Boolean modificarIntegranteNoPass(Integrante integrante);
+	public String _getIdFromName(String apellidoNombre);
 }

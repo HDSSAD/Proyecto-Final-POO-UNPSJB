@@ -161,4 +161,24 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 		return integrante.getTipo();
 	}
 
+	@Override
+	public String _getIdFromName(String apellidoNombre) {
+		String ret = null;
+		ArrayList<String> parametros = new ArrayList<String>();
+		for (String string : apellidoNombre.split(", ")) {
+			parametros.add(string);
+		}
+		String consulta = "select * from integrantes where apellido ilike ? and nombre ilike ?";
+		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
+		try {
+			if (rs.next()) {
+				ret = rs.getString("dni");
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
 }
