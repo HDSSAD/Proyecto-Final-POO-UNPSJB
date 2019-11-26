@@ -231,6 +231,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalTodos()) {
 			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\integrantesTodos.jasper";
 			this._callJasperReportNew(sourceFileName, null);
+			System.out.println("siome");
 			
 		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalCumpleaños()) {
 			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\cumpleaños.jasper";
@@ -259,8 +260,30 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 
-		} else if (e.getSource() == this.getMainGUI().getBtnReportePCCompletada()) {
-			
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePCCompletada()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCDescartada()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCDonadas()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCPendiente()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCRevisada()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\computadorasEstado.jasper";
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (e.getSource() == this.getMainGUI().getBtnReportePCCompletada()) {
+				map.put("ParamEstado", "Completada");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCDescartada()) {
+				map.put("ParamEstado", "Descarte");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCDonadas()) {
+				map.put("ParamEstado", "Donada");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCPendiente()) {
+				map.put("ParamEstado", "Pendiente");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCRevisada()) {
+				map.put("ParamEstado", "Revisada");
+			}
+			if (map.size() > 0) {
+				this._callJasperReportNew(sourceFileName, map);
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "Parametros para la llamada al Reporte no validos",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
@@ -271,6 +294,8 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			if (!jasperPrint.getPages().isEmpty()) {
 				JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 				jasperViewer.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "No existen resultados para esta busqueda en la base de datos", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (JRException e1) {
 			this._callJasperFileError(e1);

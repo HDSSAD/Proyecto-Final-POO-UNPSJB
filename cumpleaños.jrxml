@@ -157,7 +157,7 @@ order by apellido, nombre]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="430" y="-1" width="103" height="20" uuid="68f7d58d-1b02-4723-9c73-a87e7e730fc4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f9932d85-9458-40e6-96e2-d62f5c429e93"/>
 				</reportElement>
@@ -166,7 +166,7 @@ order by apellido, nombre]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefono2}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="533" y="0" width="177" height="20" uuid="44fbe5e5-e74d-4c2d-a29b-71d06626f409">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bfae0c77-84c3-418c-a6dd-bfaa868289f3"/>
 				</reportElement>

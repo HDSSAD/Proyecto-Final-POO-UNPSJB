@@ -7,17 +7,27 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.BD;
 import modelo.Computadora;
 import modelo.ComputadoraDAOImpl;
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import vista.VistaMainGUICoordinador;
 
 public class CtrlMainCoordinador implements ActionListener, WindowListener, MouseListener {
@@ -191,7 +201,87 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();
 			if (computadora != null)
 				this.updateTableComputadoras(computadora);
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalTodos()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\integrantesTodos.jasper";
+			this._callJasperReportNew(sourceFileName, null);
+			System.out.println("siome");
+
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalCumpleaños()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\cumpleaños.jasper";
+			Calendar cal = Calendar.getInstance();
+			Integer month = cal.get(Calendar.MONTH) + 1;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ParamMes", month);
+			this._callJasperReportNew(sourceFileName, map);
+
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalAdmin()
+				|| e.getSource() == this.getMainGUI().getBtnReportePersonalCoord()
+				|| e.getSource() == this.getMainGUI().getBtnReportePersonalIntegr()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\integrantesTipo.jasper";
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (e.getSource() == this.getMainGUI().getBtnReportePersonalAdmin()) {
+				map.put("ParamIntegranteTipo", "Administrador");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalCoord()) {
+				map.put("ParamIntegranteTipo", "Coordinador");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalIntegr()) {
+				map.put("ParamIntegranteTipo", "Integrante");
+			}
+			if (map.size() > 0) {
+				this._callJasperReportNew(sourceFileName, map);
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "Parametros para la llamada al Reporte no validos",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePCCompletada()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCDescartada()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCDonadas()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCPendiente()
+				|| e.getSource() == this.getMainGUI().getBtnReportePCRevisada()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\computadorasEstado.jasper";
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (e.getSource() == this.getMainGUI().getBtnReportePCCompletada()) {
+				map.put("ParamEstado", "Completada");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCDescartada()) {
+				map.put("ParamEstado", "Descarte");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCDonadas()) {
+				map.put("ParamEstado", "Donada");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCPendiente()) {
+				map.put("ParamEstado", "Pendiente");
+			} else if (e.getSource() == this.getMainGUI().getBtnReportePCRevisada()) {
+				map.put("ParamEstado", "Revisada");
+			}
+			if (map.size() > 0) {
+				this._callJasperReportNew(sourceFileName, map);
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(), "Parametros para la llamada al Reporte no validos",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
+	}
+
+	private void _callJasperReportNew(String sourceFileName, Map<String, Object> map) {
+		try {
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(sourceFileName);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, BD.getInstance().getConexion());
+			if (!jasperPrint.getPages().isEmpty()) {
+				JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+				jasperViewer.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(this.getMainGUI(),
+						"No existen resultados para esta busqueda en la base de datos", "Sin datos",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (JRException e1) {
+			this._callJasperFileError(e1);
+		}
+	}
+
+	private void _callJasperFileError(JRException e1) {
+		JOptionPane.showMessageDialog(this.getMainGUI(),
+				"Ocurrio un problema al obtener el archivo para generar el informe", "Error",
+				JOptionPane.ERROR_MESSAGE);
+		e1.printStackTrace();
 	}
 
 	public IntegranteDAOImpl getIntegrante() {

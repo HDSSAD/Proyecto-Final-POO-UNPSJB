@@ -25,6 +25,16 @@ public class VistaMainGUIIntegrante extends VistaMainGUI {
 		this.getBtnEditarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnBuscarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnMostrarTodoPC().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalTodos().setEnabled(false);
+		this.getBtnReportePCCompletada().setEnabled(false);
+		this.getBtnReportePCDescartada().setEnabled(false);
+		this.getBtnReportePCDonadas().setEnabled(false);
+		this.getBtnReportePCPendiente().setEnabled(false);
+		this.getBtnReportePCRevisada().setEnabled(false);
+		this.getBtnReportePersonalAdmin().setEnabled(false);
+		this.getBtnReportePersonalCoord().setEnabled(false);
+		this.getBtnReportePersonalCumpleaños().setEnabled(false);
+		this.getBtnReportePersonalIntegr().setEnabled(false);
 
 	}
 
