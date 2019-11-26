@@ -35,7 +35,7 @@ public class CtrlContraseña implements ActionListener {
 								String.valueOf(this.getVistaContraseña().getPassFContraseñaNueva().getPassword()));
 						if (this.getIntegrantes().modificarIntegrante(integrante)) {
 							JOptionPane.showMessageDialog(this.getVistaContraseña(),
-									"Contraseña modificada correctamente", "Sistema", JOptionPane.ERROR_MESSAGE);
+									"Contraseña modificada correctamente", "Sistema", JOptionPane.INFORMATION_MESSAGE);
 							integrante = null;
 							this.getVistaContraseña().dispose();
 						} else {

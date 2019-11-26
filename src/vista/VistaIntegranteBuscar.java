@@ -25,7 +25,7 @@ public class VistaIntegranteBuscar extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtCorreo;
-	private JComboBox cboxTipo;
+	private JComboBox<String> cboxTipo;
 	private JButton btnCancelar;
 	private JButton btnAceptar;
 
@@ -39,8 +39,8 @@ public class VistaIntegranteBuscar extends JDialog {
 		contentPanel.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
-		cboxTipo = new JComboBox();
-		cboxTipo.setModel(new DefaultComboBoxModel(new String[] {"Sin seleccion", "Administrador", "Coordinador", "Integrante"}));
+		cboxTipo = new JComboBox<String>();
+		cboxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"Sin seleccion", "Administrador", "Coordinador", "Integrante"}));
 		cboxTipo.setBounds(176, 11, 219, 22);
 		contentPanel.add(cboxTipo);
 		
@@ -147,11 +147,11 @@ public class VistaIntegranteBuscar extends JDialog {
 		this.txtCorreo = txtCorreo;
 	}
 
-	public JComboBox getCboxTipo() {
+	public JComboBox<String> getCboxTipo() {
 		return cboxTipo;
 	}
 
-	public void setCboxTipo(JComboBox cboxTipo) {
+	public void setCboxTipo(JComboBox<String> cboxTipo) {
 		this.cboxTipo = cboxTipo;
 	}
 

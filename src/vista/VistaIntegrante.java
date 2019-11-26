@@ -35,7 +35,7 @@ public class VistaIntegrante extends JDialog {
 	private JButton btnCancelar;
 	private JPasswordField passfContraseñaConfirmar;
 	private JPasswordField passfContraseña;
-	private JComboBox cboxTipoIntegrante;
+	private JComboBox<TipoIntegranteAdmin> cboxTipoIntegrante;
 	private JFormattedTextField txtFechaNacimiento;
 
 	public VistaIntegrante() {
@@ -88,8 +88,8 @@ public class VistaIntegrante extends JDialog {
 		lblCorreo.setBounds(12, 275, 122, 14);
 		panel.add(lblCorreo);
 
-		cboxTipoIntegrante = new JComboBox();
-		cboxTipoIntegrante.setModel(new DefaultComboBoxModel(TipoIntegranteAdmin.values()));
+		cboxTipoIntegrante = new JComboBox<TipoIntegranteAdmin>();
+		cboxTipoIntegrante.setModel(new DefaultComboBoxModel<TipoIntegranteAdmin>(TipoIntegranteAdmin.values()));
 		cboxTipoIntegrante.setBounds(141, 8, 130, 20);
 		panel.add(cboxTipoIntegrante);
 
@@ -276,11 +276,11 @@ public class VistaIntegrante extends JDialog {
 		this.btnCancelar = btnCancelar;
 	}
 
-	public JComboBox getCboxTipoIntegrante() {
+	public JComboBox<TipoIntegranteAdmin> getCboxTipoIntegrante() {
 		return cboxTipoIntegrante;
 	}
 
-	public void setCboxTipoIntegrante(JComboBox cboxTipoIntegrante) {
+	public void setCboxTipoIntegrante(JComboBox<TipoIntegranteAdmin> cboxTipoIntegrante) {
 		this.cboxTipoIntegrante = cboxTipoIntegrante;
 	}
 

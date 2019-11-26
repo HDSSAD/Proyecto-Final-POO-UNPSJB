@@ -22,7 +22,7 @@ public class VistaPCBuscar extends JDialog {
 	private JTextField txtIntegrante;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	private JComboBox cboxEstado;
+	private JComboBox<String> cboxEstado;
 	private JTextField txtNroComputadora;
 	private CtrlPCBuscar ctrlPCBuscar;
 
@@ -49,9 +49,9 @@ public class VistaPCBuscar extends JDialog {
 		lblNroComputadora.setBounds(10, 79, 130, 16);
 		contentPanel.add(lblNroComputadora);
 		
-		cboxEstado = new JComboBox();
+		cboxEstado = new JComboBox<String>();
 		cboxEstado.addItemListener(this.getCtrlPCBuscar());
-		cboxEstado.setModel(new DefaultComboBoxModel(new String[] {"Sin seleccion", "Pendiente", "Completada", "Revisada", "Descarte", "Donada"}));
+		cboxEstado.setModel(new DefaultComboBoxModel<String>(new String[] {"Sin seleccion", "Pendiente", "Completada", "Revisada", "Descarte", "Donada"}));
 		cboxEstado.setBounds(158, 11, 168, 22);
 		contentPanel.add(cboxEstado);
 		
@@ -111,11 +111,11 @@ public class VistaPCBuscar extends JDialog {
 		this.btnCancelar = btnCancelar;
 	}
 
-	public JComboBox getCboxEstado() {
+	public JComboBox<String> getCboxEstado() {
 		return cboxEstado;
 	}
 
-	public void setCboxEstado(JComboBox cboxEstado) {
+	public void setCboxEstado(JComboBox<String> cboxEstado) {
 		this.cboxEstado = cboxEstado;
 	}
 

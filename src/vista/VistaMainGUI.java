@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import java.util.ArrayList;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
 
 public class VistaMainGUI extends JFrame {
 
@@ -50,7 +51,16 @@ public class VistaMainGUI extends JFrame {
 	private JButton btnEliminarPC;
 	private JMenuItem mntmCambiarContraseña;
 	private JPanel panel;
-	private JButton btnReporteIntegrantes;
+	private JButton btnReportePersonalTodos;
+	private JButton btnReportePersonalAdmin;
+	private JButton btnReportePersonalCoord;
+	private JButton btnReportePersonalIntegr;
+	private JButton btnReportePersonalCumpleaños;
+	private JButton btnReportePCDonadas;
+	private JButton btnReportePCDescartada;
+	private JButton btnReportePCCompletada;
+	private JButton btnReportePCRevisada;
+	private JButton btnReportePCPendiente;
 	
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
@@ -281,10 +291,146 @@ public class VistaMainGUI extends JFrame {
 		tabbedPane.addTab("Reportes", null, panel, null);
 		panel.setLayout(null);
 		
-		btnReporteIntegrantes = new JButton("Integrantes");
-		btnReporteIntegrantes.setBounds(12, 351, 99, 26);
-		panel.add(btnReporteIntegrantes);
+		JPanel panelReportesIntegrantes = new JPanel();
+		panelReportesIntegrantes.setBorder(new LineBorder(SystemColor.activeCaptionBorder));
+		panelReportesIntegrantes.setBounds(10, 11, 310, 367);
+		panel.add(panelReportesIntegrantes);
+		panelReportesIntegrantes.setLayout(null);
 		
+		JLabel lblReportesPersonal = new JLabel("Personal");
+		lblReportesPersonal.setBounds(10, 11, 57, 14);
+		panelReportesIntegrantes.add(lblReportesPersonal);
+		
+		btnReportePersonalTodos = new JButton("Todos");
+		btnReportePersonalTodos.setBounds(10, 36, 145, 23);
+		panelReportesIntegrantes.add(btnReportePersonalTodos);
+		
+		btnReportePersonalAdmin = new JButton("Administradores");
+		btnReportePersonalAdmin.setBounds(10, 70, 145, 23);
+		panelReportesIntegrantes.add(btnReportePersonalAdmin);
+		
+		btnReportePersonalCoord = new JButton("Coordinadores");
+		btnReportePersonalCoord.setBounds(10, 104, 145, 23);
+		panelReportesIntegrantes.add(btnReportePersonalCoord);
+		
+		btnReportePersonalIntegr = new JButton("Integrantes");
+		btnReportePersonalIntegr.setBounds(10, 138, 145, 23);
+		panelReportesIntegrantes.add(btnReportePersonalIntegr);
+		
+		btnReportePersonalCumpleaños = new JButton("Cumplea\u00F1os este mes");
+		btnReportePersonalCumpleaños.setBounds(10, 172, 145, 23);
+		panelReportesIntegrantes.add(btnReportePersonalCumpleaños);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(SystemColor.activeCaptionBorder));
+		panel_1.setLayout(null);
+		panel_1.setBounds(339, 11, 310, 367);
+		panel.add(panel_1);
+		
+		JLabel lblComputadoras = new JLabel("Computadoras");
+		lblComputadoras.setBounds(10, 11, 76, 14);
+		panel_1.add(lblComputadoras);
+		
+		btnReportePCPendiente = new JButton("Pendientes");
+		btnReportePCPendiente.setBounds(10, 36, 145, 23);
+		panel_1.add(btnReportePCPendiente);
+		
+		btnReportePCRevisada = new JButton("Revisadas");
+		btnReportePCRevisada.setBounds(10, 70, 145, 23);
+		panel_1.add(btnReportePCRevisada);
+		
+		btnReportePCCompletada = new JButton("Completadas");
+		btnReportePCCompletada.setBounds(10, 104, 145, 23);
+		panel_1.add(btnReportePCCompletada);
+		
+		btnReportePCDescartada = new JButton("Descartadas");
+		btnReportePCDescartada.setBounds(10, 138, 145, 23);
+		panel_1.add(btnReportePCDescartada);
+		
+		btnReportePCDonadas = new JButton("Donadas");
+		btnReportePCDonadas.setBounds(10, 172, 145, 23);
+		panel_1.add(btnReportePCDonadas);
+		
+	}
+
+	public JButton getBtnReportePersonalTodos() {
+		return btnReportePersonalTodos;
+	}
+
+	public void setBtnReportePersonalTodos(JButton btnReportePersonalTodos) {
+		this.btnReportePersonalTodos = btnReportePersonalTodos;
+	}
+
+	public JButton getBtnReportePersonalAdmin() {
+		return btnReportePersonalAdmin;
+	}
+
+	public void setBtnReportePersonalAdmin(JButton btnReportePersonalAdmin) {
+		this.btnReportePersonalAdmin = btnReportePersonalAdmin;
+	}
+
+	public JButton getBtnReportePersonalCoord() {
+		return btnReportePersonalCoord;
+	}
+
+	public void setBtnReportePersonalCoord(JButton btnReportePersonalCoord) {
+		this.btnReportePersonalCoord = btnReportePersonalCoord;
+	}
+
+	public JButton getBtnReportePersonalIntegr() {
+		return btnReportePersonalIntegr;
+	}
+
+	public void setBtnReportePersonalIntegr(JButton btnReportePersonalIntegr) {
+		this.btnReportePersonalIntegr = btnReportePersonalIntegr;
+	}
+
+	public JButton getBtnReportePersonalCumpleaños() {
+		return btnReportePersonalCumpleaños;
+	}
+
+	public void setBtnReportePersonalCumpleaños(JButton btnReportePersonalCumpleaños) {
+		this.btnReportePersonalCumpleaños = btnReportePersonalCumpleaños;
+	}
+
+	public JButton getBtnReportePCDonadas() {
+		return btnReportePCDonadas;
+	}
+
+	public void setBtnReportePCDonadas(JButton btnReportePCDonadas) {
+		this.btnReportePCDonadas = btnReportePCDonadas;
+	}
+
+	public JButton getBtnReportePCDescartada() {
+		return btnReportePCDescartada;
+	}
+
+	public void setBtnReportePCDescartada(JButton btnReportePCDescartada) {
+		this.btnReportePCDescartada = btnReportePCDescartada;
+	}
+
+	public JButton getBtnReportePCCompletada() {
+		return btnReportePCCompletada;
+	}
+
+	public void setBtnReportePCCompletada(JButton btnReportePCCompletada) {
+		this.btnReportePCCompletada = btnReportePCCompletada;
+	}
+
+	public JButton getBtnReportePCRevisada() {
+		return btnReportePCRevisada;
+	}
+
+	public void setBtnReportePCRevisada(JButton btnReportePCRevisada) {
+		this.btnReportePCRevisada = btnReportePCRevisada;
+	}
+
+	public JButton getBtnReportePCPendiente() {
+		return btnReportePCPendiente;
+	}
+
+	public void setBtnReportePCPendiente(JButton btnReportePCPendiente) {
+		this.btnReportePCPendiente = btnReportePCPendiente;
 	}
 
 	public JButton getBtnModificar() {
@@ -493,13 +639,5 @@ public class VistaMainGUI extends JFrame {
 
 	public void setBtnEliminarPC(JButton btnEliminarPC) {
 		this.btnEliminarPC = btnEliminarPC;
-	}
-
-	public JButton getBtnReporteIntegrantes() {
-		return btnReporteIntegrantes;
-	}
-
-	public void setBtnReporteIntegrantes(JButton btnReporteIntegrantes) {
-		this.btnReporteIntegrantes = btnReporteIntegrantes;
 	}
 }

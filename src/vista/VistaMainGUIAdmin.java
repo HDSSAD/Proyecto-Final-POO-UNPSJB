@@ -25,8 +25,17 @@ public class VistaMainGUIAdmin extends VistaMainGUI {
 		this.getBtnEditarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnBuscarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnMostrarTodoPC().addActionListener(this.getCtrlMainGUI());
-		this.getBtnReporteIntegrantes().addActionListener(this.getCtrlMainGUI());
-
+		this.getBtnReportePersonalTodos().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCCompletada().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCDescartada().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCDonadas().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCPendiente().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCRevisada().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalAdmin().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalCoord().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalCumpleaños().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalIntegr().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePersonalTodos().addActionListener(this.getCtrlMainGUI());
 	}
 
 	public CtrlMainAdmin getCtrlMainGUI() {

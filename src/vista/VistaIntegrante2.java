@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
@@ -32,7 +31,7 @@ public class VistaIntegrante2 extends JDialog {
 	private JTextField txtCorreo;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	private JComboBox cboxTipoIntegrante;
+	private JComboBox<TipoIntegranteAdmin> cboxTipoIntegrante;
 	private JFormattedTextField txtFechaNacimiento;
 
 	public VistaIntegrante2() {
@@ -85,8 +84,8 @@ public class VistaIntegrante2 extends JDialog {
 		lblCorreo.setBounds(12, 218, 122, 14);
 		panel.add(lblCorreo);
 
-		cboxTipoIntegrante = new JComboBox();
-		cboxTipoIntegrante.setModel(new DefaultComboBoxModel(TipoIntegranteAdmin.values()));
+		cboxTipoIntegrante = new JComboBox<TipoIntegranteAdmin>();
+		cboxTipoIntegrante.setModel(new DefaultComboBoxModel<TipoIntegranteAdmin>(TipoIntegranteAdmin.values()));
 		cboxTipoIntegrante.setBounds(141, 8, 130, 20);
 		panel.add(cboxTipoIntegrante);
 
@@ -233,11 +232,11 @@ public class VistaIntegrante2 extends JDialog {
 		this.btnCancelar = btnCancelar;
 	}
 
-	public JComboBox getCboxTipoIntegrante() {
+	public JComboBox<TipoIntegranteAdmin> getCboxTipoIntegrante() {
 		return cboxTipoIntegrante;
 	}
 
-	public void setCboxTipoIntegrante(JComboBox cboxTipoIntegrante) {
+	public void setCboxTipoIntegrante(JComboBox<TipoIntegranteAdmin> cboxTipoIntegrante) {
 		this.cboxTipoIntegrante = cboxTipoIntegrante;
 	}
 
