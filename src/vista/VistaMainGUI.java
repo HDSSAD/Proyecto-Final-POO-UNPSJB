@@ -49,6 +49,8 @@ public class VistaMainGUI extends JFrame {
 	private JButton btnAñadirPC;
 	private JButton btnEliminarPC;
 	private JMenuItem mntmCambiarContraseña;
+	private JPanel panel;
+	private JButton btnReporteIntegrantes;
 	
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
@@ -274,6 +276,15 @@ public class VistaMainGUI extends JFrame {
 		txtpnDatospc.setText("DatosPC");
 		txtpnDatospc.setBounds(270, 11, 377, 335);
 		panelComputadoras.add(txtpnDatospc);
+		
+		panel = new JPanel();
+		tabbedPane.addTab("Reportes", null, panel, null);
+		panel.setLayout(null);
+		
+		btnReporteIntegrantes = new JButton("Integrantes");
+		btnReporteIntegrantes.setBounds(12, 351, 99, 26);
+		panel.add(btnReporteIntegrantes);
+		
 	}
 
 	public JButton getBtnModificar() {
@@ -482,5 +493,13 @@ public class VistaMainGUI extends JFrame {
 
 	public void setBtnEliminarPC(JButton btnEliminarPC) {
 		this.btnEliminarPC = btnEliminarPC;
+	}
+
+	public JButton getBtnReporteIntegrantes() {
+		return btnReporteIntegrantes;
+	}
+
+	public void setBtnReporteIntegrantes(JButton btnReporteIntegrantes) {
+		this.btnReporteIntegrantes = btnReporteIntegrantes;
 	}
 }

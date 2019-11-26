@@ -25,6 +25,7 @@ public class VistaMainGUIAdmin extends VistaMainGUI {
 		this.getBtnEditarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnBuscarPC().addActionListener(this.getCtrlMainGUI());
 		this.getBtnMostrarTodoPC().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReporteIntegrantes().addActionListener(this.getCtrlMainGUI());
 
 	}
 

@@ -15,10 +15,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.BD;
 import modelo.Computadora;
 import modelo.ComputadoraDAOImpl;
 import modelo.Integrante;
 import modelo.IntegranteDAOImpl;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import vista.VistaMainGUIAdmin;
 
 public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListener {
@@ -217,6 +224,16 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			List<Computadora> computadora = this.getComputadora().buscarComputadora();
 			if (computadora != null)
 				this.updateTableComputadoras(computadora);
+		} else if (e.getSource() == this.getMainGUI().getBtnReporteIntegrantes()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\reporteIntegrantes.jrxml";
+			try {
+				JasperReport jasperReport = JasperCompileManager.compileReport(sourceFileName);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, BD.getInstance().getConexion());
+				JasperViewer.viewReport(jasperPrint);
+			} catch (JRException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

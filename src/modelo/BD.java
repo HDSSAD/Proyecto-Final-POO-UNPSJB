@@ -114,4 +114,8 @@ public class BD {
 		}
 	}
 
+	public Connection getConexion() {
+		return conexion;
+	}
+
 }
