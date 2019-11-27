@@ -35,7 +35,7 @@ public class VistaMainGUIIntegrante extends VistaMainGUI {
 		this.getBtnReportePersonalCoord().setEnabled(false);
 		this.getBtnReportePersonalCumpleaños().setEnabled(false);
 		this.getBtnReportePersonalIntegr().setEnabled(false);
-
+		this.getBtnReportePCEsteMes().setEnabled(false);
 	}
 
 	public CtrlMainIntegrante getCtrlMainGUI() {

@@ -257,6 +257,13 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 				JOptionPane.showMessageDialog(this.getMainGUI(), "Parametros para la llamada al Reporte no validos",
 						"Error", JOptionPane.ERROR_MESSAGE);
 			}
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePCEsteMes()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\computadorasMes.jasper";
+			Calendar cal = Calendar.getInstance();
+			Integer month = cal.get(Calendar.MONTH) + 1;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ParamMes", month);
+			this._callJasperReportNew(sourceFileName, map);
 		}
 	}
 

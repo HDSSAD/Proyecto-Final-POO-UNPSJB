@@ -232,7 +232,7 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\integrantesTodos.jasper";
 			this._callJasperReportNew(sourceFileName, null);
 			System.out.println("siome");
-			
+
 		} else if (e.getSource() == this.getMainGUI().getBtnReportePersonalCumpleaños()) {
 			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\cumpleaños.jasper";
 			Calendar cal = Calendar.getInstance();
@@ -284,6 +284,13 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 				JOptionPane.showMessageDialog(this.getMainGUI(), "Parametros para la llamada al Reporte no validos",
 						"Error", JOptionPane.ERROR_MESSAGE);
 			}
+		} else if (e.getSource() == this.getMainGUI().getBtnReportePCEsteMes()) {
+			String sourceFileName = "C:\\Users\\Sebastian\\Desktop\\Proyecto Final POO\\computadorasMes.jasper";
+			Calendar cal = Calendar.getInstance();
+			Integer month = cal.get(Calendar.MONTH) + 1;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ParamMes", month);
+			this._callJasperReportNew(sourceFileName, map);
 		}
 	}
 
@@ -295,7 +302,9 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 				JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 				jasperViewer.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(this.getMainGUI(), "No existen resultados para esta busqueda en la base de datos", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this.getMainGUI(),
+						"No existen resultados para esta busqueda en la base de datos", "Sin datos",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (JRException e1) {
 			this._callJasperFileError(e1);

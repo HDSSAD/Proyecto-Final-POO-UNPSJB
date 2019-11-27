@@ -61,6 +61,7 @@ public class VistaMainGUI extends JFrame {
 	private JButton btnReportePCCompletada;
 	private JButton btnReportePCRevisada;
 	private JButton btnReportePCPendiente;
+	private JButton btnReportePCEsteMes;
 	
 	public VistaMainGUI() {
 		this.setTitle("Gestor Puente");
@@ -352,6 +353,18 @@ public class VistaMainGUI extends JFrame {
 		btnReportePCDonadas.setBounds(10, 172, 165, 23);
 		panel_1.add(btnReportePCDonadas);
 		
+		btnReportePCEsteMes = new JButton("Trabajadas este mes");
+		btnReportePCEsteMes.setBounds(10, 207, 165, 23);
+		panel_1.add(btnReportePCEsteMes);
+		
+	}
+
+	public JButton getBtnReportePCEsteMes() {
+		return btnReportePCEsteMes;
+	}
+
+	public void setBtnReportePCEsteMes(JButton btnReportePCEsteMes) {
+		this.btnReportePCEsteMes = btnReportePCEsteMes;
 	}
 
 	public JButton getBtnReportePersonalTodos() {

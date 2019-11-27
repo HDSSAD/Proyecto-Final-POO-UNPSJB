@@ -35,6 +35,7 @@ public class VistaMainGUIAdmin extends VistaMainGUI {
 		this.getBtnReportePersonalCoord().addActionListener(this.getCtrlMainGUI());
 		this.getBtnReportePersonalCumpleaños().addActionListener(this.getCtrlMainGUI());
 		this.getBtnReportePersonalIntegr().addActionListener(this.getCtrlMainGUI());
+		this.getBtnReportePCEsteMes().addActionListener(this.getCtrlMainGUI());
 	}
 
 	public CtrlMainAdmin getCtrlMainGUI() {
