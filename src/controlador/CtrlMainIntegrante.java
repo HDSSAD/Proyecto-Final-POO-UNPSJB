@@ -93,7 +93,8 @@ public class CtrlMainIntegrante implements ActionListener, WindowListener, Mouse
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
-				if (this.getDni().equals(this.getMainGUI().getTxtDNI().getText())) {
+				if (this.getDni().equals(this.getMainGUI().getTblIntegrantes()
+						.getValueAt(this.getMainGUI().getTblIntegrantes().getSelectedRow(), 0).toString())) {
 					CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
 					for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
 						ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)

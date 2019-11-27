@@ -95,7 +95,7 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 	public Boolean borrarIntegrante(String dni) {
 		ArrayList<String> parametros = new ArrayList<String>();
 		parametros.add(dni);
-		String consulta = "delete from integrantes where dni = ? ";
+		String consulta = "delete from integrantes where dni like ? ";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 

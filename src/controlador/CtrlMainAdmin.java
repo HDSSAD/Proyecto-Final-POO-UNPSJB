@@ -108,7 +108,8 @@ public class CtrlMainAdmin implements ActionListener, WindowListener, MouseListe
 			this.updateTableIntegrantes(this.getIntegrante().buscarIntegrante());
 
 		} else if (e.getSource() == this.getMainGUI().getBtnEliminar()) {
-			String dni = this.getMainGUI().getTxtDNI().getText();
+			String dni = this.getMainGUI().getTblIntegrantes().getValueAt(
+					this.getMainGUI().getTblIntegrantes().getSelectedRow(), 0).toString();
 			if (!dni.isBlank()) {
 				if (this.getComputadora().existeIntegranteComputadora(dni, "%")) {
 					this.getComputadora().borrarComputadoraIntegrante(dni, "%");

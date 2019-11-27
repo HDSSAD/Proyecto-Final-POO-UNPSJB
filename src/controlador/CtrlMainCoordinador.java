@@ -104,7 +104,8 @@ public class CtrlMainCoordinador implements ActionListener, WindowListener, Mous
 		if (e.getSource() == this.getMainGUI().getBtnModificar()) {
 			if (this.getMainGUI().getTblIntegrantes().getSelectedRow() != -1) {
 				if (this.getMainGUI().getTxtTipoIntegrante().getText().equals("Integrante")
-						|| this.getDni().equals(this.getMainGUI().getTxtDNI().getText())) {
+						|| this.getDni().equals(this.getMainGUI().getTblIntegrantes()
+								.getValueAt(this.getMainGUI().getTblIntegrantes().getSelectedRow(), 0).toString())) {
 					CtrlIntegranteEditar ctrlEditarIntegrante = new CtrlIntegranteEditar();
 					for (int i = 0; i < ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().size(); i++) {
 						ctrlEditarIntegrante.getVistaIntegrante().getArrayTxtField().get(i)
