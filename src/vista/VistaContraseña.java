@@ -33,6 +33,7 @@ public class VistaContraseña extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 
 		passFContraseñaActual = new JPasswordField();
 		passFContraseñaActual.setBounds(153, 11, 180, 20);

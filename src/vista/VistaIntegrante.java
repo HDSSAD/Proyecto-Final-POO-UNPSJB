@@ -46,6 +46,7 @@ public class VistaIntegrante extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

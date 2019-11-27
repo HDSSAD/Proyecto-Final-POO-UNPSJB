@@ -71,6 +71,7 @@ public class VistaMainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 734, 22);
@@ -302,23 +303,23 @@ public class VistaMainGUI extends JFrame {
 		panelReportesIntegrantes.add(lblReportesPersonal);
 		
 		btnReportePersonalTodos = new JButton("Todos");
-		btnReportePersonalTodos.setBounds(10, 36, 145, 23);
+		btnReportePersonalTodos.setBounds(10, 36, 165, 23);
 		panelReportesIntegrantes.add(btnReportePersonalTodos);
 		
 		btnReportePersonalAdmin = new JButton("Administradores");
-		btnReportePersonalAdmin.setBounds(10, 70, 145, 23);
+		btnReportePersonalAdmin.setBounds(10, 70, 165, 23);
 		panelReportesIntegrantes.add(btnReportePersonalAdmin);
 		
 		btnReportePersonalCoord = new JButton("Coordinadores");
-		btnReportePersonalCoord.setBounds(10, 104, 145, 23);
+		btnReportePersonalCoord.setBounds(10, 104, 165, 23);
 		panelReportesIntegrantes.add(btnReportePersonalCoord);
 		
 		btnReportePersonalIntegr = new JButton("Integrantes");
-		btnReportePersonalIntegr.setBounds(10, 138, 145, 23);
+		btnReportePersonalIntegr.setBounds(10, 138, 165, 23);
 		panelReportesIntegrantes.add(btnReportePersonalIntegr);
 		
 		btnReportePersonalCumpleaños = new JButton("Cumplea\u00F1os este mes");
-		btnReportePersonalCumpleaños.setBounds(10, 172, 145, 23);
+		btnReportePersonalCumpleaños.setBounds(10, 172, 165, 23);
 		panelReportesIntegrantes.add(btnReportePersonalCumpleaños);
 		
 		JPanel panel_1 = new JPanel();
@@ -328,27 +329,27 @@ public class VistaMainGUI extends JFrame {
 		panel.add(panel_1);
 		
 		JLabel lblComputadoras = new JLabel("Computadoras");
-		lblComputadoras.setBounds(10, 11, 76, 14);
+		lblComputadoras.setBounds(10, 11, 85, 14);
 		panel_1.add(lblComputadoras);
 		
 		btnReportePCPendiente = new JButton("Pendientes");
-		btnReportePCPendiente.setBounds(10, 36, 145, 23);
+		btnReportePCPendiente.setBounds(10, 36, 165, 23);
 		panel_1.add(btnReportePCPendiente);
 		
 		btnReportePCRevisada = new JButton("Revisadas");
-		btnReportePCRevisada.setBounds(10, 70, 145, 23);
+		btnReportePCRevisada.setBounds(10, 70, 165, 23);
 		panel_1.add(btnReportePCRevisada);
 		
 		btnReportePCCompletada = new JButton("Completadas");
-		btnReportePCCompletada.setBounds(10, 104, 145, 23);
+		btnReportePCCompletada.setBounds(10, 104, 165, 23);
 		panel_1.add(btnReportePCCompletada);
 		
 		btnReportePCDescartada = new JButton("Descartadas");
-		btnReportePCDescartada.setBounds(10, 138, 145, 23);
+		btnReportePCDescartada.setBounds(10, 138, 165, 23);
 		panel_1.add(btnReportePCDescartada);
 		
 		btnReportePCDonadas = new JButton("Donadas");
-		btnReportePCDonadas.setBounds(10, 172, 145, 23);
+		btnReportePCDonadas.setBounds(10, 172, 165, 23);
 		panel_1.add(btnReportePCDonadas);
 		
 	}

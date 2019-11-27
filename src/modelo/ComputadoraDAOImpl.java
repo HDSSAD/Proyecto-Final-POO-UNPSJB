@@ -2,7 +2,9 @@ package modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import componentes.CompDiscoRigido;
@@ -98,13 +100,18 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 
 	@Override
 	public Boolean agregarIntegranteComputadora(String idIntegrante, String idComputadora) {
-		ArrayList<String> parametros = new ArrayList<String>();
-		parametros.add(idComputadora);
-		parametros.add(idIntegrante);
 		if (this.existeIntegranteComputadora(idIntegrante, idComputadora)) {
 			return true;
 		}
-		String consulta = "insert into integrantes_computadoras (idcomputadora, idintegrante) values (?,?)";
+		ArrayList<String> parametros = new ArrayList<String>();
+		parametros.add(idComputadora);
+		parametros.add(idIntegrante);
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDate = formatter.format(new Date());
+		parametros.add(formattedDate);
+		
+		String consulta = "insert into integrantes_computadoras (idcomputadora, idintegrante, fechatrabajo) values (?,?,?::date)";
 		return BD.getInstance().manipularEntidades(consulta, parametros);
 	}
 
@@ -136,7 +143,7 @@ public class ComputadoraDAOImpl implements ComputadoraDAO {
 
 	@Override
 	public List<Computadora> buscarComputadora() {
-		String consulta = "select * from computadoras";
+		String consulta = "select * from computadoras order by id";
 		ResultSet rs = BD.getInstance().listarEntidades(consulta);
 		List<Computadora> ret = this.dataBaseToPcList(rs);
 		return ret;

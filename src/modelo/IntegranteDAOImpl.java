@@ -73,7 +73,7 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 
 	@Override
 	public List<Integrante> buscarIntegrante() {
-		String consulta = "select * from integrantes";
+		String consulta = "select * from integrantes order by tipo, apellido, nombre";
 		List<Integrante> ret = new ArrayList<Integrante>();
 		ResultSet rs = BD.getInstance().listarEntidades(consulta);
 		try {
@@ -168,7 +168,7 @@ public class IntegranteDAOImpl implements IntegranteDAO {
 		for (String string : apellidoNombre.split(", ")) {
 			parametros.add(string);
 		}
-		String consulta = "select * from integrantes where apellido ilike ? and nombre ilike ?";
+		String consulta = "select * from integrantes where apellido ilike ? and nombre ilike ? order by tipo, apellido, nombre";
 		ResultSet rs = BD.getInstance().listarEntidadesParametrizada(consulta, parametros);
 		try {
 			if (rs.next()) {

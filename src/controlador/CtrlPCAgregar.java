@@ -78,7 +78,7 @@ public class CtrlPCAgregar implements ActionListener, ItemListener {
 				Integer lectoraCantidad = (Integer) this.getVistaComputadora().getSpnLectoraCantidad().getValue();
 				String lectoraColor = this.getVistaComputadora().getCboxLectoraColor().getSelectedItem().toString();
 
-				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText().strip();
+				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText();
 
 				Boolean isValid = true;
 				if (placaBaseCantidad > 0) {

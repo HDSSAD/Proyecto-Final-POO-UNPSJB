@@ -25,6 +25,7 @@ public class Computadora {
 		this.setDisco(disco);
 		this.setRam(ram);
 		this.setLectora(lectora);
+		this.setNotas(notas);
 	}
 
 	@Override

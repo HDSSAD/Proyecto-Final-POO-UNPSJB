@@ -31,6 +31,7 @@ public class CtrlPCEditar implements ActionListener, ItemListener {
 		this.setIntegrante(new IntegranteDAOImpl());
 		this.setVistaComputadora(new VistaPCEditar(this));
 		DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<String>(new String[] {});
+		modelo.addElement("Seleccionar integrante");
 		for (Integrante integrante : this.getIntegrante().buscarIntegrante()) {
 			modelo.addElement(integrante.getApellido() + ", " + integrante.getNombre());
 		}
@@ -82,7 +83,7 @@ public class CtrlPCEditar implements ActionListener, ItemListener {
 				Integer lectoraCantidad = (Integer) this.getVistaComputadora().getSpnLectoraCantidad().getValue();
 				String lectoraColor = this.getVistaComputadora().getCboxLectoraColor().getSelectedItem().toString();
 
-				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText().strip();
+				String notasPC = this.getVistaComputadora().getTxtpnNotasPC().getText();
 
 				Boolean isValid = true;
 
